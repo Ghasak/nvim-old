@@ -576,3 +576,5 @@ local path = require("packer.util").join_paths(vim.fn.stdpath("data"), "plugin",
 require("plugins.configs.sneak").sneakSetup()
 -- Adding  configurations for blamer
 require("plugins.configs.myGitBlamer").BlamerSetting()
+-- Loading undo-tree for our presistance data and saving directory
+require("plugins.configs.myUndoTreeConfig")
