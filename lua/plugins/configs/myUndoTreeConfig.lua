@@ -2,6 +2,8 @@
 -- Here, I am using a vim-function with the formula <exec(fun, bool)>
 local exec = vim.api.nvim_exec 	-- execute Vimscript
 
+
+
 exec([[
 if has("persistent_undo")
    let target_path = expand('~/.undodir')
