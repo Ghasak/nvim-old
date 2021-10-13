@@ -22,7 +22,7 @@ instead of vim scripting.
 - [ ] Adding org mode, to-do list and some other interesting plugins.
 - [ ] Getting more lua coding for optimization nvim on first installation,
       (such as changing the packer-compiled directory with packer.init(), up to
-      now, the nvim will not automated to recomplied on attach, need manually to
+      now, the nvim will not automated to recompiled on attach, need manually to
       compile)
 - [ ] Adding auto commenting lines, and multi-cursors support
 - [ ] Save session with nvim.
@@ -244,6 +244,11 @@ the given window without closing all the other buffers.
 I have used two types of performance, the `vim-startuptim ` assigned
 with a flag `--vimpath=nvim`, also packer profile with `:PackerProfile profile=true`. The results are shown below
 
+- **Note**:
+Usually, I change  (.git) to (.git.when_ready_to_upload) or what
+  ever, as i noticed the git affect the performance of my configuration
+  (init.lua), the time increase at least 100 msec
+
 ''''''
 
 ```sh
@@ -401,7 +406,6 @@ Total Min:     456.653000 msec
   0.012700   0.027000   0.007000: --- NVIM STARTING ---
   0.012700   0.018000   0.012000: clearing screenf
 ```
-
 ## References
 
 - [Reference Num -1-](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)

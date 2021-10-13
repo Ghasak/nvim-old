@@ -43,7 +43,7 @@ opt.encoding = "utf-8"
 opt.updatetime = 300
 opt.timeoutlen = 500
 cmd([[set formatoptions-=cro]]) -- Stop newline continution of comments
-opt.laststatus = 0
+opt.laststatus = 2 -- originally its 0,  this will allow lua statusline to be shown, otherwise it will not
 opt.backup = false -- Recommended by COC
 opt.writebackup = false -- Recommended by COC
 opt.showtabline = 2
@@ -140,7 +140,7 @@ vim.opt.termguicolors = true
 -- require("bufferline").setup{}
 
 -- Allow a tab in airline
-cmd([[let g:airline#extensions#tabline#enabled = 1]])
+--cmd([[let g:airline#extensions#tabline#enabled = 1]])
 
 -- -- Changing the color of the highlighting of the searching word
 -- vim.cmd([[set hlsearch
@@ -164,24 +164,25 @@ if global.is_mac then
     }
 
     vim.g.python_host_prog = "/usr/bin/python2"
-    vim.g.python3_host_prog = "~/opt/anaconda3/bin/python3" -- '/usr/local/bin/python3'
+    vim.g.python3_host_prog = "$HOME/opt/anaconda3/bin/python3" -- '/usr/local/bin/python3'
 end
-
+-- Show full path of current file at startup
+ vim.cmd[[echo resolve(expand('%:p'))]]
 -- Allow the vim to be transparent,
-vim.cmd([[
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-au ColorScheme * hi Normal ctermbg=none guibg=none
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
-au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
-]])
+-- vim.cmd([[
+-- autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+-- au ColorScheme * hi Normal ctermbg=none guibg=none
+-- autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
+-- au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
+-- ]])
 
-vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
-vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
-vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
-vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
-vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
-vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
-vim.cmd([[ "let &fcs='eob: '"]])
+-- vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
+-- vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
+-- vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
+-- vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
+-- vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
+-- vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
+-- vim.cmd([[ "let &fcs='eob: '"]])
 
 -- Loading the options for the neovide terminal
 if vim.g.neovide then
@@ -191,12 +192,12 @@ if vim.g.neovide then
     --   vim.g.neovide_remember_window_size = true
     --   vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h16]]
     --
-    vim.api.nvim_exec([[
-  augroup Packer
-    autocmd!
-    autocmd BufRead init.lua PackerCompile
-  augroup end
-]], false)
+--    vim.api.nvim_exec([[
+--  augroup Packer
+--    autocmd!
+--    autocmd BufRead init.lua PackerCompile
+--  augroup end
+--]], false)
 
     vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h17]]
     -- vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
@@ -210,13 +211,13 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
     vim.g.neovide_cursor_vfx_particle_speed = 20.0
     vim.g.neovide_cursor_vfx_particle_density = 5.0
-    vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
-    vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
-    vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
-    vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
-    vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
-    vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
-    vim.cmd([[ "let &fcs='eob: '"]])
+--    vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
+--    vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
+--    vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
+--    vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
+--    vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
+--    vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
+--    vim.cmd([[ "let &fcs='eob: '"]])
 end
 -- Before I used to source this directory to make neovide works
 -- Configurations of the neovide
@@ -228,60 +229,62 @@ end
 -- You will need (Airline installed, all the rest configurations are written in native vim)
 
 
-vim.cmd([[
-let w:airline_disable_statusline = 0
-let g:airline_statusline_ontop = 0
-let g:airline_section_c_only_filename = 1
-let g:airline#extensions#battery#enabled = 1
-let g:airline#extensions#ctrlp#show_adjacent_modes = 1
-let g:airline#extensions#keymap#enabled = 1
-]])
+-- vim.cmd([[
+-- let w:airline_disable_statusline = 0
+-- let g:airline_statusline_ontop = 0
+-- let g:airline_section_c_only_filename = 1
+-- let g:airline#extensions#battery#enabled = 1
+-- let g:airline#extensions#ctrlp#show_adjacent_modes = 1
+-- let g:airline#extensions#keymap#enabled = 1
+-- ]])
+--
 
+-- vim.cmd([[
+-- let g:airline#extensions#lsp#enabled = 1
+-- let g:airline_stl_path_style = 'long'
+--
+-- if !exists('g:airline_symbols')
+--   let g:airline_symbols = {}
+-- endif
+--
+-- "set guifont=Monaco:h10
+-- set guifont=VictorMono\ Nerd\ Font:h21
+-- let g:airline_symbols.space = "\ua0"
+-- " testing rounded separators (extra-powerline-symbols):
+-- let g:airline_left_sep = "\ue0c6"
+-- let g:airline_right_sep = "\ue0c7"
+-- "let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%2v'])
+-- "let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . "\uE0A3" . '%{col(".")}'])
+-- let g:airline_skip_empty_sections = 1
+--
+-- ]])
+--
+-- vim.cmd([[
+--   let g:airline_left_sep = ''
+--   let g:airline_left_alt_sep = ''
+--   let g:airline_right_sep = ''
+--   let g:airline_right_alt_sep = ''
+--   "let g:airline_symbols.branch = ''
+--   let g:airline_symbols.branch = ''
+--   let g:airline_symbols.colnr = ' :'
+--   let g:airline_symbols.readonly = ''
+--   let g:airline_symbols.linenr = ' :'
+--   let g:airline_symbols.maxlinenr = ' ☰  '
+--   "let g:airline_symbols.maxlinenr = ' '
+--   let g:airline_symbols.dirty='⚡'
+--   let g:airline_stl_path_style = 'long'
+-- ]])
+-- -- change sections
+-- -- Reference:   https://stackoverflow.com/questions/10488717/how-can-i-permanently-display-the-path-of-the-current-file-in-vim
+--               -- https://github.com/vim-airline/vim-airline/issues/235
+-- vim.cmd([[
+-- "set statusline +=%{resolve(expand('%:p'))}\ %*
+-- "let g:airline_section_a += ''
+-- let g:airline_section_a = airline#section#create(['  ','mode'])  "--   
+-- "let g:airline_section_b = airline#section#create(['mode','hunks', 'branch'])
+-- "let g:airline_section_a = 'b%n, w%{winnr()}%#__accent_bold#%{winnr()==winnr("#")?" [LW]":""}%#__restore__#'
+-- let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+-- ]])
+--
 
-vim.cmd([[
-let g:airline#extensions#lsp#enabled = 1
-let g:airline_stl_path_style = 'long'
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-"set guifont=Monaco:h10
-set guifont=VictorMono\ Nerd\ Font:h21
-let g:airline_symbols.space = "\ua0"
-" testing rounded separators (extra-powerline-symbols):
-let g:airline_left_sep = "\ue0c6"
-let g:airline_right_sep = "\ue0c7"
-"let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%2v'])
-"let g:airline_section_z = airline#section#create(["\uE0A1" . '%{line(".")}' . "\uE0A3" . '%{col(".")}'])
-let g:airline_skip_empty_sections = 1
-
-]])
-
-vim.cmd([[
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  "let g:airline_symbols.branch = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.colnr = ' :'
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ' :'
-  let g:airline_symbols.maxlinenr = ' ☰  '
-  "let g:airline_symbols.maxlinenr = ' '
-  let g:airline_symbols.dirty='⚡'
-  let g:airline_stl_path_style = 'long'
-]])
--- change sections
--- Reference:   https://stackoverflow.com/questions/10488717/how-can-i-permanently-display-the-path-of-the-current-file-in-vim
-              -- https://github.com/vim-airline/vim-airline/issues/235
-vim.cmd([[
-"set statusline +=%{resolve(expand('%:p'))}\ %*
-"let g:airline_section_a += ''
-let g:airline_section_a = airline#section#create(['  ','mode'])
-"let g:airline_section_b = airline#section#create(['mode','hunks', 'branch'])
-"let g:airline_section_a = 'b%n, w%{winnr()}%#__accent_bold#%{winnr()==winnr("#")?" [LW]":""}%#__restore__#'
-let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
-]])
 

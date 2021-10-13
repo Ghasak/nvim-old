@@ -242,7 +242,11 @@ require("packer").startup({
 		-- Using gruvbox theme
 		use("morhetz/gruvbox")
 		use({ "tpope/vim-fugitive" })
-		use({ "vim-airline/vim-airline" })
+		--		use({ "vim-airline/vim-airline" })
+		use({
+			"shadmansaleh/lualine.nvim",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true } })
+
 		-- To show the diff of file
 		use({ "airblade/vim-gitgutter" })
 		use({ "ryanoasis/vim-devicons" })
@@ -560,12 +564,13 @@ require("packer").startup({
 	},
 })
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+-- This will cause breaking the buffer while we change some  packages, but it is nice to keep
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+--   augroup end
+-- ]])
 
 -- This is necessary as we have changed already the directory of our compilation.
 local path = require("packer.util").join_paths(vim.fn.stdpath("data"), "plugin", "packer_compiled.lua")
@@ -578,3 +583,11 @@ require("plugins.configs.sneak").sneakSetup()
 require("plugins.configs.myGitBlamer").BlamerSetting()
 -- Loading undo-tree for our presistance data and saving directory
 require("plugins.configs.myUndoTreeConfig")
+
+-- Configure the status line
+local conf = require("plugins.configs.myLuaLine")
+require("lualine").setup({
+ options = conf['options'],
+ sections = conf['sections']
+
+})
