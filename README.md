@@ -18,8 +18,8 @@ instead of vim scripting.
 ### To do
 
 - [ ] Adding dap for python, lua, js and R.
-- [ ] Optimize the performance of the launched packages with events, cmd and lazy-loading.
-- [ ] Adding org mode, to-do list and some other interesting plugins.
+- [x] Optimize the performance of the launched packages with events, cmd and lazy-loading.
+- [x] Adding org mode, to-do list and some other interesting plugins.
 - [ ] Getting more lua coding for optimization nvim on first installation,
       (such as changing the packer-compiled directory with packer.init(), up to
       now, the nvim will not automated to recompiled on attach, need manually to

@@ -361,8 +361,11 @@ require("packer").startup({
 		use({
 			"nvim-telescope/telescope.nvim",
 			requires = { { "nvim-lua/plenary.nvim" } },
+
 			config = function()
+        require("core.utils").packer_lazy_load("telescope.nvim")
 				require("plugins.configs.myTelescope")
+
 			end,
 		})
 		-- Undo tree (for recover any mistake in the buffer)
