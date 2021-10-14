@@ -406,6 +406,24 @@ Total Min:     456.653000 msec
   0.012700   0.027000   0.007000: --- NVIM STARTING ---
   0.012700   0.018000   0.012000: clearing screenf
 ```
+
+
+
+
+
+## Some useful API functions
+
+```
+      local filename = vim.fn.expand "%:t"
+      local extension = vim.fn.expand "%:e"
+      local extension = vim.fn.expand "%:f"
+      local extension = vim.fn.expand "%:F"
+```
+
+
+
+
+
 ## References
 
 - [Reference Num -1-](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
