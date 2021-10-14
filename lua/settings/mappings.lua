@@ -114,12 +114,12 @@ vim.api.nvim_set_keymap(
 --vim.api.nvim_set_keymap('','','',{noremap = true, silent = true})
 --vim.api.nvim_set_keymap('','','',{noremap = true, silent = true})
 --vim.api.nvim_set_keymap('','','',{noremap = true, silent = true})
-
-vim.cmd([[
-vmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
-
-]])
+-- This configuration was to use with coc-spell
+-- vim.cmd([[
+-- vmap <leader>a <Plug>(coc-codeaction-selected)
+-- nmap <leader>a <Plug>(coc-codeaction-selected)
+--
+-- ]])
 
 -- Source our init.lua file
 vim.api.nvim_set_keymap("n", "<space><CR>", ":source ~/.config/nvim/init.lua<CR>", { noremap = true, silent = true })
@@ -155,10 +155,10 @@ vim.api.nvim_set_keymap("i", "<leader>vt", "<cmd>clap tags<cr>", { noremap = tru
 vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>Bdelete<cr>", { noremap = true, silent = false })
 
 --  mapping j and k with  vim plugin acceleration (need rhysd/accelerated-jk plugin)
--- vim.cmd[[
--- nmap j <plug>(accelerated_jk_gj_position)
--- nmap k <plug>(accelerated_jk_gk_position)
--- ]]
+vim.cmd[[
+nmap j <plug>(accelerated_jk_gj_position)
+nmap k <plug>(accelerated_jk_gk_position)
+]]
 --
 -- open a link in vim in browser: in linux use : xdg-open instead of open (for mac).
 -- source: " https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser "
