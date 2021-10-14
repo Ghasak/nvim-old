@@ -413,11 +413,15 @@ Total Min:     456.653000 msec
 
 ## Some useful API functions
 
-```
-      local filename = vim.fn.expand "%:t"
-      local extension = vim.fn.expand "%:e"
-      local extension = vim.fn.expand "%:f"
-      local extension = vim.fn.expand "%:F"
+```sh
+-- Getting to know the cursor location
+local current_line = vim.fn.line(".")
+local total_line = vim.fn.line("$")
+-- Getting to know the directory , file name, and extension
+local filename = vim.fn.expand "%:t"
+local extension = vim.fn.expand "%:e"
+local extension = vim.fn.expand "%:f"
+local extension = vim.fn.expand "%:F"
 ```
 
 
