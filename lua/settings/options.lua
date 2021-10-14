@@ -167,7 +167,7 @@ if global.is_mac then
     vim.g.python3_host_prog = "$HOME/opt/anaconda3/bin/python3" -- '/usr/local/bin/python3'
 end
 -- Show full path of current file at startup
- vim.cmd[[echo resolve(expand('%:p'))]]
+--vim.cmd[[echo resolve(expand('%:p'))]]
 -- Allow the vim to be transparent,
 -- vim.cmd([[
 -- autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE

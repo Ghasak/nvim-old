@@ -243,9 +243,12 @@ require("packer").startup({
 		use("morhetz/gruvbox")
 		use({ "tpope/vim-fugitive" })
 		--		use({ "vim-airline/vim-airline" })
+		-- status line built with lua
 		use({
 			"shadmansaleh/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true } })
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		})
+		--use({"beauwilliams/statusline.lua"})
 
 		-- To show the diff of file
 		use({ "airblade/vim-gitgutter" })
@@ -591,3 +594,7 @@ require("lualine").setup({
  sections = conf['sections']
 
 })
+-- CONFIGURE BEAUWILLIAMS/STATUSLINE.LUA
+--local statusline = require("statusline")
+--statusline.tabline = false
+--statusline.lsp_diagnostics = true
