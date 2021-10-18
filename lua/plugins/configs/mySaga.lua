@@ -13,7 +13,7 @@ M.conf = function()
 		hint_sign = "",
 		infor_sign = "",
 		dianostic_header_icon = "   ",
-		code_action_icon = "炙",
+		code_action_icon = " ",
 		code_action_prompt = {
 			enable = true,
 			sign = true,
@@ -74,14 +74,14 @@ M.conf = function()
 	})
 
 	-- LSP: scroll
-	vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", {
-		silent = true,
-	})
-
-	vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", {
-		silent = true,
-	})
-
+-- 	vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", {
+-- 		silent = true,
+-- 	})
+--
+-- 	vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", {
+-- 		silent = true,
+-- 	})
+--
 	-- LSP: SignatureHelp
 	vim.api.nvim_set_keymap("n", "gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {
 		silent = true,

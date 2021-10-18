@@ -26,8 +26,27 @@ keymap("n", "<c-h>", "<c-w>h", opts)
 keymap("n", "<c-k>", "<c-w>j", opts)
 keymap("n", "<c-l>", "<c-w>l", opts)
 
+vim.cmd([[
+" set moving between windows to ctrl+arrows
+nnoremap <silent> <C-Right> <c-w>l
+nnoremap <silent> <C-Left> <c-w>h
+nnoremap <silent> <C-Up> <c-w>k
+nnoremap <silent> <C-Down> <c-w>j
+
+" set moving between windows to ctrl+hjkl
+noremap <silent> <C-l> <c-w>l
+noremap <silent> <C-h> <c-w>h
+noremap <silent> <C-k> <c-w>k
+noremap <silent> <C-j> <c-w>j
+
+]])
 -- Explorer with Nvim-tree( ensure first the undotree is not toggled )
-vim.api.nvim_set_keymap("n", "<Leader>e", ":<cmd>:UndotreeHide<CR>:NvimTreeToggle<CR>", {})
+vim.api.nvim_set_keymap(
+	"n",
+	"<Leader>e",
+	":<cmd>:UndotreeHide<CR>:NvimTreeToggle<CR>",
+	{ noremap = true, silent = true }
+)
 -- Remove highlighting after searching
 vim.api.nvim_set_keymap("n", "<Leader>h", ":nohlsearch<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Leader>vh", ":nohlsearch<CR>", { noremap = true, silent = true })
@@ -96,6 +115,7 @@ vim.api.nvim_set_keymap("n", "<F1>", ":lua vim.lsp.buf.hover()<CR>", { noremap =
 -- Using undo-tree, all the  changes to yoooour current buffer
 
 -- Toggle the nvim-tree at startup
+
 -- require'nvim-tree.events'.on_nvim_tree_ready(function ()
 --   vim.cmd("NvimTreeToggle")
 -- end)
@@ -155,10 +175,22 @@ vim.api.nvim_set_keymap("i", "<leader>vt", "<cmd>clap tags<cr>", { noremap = tru
 vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>Bdelete<cr>", { noremap = true, silent = false })
 
 --  mapping j and k with  vim plugin acceleration (need rhysd/accelerated-jk plugin)
-vim.cmd[[
+local vim = vim
+local t = function(str)
+	return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+_G.enhance_jk_move = function(key)
+	if packer_plugins["accelerated-jk"] and not packer_plugins["accelerated-jk"].loaded then
+		vim.cmd([[packadd accelerated-jk]])
+	end
+	local map = key == "j" and "<Plug>(accelerated_jk_gj)" or "<Plug>(accelerated_jk_gk)"
+	return t(map)
+end
+vim.cmd([[
 nmap j <plug>(accelerated_jk_gj_position)
 nmap k <plug>(accelerated_jk_gk_position)
-]]
+]])
 --
 -- open a link in vim in browser: in linux use : xdg-open instead of open (for mac).
 -- source: " https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser "
