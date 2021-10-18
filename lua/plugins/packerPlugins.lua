@@ -363,9 +363,8 @@ require("packer").startup({
 			requires = { { "nvim-lua/plenary.nvim" } },
 
 			config = function()
-        require("core.utils").packer_lazy_load("telescope.nvim")
+				require("core.utils").packer_lazy_load("telescope.nvim")
 				require("plugins.configs.myTelescope")
-
 			end,
 		})
 		-- Undo tree (for recover any mistake in the buffer)
@@ -582,22 +581,93 @@ require("packer").startup({
 local path = require("packer.util").join_paths(vim.fn.stdpath("data"), "plugin", "packer_compiled.lua")
 -- require("packer").compile(path)
 -- require("packer").compile(path)  -- this will be required if change the packer compile directory
-
 -- Configurations for the sneak plugin
-require("plugins.configs.sneak").sneakSetup()
--- Adding  configurations for blamer
-require("plugins.configs.myGitBlamer").BlamerSetting()
--- Loading undo-tree for our presistance data and saving directory
-require("plugins.configs.myUndoTreeConfig")
 
--- Configure the status line
-local conf = require("plugins.configs.myLuaLine")
-require("lualine").setup({
- options = conf['options'],
- sections = conf['sections']
+-- ===========================================================================
+--                       Sneak checking if it is installed
+-- ===========================================================================
 
-})
--- CONFIGURE BEAUWILLIAMS/STATUSLINE.LUA
---local statusline = require("statusline")
---statusline.tabline = false
---statusline.lsp_diagnostics = true
+local function sneak_loader()
+	local sneak_package_path = "/site/pack/packer/start/vim-sneak"
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. sneak_package_path
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.api.nvim_command(
+			(
+				[[echohl WarningMsg | echomsg "[+] Sneak library at :%s is not existed, will be installed after packer compiled ." | echohl None]]
+			):format(install_path)
+		)
+	else
+		require("plugins.configs.sneak").sneakSetup()
+	end
+end
+
+-- ===========================================================================
+--                      Check for blamer if it is installed
+-- ===========================================================================
+
+local function blamer_loader()
+	local blamer_package_path = "/site/pack/packer/start/blamer.nvim"
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. blamer_package_path
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.api.nvim_command(
+			(
+				[[echohl WarningMsg | echomsg "[+] Blamer library at :%s is not existed, will be installed after packer compiled ." | echohl None]]
+			):format(install_path)
+		)
+	else
+		-- Adding  configurations for blamer
+		require("plugins.configs.myGitBlamer").BlamerSetting()
+	end
+end
+
+-- ===========================================================================
+--                      Check for undotree if it is installed
+-- ===========================================================================
+
+local function undotree_loader()
+	local undotree_package_path = "/site/pack/packer/start/undotree"
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. undotree_package_path
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.api.nvim_command(
+			(
+				[[echohl WarningMsg | echomsg "[+] UndoTree library at :%s is not existed, will be installed after packer compiled ." | echohl None]]
+			):format(install_path)
+		)
+	else
+		-- Loading undo-tree for our persistence data and saving directory
+		require("plugins.configs.myUndoTreeConfig")
+	end
+end
+
+-- ===========================================================================
+--                      Check for luaStatus if it is installed
+-- ===========================================================================
+
+local function lualine_loader()
+	local lualine_package_path = "/site/pack/packer/start/lualine.nvim"
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. lualine_package_path
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.api.nvim_command(
+			(
+				[[echohl WarningMsg | echomsg "[+] lualine library at :%s is not existed, will be installed after packer compiled ." | echohl None]]
+			):format(install_path)
+		)
+	else
+		-- Configure the status line
+		local conf = require("plugins.configs.myLuaLine")
+		require("lualine").setup({
+			options = conf["options"],
+			sections = conf["sections"],
+		})
+	end
+end
+
+
+ sneak_loader()
+ blamer_loader()
+ undotree_loader()
+ lualine_loader()

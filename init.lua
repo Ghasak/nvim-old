@@ -5,6 +5,3 @@ for _, module in ipairs(init_modules) do
 		error("Error in loading modules ...< " .. module .. " > " .. "\n\n" .. err)
 	end
 end
-
-
-
