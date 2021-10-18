@@ -1,7 +1,18 @@
 -- =================  LSP language server client ==========================
+
+local function env_cleanup(venv)
+	if string.find(venv, "/") then
+		local final_venv = venv
+		for w in venv:gmatch("([^/]+)") do
+			final_venv = w
+		end
+		venv = final_venv
+	end
+	return venv
+end
+
 local lsp_func = function(msg)
 	-- Function that return the client language server corresponding to the
-	-- language loaded
 	local server_icon = "歷"
 	local server_icon_not_not_known = "轢"
 	local servers = {}
@@ -11,19 +22,25 @@ local lsp_func = function(msg)
 	local buff_ft = vim.bo.filetype
 	local venv = os.getenv("CONDA_DEFAULT_ENV")
 	for _, client in pairs(clients) do
-		table.insert(servers, client.name)
+		table.insert(servers, client)
 	end
 
 	for _, server in ipairs(servers) do
-		if buff_ft == "lua" and server == "lua" then
+		if buff_ft == "lua" and server.name == "lua" then
 			return string.format("%s : sumneko-lua-language-server", server_icon)
-		elseif buff_ft == "python" and server == "python" then
-			return string.format("%s: pyright-langserver", server_icon, venv)
-		elseif buff_ft == "r" and server == "r" then
+		elseif buff_ft == "python" and server.name == "python" then
+			-- regular virtualenv stored in variable VIRTUAL_ENV
+			local venv = os.getenv("VIRTUAL_ENV")
+			if venv ~= nil then
+				return string.format("%s-%s: pyright-langserver", server_icon, env_cleanup(venv))
+			else
+				return string.format("%s: pyright-langserver", server_icon)
+			end
+		elseif buff_ft == "r" and server.name == "r" then
 			return string.format("%s : r-langserver-server", server_icon)
-		elseif buff_ft == "markdown" and server == "html" then
+		elseif buff_ft == "markdown" and server.name == "html" then
 			return string.format("%s : markdown-langserver-server", server_icon)
-		elseif buff_ft == "typescript" and server == "typescript" then
+		elseif buff_ft == "typescript" and server.name == "typescript" then
 			return string.format("%s : typescript-langserver-server", server_icon)
 		else
 			return string.format("%s : %s-langserver-server", server_icon_not_not_known, buff_ft)
@@ -31,21 +48,15 @@ local lsp_func = function(msg)
 	end
 end
 
-
-local check_git = function ()
+local check_git = function()
 	local file_dir = vim.fn.expand("%:p:h") .. ";"
 	local git_dir = vim.fn.finddir(".git", file_dir)
 	local git_file = vim.fn.findfile(".git", file_dir)
 
-
-
-
-  --local result = {[['  ']] 'FugitiveHead'}
-  local result = [['  ' '\'FugitiveHead\'']]
-  return result
+	--local result = {[['  ']] 'FugitiveHead'}
+	local result = [['  ' '\'FugitiveHead\'']]
+	return result
 end
-
-
 
 -- =================  Branch checking ==========================
 local colors = {
@@ -62,17 +73,6 @@ local colors = {
 	blue = "#51afef",
 	red = "#ec5f67",
 }
-
-local function env_cleanup(venv)
-	if string.find(venv, "/") then
-		local final_venv = venv
-		for w in venv:gmatch("([^/]+)") do
-			final_venv = w
-		end
-		venv = final_venv
-	end
-	return venv
-end
 
 -- To make it works: uncomment (watch_head), and including in section_a or b or c {{branch}}
 local git_branch
@@ -152,12 +152,21 @@ local function branch()
 		return ""
 	end
 	local icon = ""
-  return string.format("%s %s", icon,git_branch)
+	return string.format("%s %s", icon, git_branch)
 	--return icon .. space .. git_branch .. space
 end
 
 -- run watch head on load so branch is present when component is loaded_gzip
 -- watch_head()
+
+local scrollbar = function()
+	local current_line = vim.fn.line(".")
+	local total_lines = vim.fn.line("$")
+	local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+	local line_ratio = current_line / total_lines
+	local index = math.ceil(line_ratio * #chars)
+	return chars[index]
+end
 
 -- ================= Work Space Loading time ==========================
 local function format_messages(messages)
@@ -262,7 +271,7 @@ return {
 	},
 	sections = {
 
-		lualine_a = { { [[string.format("%s"," ")]] }, { "mode" },check_git()[1] },
+		lualine_a = { { [[string.format("%s"," ")]] }, { "mode" }, check_git()[1] },
 
 		lualine_b = {
 			{
@@ -276,46 +285,6 @@ return {
 			{
 				"diagnostics",
 				sources = { "nvim_lsp", "coc" },
-				symbols = {
-					added = "  ",
-					modified = "柳",
-					removed = " ",
-				},
-				diff_color = {
-					added = {
-						fg = colors.green,
-					},
-					modified = {
-						fg = colors.yellow,
-					},
-					removed = {
-						fg = colors.red,
-					},
-				},
-			},
-			{
-				{
-
-					python_env = {
-						function()
-							if vim.bo.filetype == "python" then
-								local venv = os.getenv("CONDA_DEFAULT_ENV")
-								if venv then
-									return string.format("  (%s)", env_cleanup(venv))
-								end
-								venv = os.getenv("VIRTUAL_ENV")
-								if venv then
-									return string.format("  (%s)", env_cleanup(venv))
-								end
-								return ""
-							end
-							return ""
-						end,
-						color = {
-							fg = colors.green,
-						},
-					},
-				},
 			},
 		},
 		lualine_c = {
@@ -339,7 +308,8 @@ return {
 		},
 		-- lualine_y = {"progress"},
 		lualine_y = { { "filesize" }, { hsp_progress } },
-		lualine_z = { "% ʟ %l/%L c %c" },
+		--lualine_z = { "% ʟ %l/%L c %c" },
+		lualine_z = { { scrollbar, separator = nil }, { "% ʟ %l/%L c %c" } },
 	},
 	-- lualine_z = { "location" },
 	-- lualine_z = {{"location"}},
