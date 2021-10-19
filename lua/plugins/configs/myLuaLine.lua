@@ -20,7 +20,6 @@ local lsp_func = function(msg)
 	path = string.format("%s", path)
 	local clients = vim.lsp.get_active_clients()
 	local buff_ft = vim.bo.filetype
-	local venv = os.getenv("CONDA_DEFAULT_ENV")
 	for _, client in pairs(clients) do
 		table.insert(servers, client)
 	end
@@ -162,12 +161,24 @@ end
 local scrollbar = function()
 	local current_line = vim.fn.line(".")
 	local total_lines = vim.fn.line("$")
-	local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+	--local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+
+	--local chars = { "", "", "", "", "", "", "▆▆", "▇▇", "██" }
+	--local chars = { " ", " ", " ", " ", " ", " ", " ", " ", " " , " ", " ", " ", " "}
+	local chars = { " ", " ", " ", " ", " ", " ", " ", " ", " " }
 	local line_ratio = current_line / total_lines
 	local index = math.ceil(line_ratio * #chars)
 	return chars[index]
 end
 
+local scrollbar2 = function()
+	local current_line = vim.fn.line(".")
+	local total_lines = vim.fn.line("$")
+	local chars = { " ", " ", " ", " ", " ", " " }
+	local line_ratio = current_line / total_lines
+	local index = math.ceil(line_ratio * #chars)
+	return chars[index]
+end
 -- ================= Work Space Loading time ==========================
 local function format_messages(messages)
 	local result = {}
@@ -215,13 +226,13 @@ local function file_size(file)
 		return ""
 	end
 	if size < 1024 then
-		size = size .. "B"
+		size = string.format("猪 %d", size) .. "B"
 	elseif size < 1024 * 1024 then
-		size = string.format("%d", size / 1024) .. "KB"
+		size = string.format("猪 %d", size / 1024) .. "KB"
 	elseif size < 1024 * 1024 * 1024 then
-		size = string.format("%d", size / 1024 / 1024) .. "MB"
+		size = string.format("猪 %d", size / 1024 / 1024) .. "MB"
 	else
-		size = string.format("%d", size / 1024 / 1024 / 1024) .. "GB"
+		size = string.format("猪 %d", size / 1024 / 1024 / 1024) .. "GB"
 	end
 	return size .. space
 end
@@ -242,12 +253,18 @@ local full_path = function()
 end
 
 local system_icon = function()
-	if vim.loop.os_uname().sysname == "Darwin" then
-		local icon = [["   "]]
-		return icon
+	local system_type = vim.loop.os_uname().sysname
+	local icon = ""
+	if system_type == "Darwin" then
+		icon = [["   "]]
+	elseif system_type == "Linux" then
+		icon = [["   "]]
+	elseif system_type == "Windows" then
+		icon = [[" 者 "]]
 	else
-		return
+		return ""
 	end
+	return icon
 end
 
 -- ==================== What to show on the status bar =====================
@@ -272,6 +289,7 @@ return {
 	sections = {
 
 		lualine_a = { { [[string.format("%s"," ")]] }, { "mode" }, check_git()[1] },
+		--lualine_a = { { scrollbar2 }, { "mode" }, check_git()[1] },
 
 		lualine_b = {
 			{
@@ -307,7 +325,8 @@ return {
 			-- {"b%n", "%1v", "%3p%%", "linerr", "windowswap"}
 		},
 		-- lualine_y = {"progress"},
-		lualine_y = { { "filesize" }, { hsp_progress } },
+		--lualine_y = { {get_file_size},{ "filesize" }, { hsp_progress } },
+		lualine_y = { { get_file_size }, { hsp_progress } },
 		--lualine_z = { "% ʟ %l/%L c %c" },
 		lualine_z = { { scrollbar, separator = nil }, { "% ʟ %l/%L c %c" } },
 	},

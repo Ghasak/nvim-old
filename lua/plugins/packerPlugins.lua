@@ -444,7 +444,7 @@ require("packer").startup({
 		--             "mg979/vim-visual-multi",
 		--             branch = "master"
 		--         })
-
+		use({ "gennaro-tedesco/nvim-peekup" })
 		-- ===========================================================================
 		--                            Git and Diff
 		-- ===========================================================================
@@ -666,8 +666,7 @@ local function lualine_loader()
 	end
 end
 
-
- sneak_loader()
- blamer_loader()
- undotree_loader()
- lualine_loader()
+sneak_loader()
+blamer_loader()
+undotree_loader()
+lualine_loader()

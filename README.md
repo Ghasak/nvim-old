@@ -3,8 +3,47 @@
 ## Contents
 
 The following configurations my lua with nvim as my daily-working environment.
-As now-days the main nvim development team are shifted complitely to use lua
+As now-days the main nvim development team are shifted completely to use lua
 instead of vim scripting.
+
+#### DAILY COMMANDS
+| T   | Command                  | Description                                                                                                                           | Reference |
+| --- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| 1   | HOME                     | Go to Startfiy home                                                                                                                   |           |
+| 2   | bd                       | close a buffer                                                                                                                        |           |
+| 3   | Leader + cc /cu          | Commend and uncommon                                                                                                                  |           |
+| 4   | Tab                      | Navigate between buffers                                                                                                              |           |
+| 5   | g + d                    | Go to definition                                                                                                                      |           |
+| 6   | CTRL + o                 | back from definition                                                                                                                  |           |
+| 7   | Fn + F1                  | Go to description of the given function (python tested)                                                                               |           |
+| 8   | Leader + ff              | Fuzzy search for a given word in your given directory                                                                                 |           |
+| 9   | FZF / FILES              | Command to search for a file                                                                                                          |           |
+| 10  | Leader + r               | Ranger                                                                                                                                |           |
+| 11  | Leader + t               | floating Terminal                                                                                                                     |           |
+| 12  | :CocList marketplace     | Search for a a plug for coc, use CTRL + o to go to Normal mode then use Space to multi-selection then tab to finish and use (install) |           |
+| 13  | :CocCommand python.+TAB  | you can find setup for formatter, linter , ..etc                                                                                      |           |
+| 14  | :CocConfig               | To see the configuration of COC                                                                                                       |           |
+| 16  | :Rg                      | Regular expression searching for a word in terminal                                                                                   |           |
+| 17  | :%s/\<Plug\>/Plugin/gc   | Regular Expression searching specific word exclusively and as for change one by one                                                   |           |
+| 18  | Using coc-telescope      | you have (leader + ff , leader + fg)                                                                                                  |           |
+| 19  | using MYReg              | For regular expression search                                                                                                         |           |
+| 20  | :leader + m              | for markdown viewer (using glow)
+| 21  | :leader + s              | Save and source your init.vim file                                                                                                    |           |
+| 22  | :leader + ,              | To open the configuration file (init.vim)                                                                                             |           |
+| 23  | :leader + e              | Open coc-explorer better than nerdTree                                                                                                |           |
+| 24  | :leader + u              | UndoTree                                                                                                                              |           |
+| 25  | using F5                 | Open ipython and run the script you have                                                                                              |           |
+| 26  | :index                   | To see all key maps                                                                                                                   |           |
+| 27  | F1                       | See hover of definition with coc                                                                                                      |           |
+| 28  | d0 or d^                 | Delete to beginning of line from the cursor position                                                                                  |           |
+| 29  | dgg and dG               | delete to beginning of page and end of page from the position of  your cursor.                                                        |           |
+| 30  | leader + c +r then i + w | i + w means inside word, this will allow to replace a word that copied in the register with a given word (you need a plugin)          |           |
+| 31  | v + i + w then p         | Achieve the same thing but not repeated like the one above                                                                            |           |
+| 32  | c + s + " + '            | this will work as change the surrender (you need a plugin)                                                                           |           |
+| 33  | :Markdown_preview        | Toggle markdown using browser (not like glow)
+| 34  |  double ""               | in normal mode (double ") will give us the terminal  of the register
+
+----
 
 ### Requirements
 
