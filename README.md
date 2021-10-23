@@ -6,10 +6,17 @@ The following configurations my lua with nvim as my daily-working environment.
 As now-days the main nvim development team are shifted completely to use lua
 instead of vim scripting.
 
+#### General notes
+The current configurations are mixed common keys between my old configurations with coc and my currnet one with lua.
+- There are new configurations that I haven't implemented yet in the following table.
+- For key mapping  you can check any key mapping that affect your cursor movments among the opened buffers, simple use
+`:map <key>`
+- To check the registers we use usually `:reg`.
+
 #### DAILY COMMANDS
 | T   | Command                  | Description                                                                                                                           | Reference |
 | --- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | HOME                     | Go to Startfiy home                                                                                                                   |           |
+| 1   | HOME                     | Go to Stratify home                                                                                                                   |           |
 | 2   | bd                       | close a buffer                                                                                                                        |           |
 | 3   | Leader + cc /cu          | Commend and uncommon                                                                                                                  |           |
 | 4   | Tab                      | Navigate between buffers                                                                                                              |           |
@@ -122,6 +129,10 @@ main issue is that brew installed the lua and there is also luajit_a which comes
 ## Auto-complete with CMP
 
 ## Lua formatter
+
+## Programming language servers
+
+![Language server loaded](./assets/current_loaded_programming_langauge_servers.png)
 
 There are several formatter that we can add to format our lua code such as,
 To format the lua code we need to install them first,

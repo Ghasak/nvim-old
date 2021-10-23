@@ -257,3 +257,12 @@ vim.cmd([[hi Search term=reverse guibg=peru guifg=wheat]])
 require("lspconfig").r_language_server.setup({
 	cmd = { "R", "--slave", "-e", "languageserver::run()" },
 })
+
+-- Adding sql language server
+-- Insure you installed first the sql-language serer with (npm i -g sql-language-server)
+-- To know the location of the sql-language-server use (type, or which command)
+require'lspconfig'.sqlls.setup{
+  cmd = {"/usr/local/bin/sql-language-server", "up", "--method", "stdio"};
+  filetypes = { "sql", "mysql" }
+}
+

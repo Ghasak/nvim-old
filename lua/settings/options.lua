@@ -16,6 +16,26 @@ local opt = vim.opt -- global/buffer/windows-scoped options
 -----------------------------------------------------------
 opt.mouse = "a" -- enable mouse support, clicking and scrolling, Now I use, option from my mac If you use iTerm, <<defaults write com.googlecode.iterm2 AlternateMouseScroll -bool true>>
 opt.clipboard = "unnamedplus" -- copy/paste to system clipboard
+
+vim.cmd([[
+set clipboard=unnamed
+if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+endif
+]])
+
+vim.cmd([[
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+]])
+
+vim.cmd([[
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
+]])
+
 opt.swapfile = false -- don't use swapfile
 cmd([[set guicursor=]]) -- This will keep the cursor form chaning.
 g.gruvbox_invert_selection = 0 -- In Visual Mode selection, turn-off multi-color, https://www.reddit.com/r/vim/comments/ejy7yp/how_would_you_tell_vim_to_change_the_visual/
