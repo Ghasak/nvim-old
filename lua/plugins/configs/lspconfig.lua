@@ -265,4 +265,7 @@ require'lspconfig'.sqlls.setup{
   cmd = {"/usr/local/bin/sql-language-server", "up", "--method", "stdio"};
   filetypes = { "sql", "mysql" }
 }
-
+-- Kite server
+vim.cmd([[
+au User lsp_setup call lsp#register_server({'name': 'kite','cmd': '~/.local/share/kite/current/kite-lsp --editor=vim','whitelist': ["php", "javascript", "python", "bash"], })
+]])

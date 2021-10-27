@@ -158,14 +158,15 @@ vim.cmd([[let g:clap_theme = 'material_design_dark']])
 --vim.api.nvim_set_keymap('i','<leader>cf',"<cmd>Clap filer<CR>",{noremap = true, silent = true})
 
 -- replace with the register (you need a plugin  vim-scripts/replacewithregister)
--- vim.api.nvim_set_keymap('n','<leader>cr','<plug>replacewithregisteroperator',{noremap  = true, silent = true})
+vim.api.nvim_set_keymap('n','<leader>cr','<Plug>replacewithregisteroperator',{noremap  = true, silent = true})
 -- vim.api.nvim_set_keymap('n','<leader>crr','<plug>replacewithregisterline',{noremap  = true, silent = true})
 -- vim.api.nvim_set_keymap('x','<leader>cr','<plug>replacewithregistervisual',{noremap  = true, silent = true})
-vim.cmd([[
-    nmap <leader>cr  <plug>replacewithregisteroperator
-    nmap <leader>crr <plug>replacewithregisterline
-    xmap <leader>cr  <plug>replacewithregistervisual
-]])
+-- vim.cmd([[
+--     nmap <leader>cr  <Plug>replacewithregisteroperator
+--     nmap <leader>crr <Plug>replacewithregisterline
+--     xmap <leader>cr  <Plug>replacewithregistervisual
+-- ]])
+
 
 -- using vista with clap to see all the functions definitions and their implementation,
 vim.api.nvim_set_keymap("n", "<leader>vt", "<cmd>clap tags<cr>", { noremap = true, silent = true })

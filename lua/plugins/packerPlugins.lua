@@ -244,11 +244,13 @@ require("packer").startup({
 		use({ "tpope/vim-fugitive" })
 		--		use({ "vim-airline/vim-airline" })
 		-- status line built with lua
-		use({
-			"shadmansaleh/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		})
-		--use({"beauwilliams/statusline.lua"})
+--		use({
+--			"shadmansaleh/lualine.nvim",
+--			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+--		})
+
+    use ({ 'nvim-lualine/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}})
 
 		-- To show the diff of file
 		use({ "airblade/vim-gitgutter" })
@@ -490,7 +492,8 @@ require("packer").startup({
 		--  use{'prabirshrestha/async.vim'}
 		--  use{'high-moctane/asyncomplete-nextword.vim'}
 		-- Replace word with register
-		use({ "vim-scripts/ReplaceWithRegister" })
+		--use({ "vim-scripts/ReplaceWithRegister" })
+    use({"inkarkat/vim-ReplaceWithRegister"})
 		--  -- Copy and paste from clipboard into your nvim
 		use({ "christoomey/vim-system-copy" })
 		-- Using accelerator for j and k

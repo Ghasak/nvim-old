@@ -32,13 +32,18 @@ set encoding=utf-8
 
 vim.cmd([[
 set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 ]])
 
 opt.swapfile = false -- don't use swapfile
-cmd([[set guicursor=]]) -- This will keep the cursor form chaning.
+cmd([[set guicursor=]]) -- This will keep the cursor form changing.
 g.gruvbox_invert_selection = 0 -- In Visual Mode selection, turn-off multi-color, https://www.reddit.com/r/vim/comments/ejy7yp/how_would_you_tell_vim_to_change_the_visual/
+
+-- mapping for paste  Ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+vim.cmd([[
+  xnoremap p "_dP
+]])
 --
 -----------------------------------------------------------
 --              Cursor shape
@@ -306,5 +311,3 @@ end
 -- let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 -- ]])
 --
-
-

@@ -7,9 +7,9 @@ As now-days the main nvim development team are shifted completely to use lua
 instead of vim scripting.
 
 #### General notes
-The current configurations are mixed common keys between my old configurations with coc and my currnet one with lua.
+The current configurations are mixed common keys between my old configurations with coc and my current one with lua.
 - There are new configurations that I haven't implemented yet in the following table.
-- For key mapping  you can check any key mapping that affect your cursor movments among the opened buffers, simple use
+- For key mapping  you can check any key mapping that affect your cursor movements among the opened buffers, simple use
 `:map <key>`
 - To check the registers we use usually `:reg`.
 
@@ -49,6 +49,12 @@ The current configurations are mixed common keys between my old configurations w
 | 32  | c + s + " + '            | this will work as change the surrender (you need a plugin)                                                                           |           |
 | 33  | :Markdown_preview        | Toggle markdown using browser (not like glow)
 | 34  |  double ""               | in normal mode (double ") will give us the terminal  of the register
+| 35  |  :SymbolOutlines         | Open the symboloutline menu for fast coding movements
+| 36  |  :Trouble                | Code diagnostic with nice layouts
+| 37  |  :Ctrl-\                 | open quick terminal written in lua super fast.
+| 38  |  ~                       | changing the letter (Capital to small letter)
+
+
 
 ----
 
@@ -63,10 +69,10 @@ The current configurations are mixed common keys between my old configurations w
 
 ### To do
 
-- [ ] Adding dap for python, lua, js and R.
+- [x] Adding dap for python, lua, js and R.
 - [x] Optimize the performance of the launched packages with events, cmd and lazy-loading.
 - [x] Adding org mode, to-do list and some other interesting plugins.
-- [ ] Getting more lua coding for optimization nvim on first installation,
+- [x] Getting more lua coding for optimization nvim on first installation,
       (such as changing the packer-compiled directory with packer.init(), up to
       now, the nvim will not automated to recompiled on attach, need manually to
       compile)
@@ -456,10 +462,6 @@ Total Min:     456.653000 msec
   0.012700   0.027000   0.007000: --- NVIM STARTING ---
   0.012700   0.018000   0.012000: clearing screenf
 ```
-
-
-
-
 
 ## Some useful API functions
 
