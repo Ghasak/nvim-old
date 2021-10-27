@@ -10,6 +10,7 @@ instead of vim scripting.
 The current configurations are mixed common keys between my old configurations with coc and my current one with lua.
 - There are new configurations that I haven't implemented yet in the following table.
 - For key mapping  you can check any key mapping that affect your cursor movements among the opened buffers, simple use
+
 `:map <key>`
 - To check the registers we use usually `:reg`.
 
@@ -485,4 +486,18 @@ local extension = vim.fn.expand "%:F"
 - [Reference Num -1-](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
   - Got the tab complelation for the cmp pluging
   - Got the neovide configuration if the neovide buffer is launched, instead of sourcing, can be found in (options)
-- [Reference Num -2-]()
+- [Reference Num -2-](https://github.com/alpha2phi/dotfiles/blob/main/config/nvim/lua/plugins.lua)
+I got the set of tpope plugins for developments, with debugging and dap for python and other language-server.
+```sh
+-- Debugging
+    use { "puremourning/vimspector", event = "BufWinEnter" }
+
+    -- DAP
+    use { "mfussenegger/nvim-dap" }
+    use { "mfussenegger/nvim-dap-python" }
+    use { "theHamsta/nvim-dap-virtual-text" }
+    use { "rcarriga/nvim-dap-ui" }
+    use { "Pocco81/DAPInstall.nvim" }
+    use { "jbyuki/one-small-step-for-vimkind" }
+```    
+

@@ -158,7 +158,7 @@ vim.cmd([[let g:clap_theme = 'material_design_dark']])
 --vim.api.nvim_set_keymap('i','<leader>cf',"<cmd>Clap filer<CR>",{noremap = true, silent = true})
 
 -- replace with the register (you need a plugin  vim-scripts/replacewithregister)
-vim.api.nvim_set_keymap('n','<leader>cr','<Plug>replacewithregisteroperator',{noremap  = true, silent = true})
+--vim.api.nvim_set_keymap('n','<leader>cr','<Plug>replacewithregisteroperator',{noremap  = true, silent = true})
 -- vim.api.nvim_set_keymap('n','<leader>crr','<plug>replacewithregisterline',{noremap  = true, silent = true})
 -- vim.api.nvim_set_keymap('x','<leader>cr','<plug>replacewithregistervisual',{noremap  = true, silent = true})
 -- vim.cmd([[
@@ -236,8 +236,8 @@ vim.api.nvim_set_keymap("n", "<leader>l", "<ESC>$", { noremap = true, silent = f
 
 -- Sending code to the jupyternotebook
 vim.cmd([[
-nmap <space>gr <Plug>JupyterExecute
-nmap <space>gR <Plug>JupyterExecuteAll
+nmap <space>gj <Plug>JupyterExecute
+nmap <space>gJ <Plug>JupyterExecuteAll
 ]])
 
 -- Turn-off the default key-bindings of the coq-nvim code snippets +9000

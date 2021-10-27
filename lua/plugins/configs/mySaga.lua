@@ -88,7 +88,7 @@ M.conf = function()
 	})
 
 	-- LSP: rename
-	vim.api.nvim_set_keymap("n", "gr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {
+	vim.api.nvim_set_keymap("n", "grr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {
 		silent = true,
 	})
 

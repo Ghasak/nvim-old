@@ -162,7 +162,7 @@ require("packer").startup({
 
 		-- sidebar.nvim
 		use({
-			"GustavoKatel/sidebar.nvim",
+			"sidebar-nvim/sidebar.nvim",
 			config = function()
 				require("sidebar-nvim").setup({
 					disable_default_keybindings = 0,
@@ -234,6 +234,17 @@ require("packer").startup({
 			end,
 		})
 
+		-- Debugging
+		use({ "puremourning/vimspector", event = "BufWinEnter" })
+
+		-- DAP
+		use({ "mfussenegger/nvim-dap" })
+		use({ "mfussenegger/nvim-dap-python" })
+		use({ "theHamsta/nvim-dap-virtual-text" })
+		use({ "rcarriga/nvim-dap-ui" })
+		use({ "Pocco81/DAPInstall.nvim" })
+		use({ "jbyuki/one-small-step-for-vimkind" })
+
 		-- ===========================================================================
 		-- 	                       Aesthetics Plugins
 		-- ===========================================================================
@@ -244,13 +255,12 @@ require("packer").startup({
 		use({ "tpope/vim-fugitive" })
 		--		use({ "vim-airline/vim-airline" })
 		-- status line built with lua
---		use({
---			"shadmansaleh/lualine.nvim",
---			requires = { "kyazdani42/nvim-web-devicons", opt = true },
---		})
+		--		use({
+		--			"shadmansaleh/lualine.nvim",
+		--			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		--		})
 
-    use ({ 'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}})
+		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 
 		-- To show the diff of file
 		use({ "airblade/vim-gitgutter" })
@@ -419,6 +429,14 @@ require("packer").startup({
 		-- Better surrounding
 		use({ "tpope/vim-surround" })
 
+		-- Development
+		use({ "tpope/vim-dispatch" })
+		use({ "tpope/vim-commentary" })
+		use({ "tpope/vim-rhubarb", event = "VimEnter" })
+		use({ "tpope/vim-unimpaired" })
+		use({ "tpope/vim-vinegar" })
+		use({ "tpope/vim-sleuth" })
+
 		-- fuzzy finder
 		-- use {'vijaymarupudi/nvim-fzf'}
 		use({ "junegunn/fzf" })
@@ -492,8 +510,8 @@ require("packer").startup({
 		--  use{'prabirshrestha/async.vim'}
 		--  use{'high-moctane/asyncomplete-nextword.vim'}
 		-- Replace word with register
-		--use({ "vim-scripts/ReplaceWithRegister" })
-    use({"inkarkat/vim-ReplaceWithRegister"})
+		use({ "vim-scripts/ReplaceWithRegister" })
+		--use({ "inkarkat/vim-ReplaceWithRegister" })
 		--  -- Copy and paste from clipboard into your nvim
 		use({ "christoomey/vim-system-copy" })
 		-- Using accelerator for j and k
@@ -669,6 +687,9 @@ local function lualine_loader()
 	end
 end
 
+-- ===========================================================================
+--               Fetching the startup packages
+-- ===========================================================================
 sneak_loader()
 blamer_loader()
 undotree_loader()
