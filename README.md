@@ -54,6 +54,9 @@ The current configurations are mixed common keys between my old configurations w
 | 36  |  :Trouble                | Code diagnostic with nice layouts
 | 37  |  :Ctrl-\                 | open quick terminal written in lua super fast.
 | 38  |  ~                       | changing the letter (Capital to small letter)
+| 39  |  gr                      | replace with register yanking then paste (repeatable)
+| 40  |  gy                      | re-mapping to lsp-config for show references
+| 41  |  grr                     | form lspsaga replace the work with a given sentence.
 
 
 
@@ -499,5 +502,5 @@ I got the set of tpope plugins for developments, with debugging and dap for pyth
     use { "rcarriga/nvim-dap-ui" }
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
-```    
+```
 
