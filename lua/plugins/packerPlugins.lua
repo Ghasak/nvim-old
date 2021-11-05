@@ -478,6 +478,12 @@ require("packer").startup({
 		use({ "mhinz/vim-signify" })
 
 		-- ===========================================================================
+		--                         For Editor
+		-- ===========================================================================
+		use({
+			"dhruvasagar/vim-table-mode",
+		})
+		-- ===========================================================================
 		--                          Other Plugins
 		-- ===========================================================================
 		-- At the moment I am using spell checking from coc, only
@@ -688,9 +694,29 @@ local function lualine_loader()
 end
 
 -- ===========================================================================
+--                     Markdown table on the fly
+-- ===========================================================================
+
+local function myMarkdownTableMode_loader()
+	local myMarkdownTableMode_package_path =  "/site/pack/packer/start/vim-table-mode"
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. myMarkdownTableMode_package_path
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.api.nvim_command(
+			(
+				[[echohl WarningMsg | echomsg "[+] myMarkdownTableMode_package_path library at :%s is not existed, will be installed after packer compiled ." | echohl None]]
+			):format(install_path)
+		)
+	else
+		-- Configure the markdown table plugin
+		require("plugins.configs.myMarkdownTableMode")
+	end
+end
+-- ===========================================================================
 --               Fetching the startup packages
 -- ===========================================================================
 sneak_loader()
 blamer_loader()
 undotree_loader()
 lualine_loader()
+myMarkdownTableMode_loader()

@@ -481,8 +481,26 @@ local extension = vim.fn.expand "%:F"
 ```
 
 
+## Table mode in nvim
+Using a plugin `vim-table-mode` to create a nice table, need to remember the following
+- <leader>tm => is the trigger to the table in markdonw format (*.md)
 
+#### How it works
+1. Enter the first line, delimiting columns by the | symbol. The plugin reacts by inserting spaces between the text and the separator if you omit them:
 
+| name | address | phone |
+
+2. In the second line (without leaving Insert mode), enter | twice. The plugin will write a properly formatted horizontal line:
+
+| name | address | phone |
+|------+---------+-------|
+
+3. When you enter the subsequent lines, the plugin will automatically adjust the formatting to match the text you’re entering every time you press |:
+
+| name                        | address             | phone                                          |
+|-----------------------------|---------------------|------------------------------------------------|
+| formulate the address first | for on the idea for | create the right table in material_design_dark |
+| This could                  | how about teh       | working on the second objectives               |
 
 ## References
 
@@ -503,4 +521,6 @@ I got the set of tpope plugins for developments, with debugging and dap for pyth
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
+
 
