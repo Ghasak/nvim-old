@@ -1,7 +1,39 @@
+----------------------------------------------------------------------------------------------------------------------
+--
+--                             ░█████╗░██╗░░░██╗████████╗░█████╗░
+--                             ██╔══██╗██║░░░██║╚══██╔══╝██╔══██╗
+--                             ███████║██║░░░██║░░░██║░░░██║░░██║
+--                             ██╔══██║██║░░░██║░░░██║░░░██║░░██║
+--                             ██║░░██║╚██████╔╝░░░██║░░░╚█████╔╝
+--                             ╚═╝░░╚═╝░╚═════╝░░░░╚═╝░░░░╚════╝░
+--
+--       ░█████╗░░█████╗░███╗░░░███╗██████╗░██╗░░░░░███████╗████████╗██╗░█████╗░███╗░░██╗░██████╗
+--       ██╔══██╗██╔══██╗████╗░████║██╔══██╗██║░░░░░██╔════╝╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝
+--       ██║░░╚═╝██║░░██║██╔████╔██║██████╔╝██║░░░░░█████╗░░░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░
+--       ██║░░██╗██║░░██║██║╚██╔╝██║██╔═══╝░██║░░░░░██╔══╝░░░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
+--       ╚█████╔╝╚█████╔╝██║░╚═╝░██║██║░░░░░███████╗███████╗░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
+--       ░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝░░░░░╚══════╝╚══════╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░
+--[Notice] The CMP only requests a lua-file to be associated with the lsp kind icons,  which is lspkind_icons.lua
+-- Check for more details:  https://github.com/LunarVim/Neovim-from-scratch/blob/05-completion/lua/user/cmp.lua
+
+----------------------------------------------------------------------------------------------------------------------
 local present, cmp = pcall(require, "cmp")
 
 if not present then
 	return
+end
+
+
+local snip_status_ok, luasnip = pcall(require, "luasnip")
+if not snip_status_ok then
+  return
+end
+
+require("luasnip/loaders/from_vscode").lazy_load()
+
+local check_backspace = function()
+  local col = vim.fn.col "." - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
 vim.opt.completeopt = "menuone,noselect"
@@ -18,11 +50,12 @@ cmp.setup({
 		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
 	formatting = {
+        fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			-- load lspkind icons
 			vim_item.kind = string.format(
 				"%s %s",
-				require("plugins.configs.lspkind_icons").icons[vim_item.kind],
+				require("plugins.configs.lspkind_icons").icons[vim_item.kind],           -- Icons for the language server, should be loaded here
 				vim_item.kind
 			)
 
@@ -73,32 +106,56 @@ cmp.setup({
 		--            fallback()
 		--         end
 		--      end,
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-			elseif luasnip.expand_or_jumpable() then
-				vim.fn.feedkeys(T("<Plug>luasnip-expand-or-jump"), "")
-			elseif check_backspace() then
-				vim.fn.feedkeys(T("<Tab>"), "n")
-			else
-				vim.fn.feedkeys(T("<C-Space>")) -- Manual trigger
-			end
-		end, {
-			"i",
-			"s",
-		}),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-			elseif luasnip.jumpable(-1) then
-				vim.fn.feedkeys(T("<Plug>luasnip-jump-prev"), "")
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
+    -- TAB Configuration with the CMP
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif check_backspace() then
+        fallback()
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+
+--		["<Tab>"] = cmp.mapping(function(fallback)
+--			if cmp.visible() then
+--				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+--			else
+--        fallback()
+--			end
+--		end, {
+--			"i",
+--			"s",
+--		}),
+--		["<S-Tab>"] = cmp.mapping(function(fallback)
+--			if cmp.visible() then
+--				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+--			else
+--				fallback()
+--			end
+--		end, {
+--			"i",
+--			"s",
+--		}),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -116,9 +173,18 @@ cmp.setup({
 		{ name = "spell" },
 		{ name = "emoji" },
 	},
+  confirm_opts = {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = false,
+  },
 	completion = { completeopt = "menu,menuone,noinsert" },
+  experimental = {
+    ghost_text = false,
+    native_menu = false,
+  },
 })
 
+-- ======================= More configurations for cmp ==========================
 -- Autopairs
 -- require("nvim-autopairs.completion.cmp").setup({
 --     map_cr = true,
@@ -137,3 +203,4 @@ autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ 
 ]],
 	false
 )
+

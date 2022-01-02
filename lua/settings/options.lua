@@ -11,6 +11,7 @@ local exec = vim.api.nvim_exec -- execute Vimscript
 local fn = vim.fn -- call Vim functions
 local g = vim.g -- global variables
 local opt = vim.opt -- global/buffer/windows-scoped options
+local vim = vim
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
@@ -95,7 +96,8 @@ opt.number = true -- show line number
 opt.showmatch = true -- highlight matching parenthesis
 opt.foldmethod = "marker" -- enable folding (default 'foldmarker')
 opt.colorcolumn = "120" -- line lenght marker at 80 columns
-vim.cmd([[hi ColorColumn ctermbg=0 guibg=lightgray]])
+--vim.cmd([[hi ColorColumn ctermbg=0 guibg=lightgray]])
+cmd([[highlight ColorColumn ctermbg=0 guibg=lightgrey]])
 opt.splitright = true -- vertical split to the right
 opt.splitbelow = true -- orizontal split to the bottom
 opt.ignorecase = true -- ignore case letters when search
@@ -311,3 +313,6 @@ end
 -- let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
 -- ]])
 --
+--
+--
+

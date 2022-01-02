@@ -1,3 +1,33 @@
+----------------------------------------------------------------------------------------------------------------------
+
+-- ██╗░░░░░░█████╗░███╗░░██╗░██████╗░██╗░░░██╗░█████╗░░██████╗░███████╗  ░██████╗███████╗██████╗░██╗░░░██╗███████╗██████╗░
+-- ██║░░░░░██╔══██╗████╗░██║██╔════╝░██║░░░██║██╔══██╗██╔════╝░██╔════╝  ██╔════╝██╔════╝██╔══██╗██║░░░██║██╔════╝██╔══██╗
+-- ██║░░░░░███████║██╔██╗██║██║░░██╗░██║░░░██║███████║██║░░██╗░█████╗░░  ╚█████╗░█████╗░░██████╔╝╚██╗░██╔╝█████╗░░██████╔╝
+-- ██║░░░░░██╔══██║██║╚████║██║░░╚██╗██║░░░██║██╔══██║██║░░╚██╗██╔══╝░░  ░╚═══██╗██╔══╝░░██╔══██╗░╚████╔╝░██╔══╝░░██╔══██╗
+-- ███████╗██║░░██║██║░╚███║╚██████╔╝╚██████╔╝██║░░██║╚██████╔╝███████╗  ██████╔╝███████╗██║░░██║░░╚██╔╝░░███████╗██║░░██║
+-- ╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░░╚═════╝░╚═╝░░╚═╝░╚═════╝░╚══════╝  ╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
+--
+--                     ██████╗░██████╗░░█████╗░████████╗░█████╗░░█████╗░░█████╗░██╗░░░░░░██████╗  ░░░░░░
+--                     ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔════╝  ░░░░░░
+--                     ██████╔╝██████╔╝██║░░██║░░░██║░░░██║░░██║██║░░╚═╝██║░░██║██║░░░░░╚█████╗░  █████╗
+--                     ██╔═══╝░██╔══██╗██║░░██║░░░██║░░░██║░░██║██║░░██╗██║░░██║██║░░░░░░╚═══██╗  ╚════╝
+--                     ██║░░░░░██║░░██║╚█████╔╝░░░██║░░░╚█████╔╝╚█████╔╝╚█████╔╝███████╗██████╔╝  ░░░░░░
+--                     ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░░╚════╝░░╚════╝░╚══════╝╚═════╝░  ░░░░░░
+--
+--                     ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░░██████╗
+--                     ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░██╔════╝
+--                     ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░╚█████╗░
+--                     ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗░╚═══██╗
+--                     ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██████╔╝
+--                     ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═════╝░
+-- --
+-- ===========================================================================
+--  0.      Checking all the necessary loaded libraries for LSP
+-- ===========================================================================
+if not packer_plugins["nvim-lsp-installer"].loaded then
+	vim.cmd([[packadd nvim-lsp-installer]]) -- lspInstaller Deprecated
+end
+
 if not packer_plugins["nvim-lspconfig"].loaded then
 	vim.cmd([[packadd nvim-lspconfig]])
 end
@@ -6,20 +36,147 @@ if not packer_plugins["lspsaga.nvim"].loaded then
 	vim.cmd([[packadd lspsaga.nvim]])
 end
 
-if not packer_plugins["nvim-lspinstall"].loaded then
-	vim.cmd([[packadd nvim-lspinstall]])
-end
-
 if not packer_plugins["lsp_signature.nvim"].loaded then
 	vim.cmd([[packadd lsp_signature.nvim]])
 end
 
-local nvim_lsp = require("lspconfig")
-local lsp_install = require("lspinstall")
 local saga = require("lspsaga")
+local nvim_lsp = require("lspconfig")
+local lsp_installer = require("nvim-lsp-installer") -- This is very important variable
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
--- saga.init_lsp_saga({code_action_icon = '💡'})
+-- ===========================================================================
+--  1.                Custom attach for the langauge server
+-- ===========================================================================
+
+local function custom_attach()
+	local function buf_set_keymap(...)
+		vim.api.nvim_buf_set_keymap(bufnr, ...)
+	end
+	local function buf_set_option(...)
+		vim.api.nvim_buf_set_option(bufnr, ...)
+	end
+
+	-- Enable completion triggered by <c-x><c-o>
+	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+	-- Mappings.
+	local opts = { noremap = true, silent = true }
+
+	-- Native LSP with Lua
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	--	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+	buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+	buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	--	buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+	buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+	--	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+	buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	-----------------------------------------------------------------------------------
+	--          The above keymapping will be overwritten by lsp-saga
+	-----------------------------------------------------------------------------------
+	-- Allow saga to do its magic (show diagnostic on hover of the line with error)
+	--vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
+	require("plugins.configs.mysaga").conf()
+	require("lsp_signature").on_attach({
+		bind = true,
+		use_lspsaga = false,
+		floating_window = true,
+		fix_pos = true,
+		hint_enable = true,
+		hi_parameter = "Search",
+		handler_opts = { "double" },
+		hint_prefix = "      ", -- Panda for parameter
+	})
+
+	-----------------------------------------------------------------------------------
+	--             This will highlight the soope and words instances in the code
+	--             with color white, I put it here  to be compatable only with
+	--             the  language server that support such highlight, right now
+	--             javascript, R, and SQL are not supported
+	-----------------------------------------------------------------------------------
+	-- check :
+	-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+	--   vim.cmd [[
+	--      highlight LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+	--      highlight LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+	--      highlight LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+	--      augroup lsp_document_highlight
+	--        autocmd! * <buffer>
+	--        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+	--        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+	--      augroup END
+	--    ]]
+end
+
+-- ===========================================================================
+--   2.                Specified Language server Installer
+-- ===========================================================================
+-- You can specify any language server protocol a head in the given  list , or
+-- simply using `LspInstallor` to get the specified installed language server.
+
+local servers = {
+	"bashls", -- Bash script language server.
+	"pyright", -- Microsoft python language server.
+	"tsserver", -- javascript language server.
+	"emmet_ls", -- Emmet Language server with JS
+	"sumneko_lua", -- Lua Language server
+	"ltex-ls", -- LaTeX  Language server for using latext with neovim
+	"rust_analyzer", -- Rust Language server
+	"jsonls", -- JSON  language server
+	"julials", -- julia language server
+	"yamlls", -- YAML  language server
+}
+
+for _, name in pairs(servers) do
+	local server_is_found, server = lsp_installer.get_server(name)
+	if server_is_found then
+		if not server:is_installed() then
+			-- Show a warning message to the installed language server form the above list
+			vim.api.nvim_command(
+				(
+					[[echohl WarningMsg | echomsg "[-] The language server:%s is not existed, will be created ... " | echohl None]]
+				):format(name)
+			)
+			server:install()
+		end
+	end
+end
+
+-- ===========================================================================
+--    3.                 Handler for the language server
+-- ===========================================================================
+
+local border = {
+	{ "╭", "FloatBorder" },
+	{ "─", "FloatBorder" },
+	{ "╮", "FloatBorder" },
+	{ "│", "FloatBorder" },
+	{ "╯", "FloatBorder" },
+	{ "─", "FloatBorder" },
+	{ "╰", "FloatBorder" },
+	{ "│", "FloatBorder" },
+}
+
+-- LSP settings (for overriding per client)
+local handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
+-- ===========================================================================
+--     4.                Capabilities for the language server
+-- ===========================================================================
 
 capabilities.textDocument.completion.completionItem.documentationFormat = {
 	"markdown",
@@ -35,73 +192,81 @@ capabilities.textDocument.completion.completionItem.tagSupport = {
 	valueSet = { 1 },
 }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-	properties = { "documentation", "detail", "additionalTextEdits" },
+	properties = { "documentatin", "detail", "additionalTextEdits" },
 }
 
-local function custom_attach()
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	-- Enable completion triggered by <c-x><c-o>
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Mappings.
-	local opts = { noremap = true, silent = true }
- -- Allow saga to do its magic (show diagnostic on hover of the line with error)
-  --vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
-  require("plugins.configs.mysaga").conf()
-
-  -- Native LSP with Lua
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
---	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	--	buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-	buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-	--	buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-	buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	require("lsp_signature").on_attach({
-		bind = true,
-		use_lspsaga = false,
-		floating_window = true,
-		fix_pos = true,
-		hint_enable = true,
-		hi_parameter = "Search",
-		handler_opts = { "double" },
-		hint_prefix = "      ", -- Panda for parameter
-	})
-end
-
-local function switch_source_header_splitcmd(bufnr, splitcmd)
-	bufnr = nvim_lsp.util.validate_bufnr(bufnr)
-	local params = {
-		uri = vim.uri_from_bufnr(bufnr),
+-- ===========================================================================
+--      5.       Core Server loading with handler and capabilities
+-- Heavly Modified based on https://github.com/williamboman/nvim-lsp-installer
+-- ===========================================================================
+-- Put all costom_attach, server loading, handler and capabilities  all together for each given server.
+lsp_installer.on_server_ready(function(server)
+	-- Options for the given
+	local opts = {
+		handlers = handlers,
+		on_attach = custom_attach,
+		capabilities = capabilities,
+		flags = {
+			debounce_text_changes = 150,
+		},
 	}
-	vim.lsp.buf_request(bufnr, "textDocument/switchSourceHeader", params, function(err, _, result)
-		if err then
-			error(tostring(err))
-		end
-		if not result then
-			print("Corresponding file can’t be determined")
-			return
-		end
-		vim.api.nvim_command(splitcmd .. " " .. vim.uri_to_fname(result))
-	end)
-end
+	-- Special case for the language server Lua -> sumenko_lua
+	if server.name == "sumneko_lua" then
+		opts = {
+			handlers = handlers,
+			on_attach = custom_attach,
+			capabilities = capabilities,
+			-- cmd = {"somewhere/bin/Linux/lua-language-server", "-E", "somewhere/main.lua"},
+			flags = {
+				debounce_text_changes = 150,
+			},
+			settings = {
+				Lua = {
+					runtime = {
+						-- LuaJIT inn the case of Neovim
+						version = "LuaJIT",
+						path = vim.split(package.path, ";"),
+					},
+					diagnostics = {
+						globals = { "vim", "use" },
+					},
+					workspace = {
+						library = {
+							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+							[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+						},
+						maxPreload = 100000,
+						preloadFileSize = 10000,
+					},
+					telemetry = {
+						enable = false,
+					},
+				},
+			},
+		}
+	end
+	-- Here were the installation happen to each sever which is ready to be
+	-- luanched with the specified, handlers, capababilities, custom_attach.
+	server:setup(opts)
+end)
+
+-- ===========================================================================
+--                   Custom Language Server
+-- ===========================================================================
+-- These are the language servers for programming language not shown in the
+-- above list.
+-- Language server for R
+-- I have installed first the language server supprot for R language.
+require("lspconfig").r_language_server.setup({
+	cmd = { "R", "--slave", "-e", "languageserver::run()" },
+})
+-- Adding sql language server
+-- Insure you installed first the sql-language serer with (npm i -g sql-language-server)
+-- To know the location of the sql-language-server use (type, or which command)
+require("lspconfig").sqlls.setup({
+	cmd = { "/usr/local/bin/sql-language-server", "up", "--method", "stdio" },
+	filetypes = { "sql", "mysql" },
+})
 
 local function setup_cpp()
 	nvim_lsp.clangd.setup({
@@ -133,139 +298,60 @@ local function setup_cpp()
 	})
 end
 
-local function setup_servers()
-	lsp_install.setup()
-	local servers = lsp_install.installed_servers()
-	for _, lsp in pairs(servers) do
-		if lsp == "lua" then
-			nvim_lsp[lsp].setup({
-				capabilities = capabilities,
-				flags = {
-					debounce_text_changes = 500,
-				},
-				settings = {
-					Lua = {
-						runtime = {
-							-- LuaJIT in the case of Neovim
-							version = "LuaJIT",
-							path = vim.split(package.path, ";"),
-						},
-						diagnostics = {
-							globals = { "vim", "packer_plugins" },
-						},
-						workspace = {
-							library = {
-								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-								[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-							},
-							maxPreload = 100000,
-							preloadFileSize = 10000,
-						},
-						telemetry = {
-							enable = false,
-						},
-					},
-				},
-				on_attach = custom_attach,
-			})
-		else
-			nvim_lsp[lsp].setup({
-				capabilities = capabilities,
-				flags = {
-					debounce_text_changes = 500,
-				},
-				on_attach = custom_attach,
-			})
-		end
-	end
-end
-
-lsp_install.post_install_hook = function()
-	setup_servers() -- reload installed servers
-	vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
-
-setup_servers()
-
 setup_cpp()
 
--- replace the default lsp diagnostic symbols
-local function lspSymbol(name, icon)
-	vim.fn.sign_define("LspDiagnosticsSign" .. name, {
-		text = icon,
-		numhl = "LspDiagnosticsDefaul" .. name,
-	})
+-- ===========================================================================
+--                    LSP Deep configurations
+-- ===========================================================================
+-- For more details check:
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+-- ================= Change the lsp icons gutter of diagnostics ==============
+-- Change the icons of the gutter of the diagnostics based on the neovim diagonsitc built-in APIs.
+local signs = { Error = "", Information = "כֿ", Hint = "", Warn = "" }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-lspSymbol("Error", "")
-lspSymbol("Information", "כֿ")
-lspSymbol("Hint", "")
-lspSymbol("Warning", "")
+-- =================  Customizing how diagnostics are displayed ==============
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = {
-		-- prefix = "", -- "",
-		spacing = 0,
-		underline = false,
-		update_in_insert = false,
-		virtual_text = true,
-	},
+vim.diagnostic.config({
+	virtual_text = true,
 	signs = true,
 	underline = true,
-	update_in_insert = false, -- update diagnostics insert mode
-})
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = "rounded",
-})
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-	border = "rounded",
+	update_in_insert = false,
+	severity_sort = false,
 })
 
--- suppress error messages from lang servers
-vim.notify = function(msg, log_level, _opts)
-	if msg:match("exit code") then
-		return
-	end
-	if log_level == vim.log.levels.ERROR then
-		vim.api.nvim_err_writeln(msg)
-	else
-		vim.api.nvim_echo({ { msg } }, true, {})
-	end
-end
+-- =================  Show source in diagnostics ==============
 
--- vim.cmd([[
---     " Errors in Red
---     hi LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
---     " Warnings in Yellow
---     hi LspDiagnosticsVirtualTextWarning guifg=Yellow ctermfg=Yellow
---     " Info and Hints in White
---     hi LspDiagnosticsVirtualTextInformation guifg=White ctermfg=White
---     hi LspDiagnosticsVirtualTextHint guifg=White ctermfg=White
---
---
---
---     autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
--- ]])
+vim.diagnostic.config({
+	virtual_text = {
+		source = "always", -- Or "if_many"
+	},
+	float = {
+		source = "always", -- Or "if_many"
+	},
+})
 
--- Changing the color of the highlighting of the searching word (only this
--- location make this command work, conflicting with the tree-setter)
+-- ================== Change prefix/character preceding the diagnostics' virtual text ==================
+
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = "■", -- Could be '●', '▎', 'x'
+	},
+})
+
+-- ================== Highlight line number instead of having icons in sign column ==================
+vim.cmd([[
+  highlight DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+  highlight DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
+  highlight DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
+  highlight DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+]])
+
+-- ================== Highlight symobl under curosr ========================
+
+-- Setting for the multi-instance searching with /
 vim.cmd([[set hlsearch]])
 vim.cmd([[hi Search term=reverse guibg=peru guifg=wheat]])
-
--- Language server for R
--- I have installed first the language server supprot for R language.
-require("lspconfig").r_language_server.setup({
-	cmd = { "R", "--slave", "-e", "languageserver::run()" },
-})
-
--- Adding sql language server
--- Insure you installed first the sql-language serer with (npm i -g sql-language-server)
--- To know the location of the sql-language-server use (type, or which command)
-require'lspconfig'.sqlls.setup{
-  cmd = {"/usr/local/bin/sql-language-server", "up", "--method", "stdio"};
-  filetypes = { "sql", "mysql" }
-}
--- Kite server
-vim.cmd([[
-au User lsp_setup call lsp#register_server({'name': 'kite','cmd': '~/.local/share/kite/current/kite-lsp --editor=vim','whitelist': ["php", "javascript", "python", "bash"],\ })
-]])

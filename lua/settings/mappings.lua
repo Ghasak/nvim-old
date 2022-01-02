@@ -181,17 +181,17 @@ local t = function(str)
 	return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-_G.enhance_jk_move = function(key)
-	if packer_plugins["accelerated-jk"] and not packer_plugins["accelerated-jk"].loaded then
-		vim.cmd([[packadd accelerated-jk]])
-	end
-	local map = key == "j" and "<Plug>(accelerated_jk_gj)" or "<Plug>(accelerated_jk_gk)"
-	return t(map)
-end
-vim.cmd([[
-nmap j <plug>(accelerated_jk_gj_position)
-nmap k <plug>(accelerated_jk_gk_position)
-]])
+-- _G.enhance_jk_move = function(key)
+-- 	if packer_plugins["accelerated-jk"] and not packer_plugins["accelerated-jk"].loaded then
+-- 		vim.cmd([[packadd accelerated-jk]])
+-- 	end
+-- 	local map = key == "j" and "<Plug>(accelerated_jk_gj)" or "<Plug>(accelerated_jk_gk)"
+-- 	return t(map)
+-- end
+-- vim.cmd([[
+-- nmap j <plug>(accelerated_jk_gj_position)
+-- nmap k <plug>(accelerated_jk_gk_position)
+--]])
 --
 -- open a link in vim in browser: in linux use : xdg-open instead of open (for mac).
 -- source: " https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser "

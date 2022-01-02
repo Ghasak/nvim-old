@@ -1,4 +1,17 @@
-# Neovim and init configurations (build v.01)
+# Neovim and init configurations (build v.02)
+
+## What is new
+ As nvim is now updated to version 0.6 with a stable release, `nvim-telescope`
+ has not backword compatability. the `nvim-lsp` now become `nvim-diagonstics` a
+ built-in APIs which many other plugins are not supported yet. In this
+ repository, I have migrated to the new `version 0.6`, only the `lsp-saga` has
+ fixed, but still `lsp-signture` has not been updated yet (to be investigated
+ later).
+
+ - Now all packages are supported with the `NVIM v.06`.
+ - More compatibility issues are now fixed with the lsp-configs.
+ - Adding to  a `git` version contorl to `.local/share/nvim` which will not be pushed to the Github, just to retrieve any version to my current nvim IDE.
+ - Adding branches to the `~/.config/nvim/` , for each version, also a branch called `feature/dev` to check and try any new feature or package.
 
 ## Contents
 
@@ -538,6 +551,4 @@ I got the set of tpope plugins for developments, with debugging and dap for pyth
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
-
-
 
