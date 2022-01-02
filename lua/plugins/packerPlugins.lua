@@ -68,6 +68,8 @@ require("packer").startup({
 			end,
 		})
 
+		use({'williamboman/nvim-lsp-installer'})
+
 		use({
 			"ray-x/lsp_signature.nvim",
 			after = "nvim-lspconfig",
