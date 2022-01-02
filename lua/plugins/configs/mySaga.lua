@@ -1,8 +1,14 @@
 local M = {}
 
 M.conf = function()
-	vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
-
+  -- Old configuraitons
+	vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")    --  natviely  supported with  use('tami5/lspsaga.nvim')
+  -- New Configurations
+  -- You will likely want to reduce updatetime which affects CursorHold
+  -- note: this setting is global and should be set only once
+  -- if you want to keep the gleop/saga then we will use the buill-in diagnostic of nvim
+  vim.o.updatetime = 100
+  --vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]] -- Work but not using saga
 	local saga = require("lspsaga")
 	local vim = vim
 
@@ -12,7 +18,7 @@ M.conf = function()
 		warn_sign = "",
 		hint_sign = "",
 		infor_sign = "",
-		dianostic_header_icon = "   ",
+		diagnostic_header_icon = "   ",
 		code_action_icon = " ",
 		code_action_prompt = {
 			enable = true,
@@ -28,7 +34,7 @@ M.conf = function()
 			vsplit = "s",
 			split = "i",
 			quit = "q",
-			scroll_down = "<C-f>",
+			sroll_down = "<C-f>",
 			scroll_up = "<C-b>", -- quit can be a table
 		},
 		code_action_keys = {
@@ -108,6 +114,7 @@ M.conf = function()
 	vim.api.nvim_set_keymap("n", "gn", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>", {
 		silent = true,
 	})
+
 end
 
 return M

@@ -1,4 +1,17 @@
-
+--                          ░█████╗░░█████╗░██████╗░███████╗
+--                          ██╔══██╗██╔══██╗██╔══██╗██╔════╝
+--                          ██║░░╚═╝██║░░██║██████╔╝█████╗░░
+--                          ██║░░██╗██║░░██║██╔══██╗██╔══╝░░
+--                          ╚█████╔╝╚█████╔╝██║░░██║███████╗
+--                          ░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝
+--
+--             ██╗███╗░░██╗██╗████████╗██╗░█████╗░██╗░░░░░██╗███████╗███████╗██████╗░
+--             ██║████╗░██║██║╚══██╔══╝██║██╔══██╗██║░░░░░██║╚════██║██╔════╝██╔══██╗
+--             ██║██╔██╗██║██║░░░██║░░░██║███████║██║░░░░░██║░░███╔═╝█████╗░░██████╔╝
+--             ██║██║╚████║██║░░░██║░░░██║██╔══██║██║░░░░░██║██╔══╝░░██╔══╝░░██╔══██╗
+--             ██║██║░╚███║██║░░░██║░░░██║██║░░██║███████╗██║███████╗███████╗██║░░██║
+--             ╚═╝╚═╝░░╚══╝╚═╝░░░╚═╝░░░╚═╝╚═╝░░╚═╝╚══════╝╚═╝╚══════╝╚══════╝╚═╝░░╚═╝
+--
 local global = require 'core.global'
 local vim = vim
 
@@ -7,7 +20,7 @@ local init_modules = {
 	-- following options are the default
 	"core.global",
 	"core.event",
-	"plugins.packerInit",
+	"core.utils",
 	"plugins.packerPlugins",
 }
 
@@ -20,7 +33,7 @@ end
 
 -- ===========================================================================
 --                 Create Directories for Caching files
--- ===========================================================================a
+-- ===========================================================================
 local createdir = function()
 	-- This function is used to create cache directories for our nvim sessionn
 	local data_dir = {
@@ -39,7 +52,7 @@ end
 
 -- ===========================================================================
 --                      Disable distribution plugins
--- ===========================================================================a
+-- ===========================================================================
 
 local disable_distribution_plugins = function()
     vim.g.loaded_gzip = 1
@@ -104,19 +117,14 @@ vim.cmd[[au BufWritePre * :%s/\s\+$//e]]
 -- ===========================================================================
 
 local load_core = function()
-    createdir()
-    disable_distribution_plugins()
-    theme_loader()
+  -- call the leader map function
+  leader_map()
+	-- Create directorires for all the submodules and the necessary modules
+	createdir()
+	-- Disable distribution plugins default configurations
+  disable_distribution_plugins()
+	-- Adding theme loader to check for the them installation
+	theme_loader()
 end
 
 load_core()
-
-
-
-
-
-
-
-
-
-

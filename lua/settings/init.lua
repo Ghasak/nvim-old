@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 local init_modules = {
 	'settings.mappings',
 	'settings.options'
@@ -17,3 +10,6 @@ for _, module in ipairs(init_modules) do
     vim.notify('Error loading ' .. module .. '\n\n' .. err)
   end
 end
+
+
+
