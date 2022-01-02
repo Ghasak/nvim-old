@@ -34,7 +34,7 @@ local lsp_func = function(msg)
             end
         elseif buff_ft == "r" and server.name == "r" then
             return string.format("%s : r-langserver-server", server_icon)
-        elseif buff_ft == "markdown" and server.name == "html" then
+        elseif buff_ft == "markdown" and server.name == "ltex" then          -- For nvim 0.51, server.name is html, while for 0.6 it is latex
             return string.format("%s : markdown-langserver-server", server_icon)
         elseif buff_ft == "typescript" and server.name == "typescript" then
             return string.format("%s : typescript-langserver-server",

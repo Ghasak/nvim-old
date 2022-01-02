@@ -131,7 +131,7 @@ local servers = {
 	"tsserver", -- javascript language server.
 	"emmet_ls", -- Emmet Language server with JS
 	"sumneko_lua", -- Lua Language server
-	"ltex-ls", -- LaTeX  Language server for using latext with neovim
+	"ltex", -- LaTeX  Language server for using latext with neovim
 	"rust_analyzer", -- Rust Language server
 	"jsonls", -- JSON  language server
 	"julials", -- julia language server
@@ -298,9 +298,38 @@ local function setup_cpp()
 	})
 end
 
-setup_cpp()
 
--- ===========================================================================
+local function setup_textlab()
+	nvim_lsp.texlab.setup({
+		on_attach = custom_attach,
+		handlers = handlers,
+		settings = {
+			latex = {
+				rootDirectory = ".",
+				build = {
+					args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc" },
+					forwardSearchAfter = true,
+					onSave = true,
+				},
+				forwardSearch = {
+					executable = "zathura",
+					args = { "--synctex-forward", "%l:1:%f", "%p" },
+					onSave = true,
+				},
+			},
+		},
+	})
+end
+
+-----  call the special servers -------
+-- For CPP language server
+setup_cpp()
+-- For Latex language server better than latex, support to complie your markdonw file to pdf with zathura
+--setup_textlab() --- you need to install the  server on your machine check:
+--https://github.com/latex-lsp/texlab, also you will need Zathura compiled on
+--your machine, also check :
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md of texlab lsp
+--===========================================================================
 --                    LSP Deep configurations
 -- ===========================================================================
 -- For more details check:
