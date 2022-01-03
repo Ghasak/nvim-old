@@ -2,7 +2,7 @@
 
 -- Load all the sub modules under the core module
 local core_modules = {
-	"scripts.autoUpdatebuffer",
+  "scripts.autoUpdatebuffer",
   "scripts.myCommandWrapper",
   "scripts.myQuickTerminal"
 }

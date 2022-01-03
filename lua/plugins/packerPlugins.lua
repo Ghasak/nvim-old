@@ -726,6 +726,8 @@ lualine_loader()
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
 -- ===========================================================================
+-- This will allow to install all the treesitter at once, you can also use
+-- specific language as shown in the plugins.configs.mytreesitter.lua (not used)
 local configs = require("nvim-treesitter.configs")
 configs.setup({
     ensure_installed = "maintained", -- Only use parsers that are maintained
