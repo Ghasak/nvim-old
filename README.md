@@ -1,6 +1,6 @@
 # Neovim and init. configurations (build v.02)
 
-## What is new
+## What is new?
 
 As `nvim` is now updated to version 0.6 with a stable release, `nvim-telescope`
 has not backword compatibility. The `nvim-lsp` now become `nvim-diagonstics`
@@ -13,6 +13,19 @@ later).
 - More compatibility issues are now fixed with the lsp-configs.
 - Adding to a `git` version contorl to `.local/share/nvim` which will not be pushed to the Github, just to retrieve any version to my current nvim IDE.
 - Adding branches to the `~/.config/nvim/` , for each version, also a branch called `feature/dev` to check and try any new feature or package.
+
+### About Branch and Github
+Current working flow with my main repo is:
+Once you have updated your `main` branch (change, modified, create ..etc)
+1. On main branch, `git add --> git commit --> git push `, you will get your main in `remote` updated to the latest comments.
+2. Switch to the release branch currently I am using `nvim0.6` branch, using `git checkout nvim0.6`,
+- git merge main
+- git add -a
+- git commit -m "some message"
+- git push
+3. On GitHub main repo. you will see that your pull-request to merge with the main doesnt appear, the reson is that your `main branch` is identical copy to your `nvim0.6 branch`.
+
+
 
 ## Contents
 
