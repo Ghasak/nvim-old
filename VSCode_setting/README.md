@@ -2,6 +2,8 @@
 
 There are several steps are needed to accomplish this integration. Here is a quick summary on how to do so,
 
+![VSCode with Nvim 0.6](./SS-01.png)
+
 ## Install VSCode Neovim plugin
 
 Check the link Here
