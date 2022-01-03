@@ -20,7 +20,7 @@ The following configurations my lua with nvim as my daily-working environment.
 As now-days the main nvim development team are shifted completely to use lua
 instead of vim scripting.
 
-![Current versions view](./assets/SS-01.png)
+![Current versions view](./assets/SS-03.png)
 ![Packer Package Manager](./assets/SS-02.png)
 
 #### General notes
