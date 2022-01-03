@@ -3,7 +3,7 @@
 ## What is new
 
 As `nvim` is now updated to version 0.6 with a stable release, `nvim-telescope`
-has not backword backword compatibility. The `nvim-lsp` now become `nvim-diagonstics`
+has not backword compatibility. The `nvim-lsp` now become `nvim-diagonstics`
 built-in APIs which many other plugins are not supported yet. In this
 repository, I have migrated to the new `version 0.6`, only the `lsp-saga` has
 fixed, but still `lsp-signture` has not been updated yet (to be investigated
@@ -21,6 +21,7 @@ As now-days the main nvim development team are shifted completely to use lua
 instead of vim scripting.
 
 ![Current versions view](./assets/SS-01.png)
+![Packer Package Manager](./assets/SS-02.png)
 
 #### General notes
 
@@ -513,7 +514,7 @@ local extension = vim.fn.expand "%:F"
 
 Using a plugin `vim-table-mode` to create a nice table, need to remember the following
 
-- <leader>tm => is the trigger to the table in markdonw format (\*.md)
+- <leader> tm => is the trigger to the table in markdonw format (\*.md)
 
 #### How it works
 
@@ -530,8 +531,8 @@ Using a plugin `vim-table-mode` to create a nice table, need to remember the fol
 
 | name                        | address             | phone                                          |
 | --------------------------- | ------------------- | ---------------------------------------------- |
-| formulate the address first | for on the idea for | create the right table in material_design_dark |
-| This could                  | how about teh       | working on the second objectives               |
+| Formulate the address first | For on the idea for | Create the right table in material_design_dark |
+| This could                  | How about the       | Working on the second objectives               |
 
 ## References
 

@@ -1,4 +1,5 @@
 -----------------------------------------------------------------------------------------------------------------------
+--
 --                    ██████╗░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░
 --                    ██╔══██╗██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗
 --                    ██████╔╝███████║██║░░╚═╝█████═╝░█████╗░░██████╔╝
@@ -12,6 +13,7 @@
 --            ██║██║╚████║░╚═══██╗░░░██║░░░██╔══██║██║░░░░░██║░░░░░██╔══╝░░██╔══██╗
 --            ██║██║░╚███║██████╔╝░░░██║░░░██║░░██║███████╗███████╗███████╗██║░░██║
 --            ╚═╝╚═╝░░╚══╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝╚═╝░░╚═╝╗
+--
 -----------------------------------------------------------------------------------------------------------------------
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -523,7 +525,7 @@ require("packer").startup({
         use({"rhysd/accelerated-jk"})
     end,
 
-    -------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
     config = {
 
         ensure_dependencies = true, -- Should packer install plugin dependencies?
@@ -711,18 +713,21 @@ end
 -- ===========================================================================
 --               Fetching the startup packages
 -- ===========================================================================
+-- Sneak moving
 sneak_loader()
+-- blame git with the given code
 blamer_loader()
---undotree_loader()
+--undotree_loader()  -- This cause a problem with the current.
 myMarkdownTableMode_loader()
 -- Custom lualine for my own preferences compatable with Lua 0.6
 lualine_loader()
------------------------------------------------------------------------------------------------------------------------
 
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
 -- ===========================================================================
+-- This will allow to install all the treesitter at once, you can also use
+-- specific language as shown in the plugins.configs.mytreesitter.lua (not used)
 local configs = require("nvim-treesitter.configs")
 configs.setup({
     ensure_installed = "maintained", -- Only use parsers that are maintained
