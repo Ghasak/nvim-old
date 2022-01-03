@@ -713,7 +713,7 @@ end
 -- ===========================================================================
 sneak_loader()
 blamer_loader()
-undotree_loader()
+--undotree_loader()
 myMarkdownTableMode_loader()
 -- Custom lualine for my own preferences compatable with Lua 0.6
 lualine_loader()
