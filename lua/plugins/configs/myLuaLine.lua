@@ -1,5 +1,4 @@
 -- =================  LSP language server client ==========================
-
 local function env_cleanup(venv)
     if string.find(venv, "/") then
         local final_venv = venv
@@ -20,25 +19,23 @@ local lsp_func = function(msg)
     local buff_ft = vim.bo.filetype
     for _, client in pairs(clients) do table.insert(servers, client) end
     for _, server in ipairs(servers) do
-        if buff_ft == "lua" and server.name == "sumneko_lua" then -- For nvim 0.51 server.nam for lua is  lua, while for 0.6 it is sumneko_lua
-            return
-                string.format("%s : sumneko-lua-language-server", server_icon)
-        elseif buff_ft == "python" and server.name == "python" then
+        if buff_ft == "lua" and server.name == "sumneko_lua" then -- [lua] For nvim 0.51 server.nam for lua is  lua, while for 0.6 it is sumneko_lua
+            return string.format("%s : sumneko-lua-lsp", server_icon)
+        elseif buff_ft == "python" and server.name == "pyright" then --  [python] For nvim 0.51 serer.name is python , while for 0.6 it is now pyright
             -- regular virtualenv stored in variable VIRTUAL_ENV
             local venv = os.getenv("VIRTUAL_ENV")
             if venv ~= nil then
-                return string.format("%s-%s: pyright-langserver", server_icon,
+                return string.format("%s-%s: pyright-lsp", server_icon,
                                      env_cleanup(venv))
             else
-                return string.format("%s: pyright-langserver", server_icon)
+                return string.format("%s: pyright-lsp", server_icon)
             end
         elseif buff_ft == "r" and server.name == "r" then
-            return string.format("%s : r-langserver-server", server_icon)
-        elseif buff_ft == "markdown" and server.name == "ltex" then          -- For nvim 0.51, server.name is html, while for 0.6 it is latex
-            return string.format("%s : markdown-langserver-server", server_icon)
+            return string.format("%s : R-lsp", server_icon)
+        elseif buff_ft == "markdown" and server.name == "ltex" then -- [Markdown] For nvim 0.51, server.name is html, while for 0.6 it is latex
+            return string.format("%s : markdown-lsp", server_icon)
         elseif buff_ft == "typescript" and server.name == "typescript" then
-            return string.format("%s : typescript-langserver-server",
-                                 server_icon)
+            return string.format("%s : typescript-lsp", server_icon)
         else
             return string.format("%s : %s-langserver-server",
                                  server_icon_not_not_known, buff_ft)
