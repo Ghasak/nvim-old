@@ -52,8 +52,8 @@ end
 -- Function to show the full path in nvim when you open a given file
 local function show_full_path()
 	local file = vim.fn.expand("%:p")
-	print(file)
+	vim.notify(file)
 end
 
--- show_full_path()
+show_full_path()
 
