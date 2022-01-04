@@ -7,19 +7,19 @@
 -- ███████╗██║░░██║██║░╚███║╚██████╔╝╚██████╔╝██║░░██║╚██████╔╝███████╗  ██████╔╝███████╗██║░░██║░░╚██╔╝░░███████╗██║░░██║
 -- ╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░░╚═════╝░╚═╝░░╚═╝░╚═════╝░╚══════╝  ╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
 --
---                     ██████╗░██████╗░░█████╗░████████╗░█████╗░░█████╗░░█████╗░██╗░░░░░░██████╗  ░░░░░░
---                     ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔════╝  ░░░░░░
---                     ██████╔╝██████╔╝██║░░██║░░░██║░░░██║░░██║██║░░╚═╝██║░░██║██║░░░░░╚█████╗░  █████╗
---                     ██╔═══╝░██╔══██╗██║░░██║░░░██║░░░██║░░██║██║░░██╗██║░░██║██║░░░░░░╚═══██╗  ╚════╝
---                     ██║░░░░░██║░░██║╚█████╔╝░░░██║░░░╚█████╔╝╚█████╔╝╚█████╔╝███████╗██████╔╝  ░░░░░░
---                     ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░░╚════╝░░╚════╝░╚══════╝╚═════╝░  ░░░░░░
+--                  ██████╗░██████╗░░█████╗░████████╗░█████╗░░█████╗░░█████╗░██╗░░░░░░██████╗  ░░░░░░
+--                  ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║░░░░░██╔════╝  ░░░░░░
+--                  ██████╔╝██████╔╝██║░░██║░░░██║░░░██║░░██║██║░░╚═╝██║░░██║██║░░░░░╚█████╗░  █████╗
+--                  ██╔═══╝░██╔══██╗██║░░██║░░░██║░░░██║░░██║██║░░██╗██║░░██║██║░░░░░░╚═══██╗  ╚════╝
+--                  ██║░░░░░██║░░██║╚█████╔╝░░░██║░░░╚█████╔╝╚█████╔╝╚█████╔╝███████╗██████╔╝  ░░░░░░
+--                  ╚═╝░░░░░╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░░╚════╝░░╚════╝░╚══════╝╚═════╝░  ░░░░░░
 --
---                     ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░░██████╗
---                     ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░██╔════╝
---                     ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░╚█████╗░
---                     ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗░╚═══██╗
---                     ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██████╔╝
---                     ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═════╝░
+--                            ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░░██████╗
+--                            ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░██╔════╝
+--                            ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░╚█████╗░
+--                            ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗░╚═══██╗
+--                            ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝██████╔╝
+--                            ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░╚═════╝░
 -- --
 -- ===========================================================================
 --  0.      Checking all the necessary loaded libraries for LSP
@@ -48,8 +48,13 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- ===========================================================================
 --  1.                Custom attach for the langauge server
 -- ===========================================================================
+-- Check :
+-- 1. https://github.com/neovim/nvim-lspconfig/tree/feat/tcp-support
+-- 2. http://118.127.101.89/ashleyis/dotfiles/src/branch/master/private_dot_config/nvim/lua/config/lsp.lua
+-- 3. https://github.com/neovim/nvim-lspconfig/issues/836
+-- 4. [Still many things to be investigated] https://github.com/LunarVim/Neovim-from-scratch/tree/06-LSP/lua/user/lsp
 
-local function custom_attach()
+local function custom_attach(client, bufnr)
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
@@ -105,18 +110,21 @@ local function custom_attach()
 	--             the  language server that support such highlight, right now
 	--             javascript, R, and SQL are not supported
 	-----------------------------------------------------------------------------------
+	-- Set autocommands conditional on server_capabilities
 	-- check :
 	-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
-	--   vim.cmd [[
-	--      highlight LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-	--      highlight LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-	--      highlight LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-	--      augroup lsp_document_highlight
-	--        autocmd! * <buffer>
-	--        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-	--        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	--      augroup END
-	--    ]]
+	if client.resolved_capabilities.document_highlight then
+		vim.cmd([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]])
+	end
 end
 
 -- ===========================================================================
@@ -297,7 +305,6 @@ local function setup_cpp()
 		},
 	})
 end
-
 
 local function setup_textlab()
 	nvim_lsp.texlab.setup({
