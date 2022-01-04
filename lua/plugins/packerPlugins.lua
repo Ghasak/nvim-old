@@ -25,12 +25,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the packerPlugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packerPlugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost packerPlugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -481,6 +481,13 @@ require("packer").startup({
         -- adding (+/-) for diff, in the Gutter      -- Not compatable with the nvim-diagnostics  in nvim 0.6
         --use({"mhinz/vim-signify"})
 
+          -- Git
+        use ({"lewis6991/gitsigns.nvim",
+        config = function()
+            require("plugins.configs.myGit")
+        end
+            })
+
         -- ===========================================================================
         --                         For Editor
         -- ===========================================================================
@@ -738,3 +745,6 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
+
+
+
