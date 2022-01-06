@@ -95,6 +95,7 @@ require("packer").startup({
                 require("core.utils").packer_lazy_load("vim-matchup")
             end
         })
+        use({"onsails/lspkind-nvim"})
         -- load luasnips + cmp related in insert mode only
         -- snippets
 
@@ -106,6 +107,7 @@ require("packer").startup({
                 require("plugins.configs.others").luasnip()
             end
         })
+        use({"SirVer/ultisnips"})
 
         use({
             "hrsh7th/nvim-cmp",
