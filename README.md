@@ -3,7 +3,7 @@
 ## What is new?
 
 As `nvim` is now updated to version 0.6 with a stable release, `nvim-telescope`
-has not backword compatibility. The `nvim-lsp` now become `nvim-diagonstics`
+has a none back-word compatibility. The `nvim-lsp` now become `nvim-diagonstics`
 built-in APIs which many other plugins are not supported yet. In this
 repository, I have migrated to the new `version 0.6`, only the `lsp-saga` has
 fixed, but still `lsp-signture` has not been updated yet (to be investigated
@@ -126,7 +126,7 @@ The current configurations are mixed common keys between my old configurations w
       compile)
 - [ ] Adding auto commenting lines, and multi-cursors support
 - [ ] Save session with nvim.
-- [ ] Debugging support.
+- [x] Debugging support.
 
 #### Setup Lua, that already I transfer from previous vim with coc-setting.
 
@@ -352,7 +352,7 @@ with a flag `--vimpath=nvim`, also packer profile with `:PackerProfile profile=t
 - **Note**:
   Usually, I change (.git) to (.git.when_ready_to_upload) or what
   ever, as i noticed the git affect the performance of my configuration
-  (init.lua), the time increase at least 100 msec
+  (init.lua), the time increase at least 100 msec.
 
 ''''''
 
@@ -363,7 +363,7 @@ with a flag `--vimpath=nvim`, also packer profile with `:PackerProfile profile=t
   packadd for nvim-lspinstall took 1.211138ms
   Config for bufferline.nvim took 1.012205ms
 ```
-- Applying a stress test for the lanucning time for nvim 0.6 with the new configurations `Thus. Jan. 6th 2022`.
+- Applying a stress test for the launching time for nvim 0.6 with the new configurations `Thus. Jan. 6th 2022`.
 ```bash
 # Applying
 ╰ for ((i = 1; i < 10; i++)); do echo "\ue741 \uf432  Trial no. ${i}\n"; vim-startuptime --vimpath=nvim | head -n 4 | grep "Total Average"; done                                                                                                                                                                     祥:7.193s  [   Jan 06, 2022-   1:56:20 PM]
@@ -447,3 +447,4 @@ Using a plugin `vim-table-mode` to create a nice table, need to remember the fol
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
