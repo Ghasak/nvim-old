@@ -100,13 +100,15 @@ The current configurations are mixed common keys between my old configurations w
 | 40  | gy                       | re-mapping to lsp-config for show references                                                                                          |
 | 41  | grr                      | form lspsaga replace the work with a given sentence.                                                                                  |            |
 | 42  | leader t+m               | Activite the table mode                                                                                                               |            |
-| 43  | leader b+n               | Open terminal horiontally                                                                                                             |            |
+| 43  | leader b+n               | Open terminal horizontally                                                                                                            |            |
+| 44  | leader g d               | go to definition in nvim-lsp built-in, while (g d) will be using lspSaga                                                              |            |
+| 45  | g  h                     | hover with lspsaga, while F1 hover using nvim-lsp built-in.                                                                           |            |
 
 ---
 
 ### Requirements
 
-- [x] Support native lua-lsp with nvim 5.0+
+- [x] Support native lua-lsp with nvim 6.0+
   - IntelIncense (very very ), several plugins I have implemented ()
   - Diagnostic for errors, hover on error, show implementation, jump to definition, code action suggestions (Lspsaga and lsp-)
 - [x] All language servers that I need on daily basis, (lua, python, R , javaScript, shell, rust and C++)
@@ -157,7 +159,7 @@ What usually we want from our configurations is the following items:
 
 You will need the following necessary packages
 
-- Nvim 5.0+ currently I have a problem with 6.0, so shifted to use 5.0+,
+- Nvim 6.0+ currently I have a problem with 6.0, so shifted to use 6.0+,
   - We need some dependencies that comes with the installed version by the
     brew, but I will not use the nvim that comes with the nvim, so after
     install the dependencies, I can remove the nvim 6.0.
