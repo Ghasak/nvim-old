@@ -113,17 +113,21 @@ local function custom_attach(client, bufnr)
 	-- Set autocommands conditional on server_capabilities
 	-- check :
 	-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+	-- passing here a HEX color for light gray assume the terminal supports termguicolors
+	-- Read about color scheme here:
+	-- https://vi.stackexchange.com/questions/9754/how-to-change-vim-background-color-in-hex-code-or-rgb-color-code
+
 	if client.resolved_capabilities.document_highlight then
 		vim.cmd([[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]])
+			      hi LspReferenceRead cterm=bold ctermbg=red guibg=#505050
+			      hi LspReferenceText cterm=bold ctermbg=red guibg=#505050
+			      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#505050
+			      augroup lsp_document_highlight
+				autocmd! * <buffer>
+				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+			      augroup end
+			]])
 	end
 end
 
