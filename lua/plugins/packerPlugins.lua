@@ -747,6 +747,3 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
-
-
-

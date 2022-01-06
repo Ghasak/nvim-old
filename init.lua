@@ -49,7 +49,7 @@ for _, module in ipairs(init_modules) do
 	end
 end
 
--- Configurations of the neovide IDE
+-- Configurations of the Neovide IDE
 require("units.neovideConfig").neovide_config()
 
 -- Function to show the full path in nvim when you open a given file
@@ -59,3 +59,4 @@ local function show_full_path()
 end
 
 show_full_path()
+
