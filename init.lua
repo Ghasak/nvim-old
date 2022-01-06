@@ -41,13 +41,16 @@
 ----------------------------------------------------------------------------------------------------------------------
 -- Notice setting has to come before core,  as the  ruler highlight color will
 -- be reset by the server diagonstic in the core from packerPackgeInit/config.
-local init_modules = { "settings", "core", "scripts" }
+local init_modules = { "settings", "core", "scripts"}
 for _, module in ipairs(init_modules) do
 	local ok, err = pcall(require, module)
 	if not ok then
 		error("Error in loading modules ...< " .. module .. " > " .. "\n\n" .. err)
 	end
 end
+
+-- Configurations of the neovide IDE
+require("units.neovideConfig").neovide_config()
 
 -- Function to show the full path in nvim when you open a given file
 local function show_full_path()
