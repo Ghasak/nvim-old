@@ -53,6 +53,18 @@ require("packer").startup({
         use({"sainnhe/gruvbox-material"})
 
         -- ==========================================================================
+        -- 	                      Utilities for NVIM IDE Env
+        -- ===========================================================================
+        use({
+            "lewis6991/impatient.nvim",
+            --rocks = 'mpack',
+            config = function()
+                require("plugins.configs.myImpatient")
+            end
+
+        })
+
+        -- ==========================================================================
         -- 	                      Programming Language Servers
         -- ===========================================================================
         -- Treesitter
@@ -98,11 +110,12 @@ require("packer").startup({
         use({"onsails/lspkind-nvim"})
         -- load luasnips + cmp related in insert mode only
         -- snippets
+        use({"rafamadriz/friendly-snippets"}) -- a bunch of snippets to use
 
         use({
             "L3MON4D3/LuaSnip",
             -- snippet engine
-            wants = "friendly-snippets",
+            -- wants = "friendly-snippets",
             config = function()
                 require("plugins.configs.others").luasnip()
             end
@@ -135,10 +148,10 @@ require("packer").startup({
             after = "cmp-nvim-lsp"
         })
 
-        use({
-            "rafamadriz/friendly-snippets",
-            after = "cmp-buffer"
-        })
+        -- use({
+        --     "rafamadriz/friendly-snippets",
+        --     after = "cmp-buffer"
+        -- })
         use({
             "hrsh7th/cmp-calc",
             after = "cmp-buffer"
@@ -481,14 +494,13 @@ require("packer").startup({
             end
         })
         -- adding (+/-) for diff, in the Gutter      -- Not compatable with the nvim-diagnostics  in nvim 0.6
-        --use({"mhinz/vim-signify"})
+        -- use({"mhinz/vim-signify"})
 
-          -- Git
-        use ({"lewis6991/gitsigns.nvim",
-        config = function()
-            require("plugins.configs.myGit")
-        end
-            })
+        -- Git
+        use({
+            "lewis6991/gitsigns.nvim",
+            config = function() require("plugins.configs.myGit") end
+        })
 
         -- ===========================================================================
         --                         For Editor
@@ -534,16 +546,19 @@ require("packer").startup({
         use({"rhysd/accelerated-jk"})
     end,
 
------------------------------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------------------
     config = {
 
         ensure_dependencies = true, -- Should packer install plugin dependencies?
         package_root = require("packer.util").join_paths(vim.fn.stdpath("data"),
                                                          "site", "pack"),
-        compile_path = require("packer.util").join_paths(vim.fn
-                                                             .stdpath("config"),
+        -- Old implementation without impatient plugins
+        compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"),
                                                          "plugin",
                                                          "packer_compiled.lua"),
+        -- Check impatient plugin for more details
+        -- Move to lua dir so impatient.nvim can cache it
+        --compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"),'/lua/packer_compiled.lua'),
         plugin_package = "packer", -- The default package for plugins
         max_jobs = nil, -- Limit the number of simultaneous jobs. nil means no limit
         auto_clean = true, -- During sync(), remove unused plugins
@@ -726,7 +741,7 @@ end
 sneak_loader()
 -- blame git with the given code
 blamer_loader()
---undotree_loader()  -- This cause a problem with the current.
+-- undotree_loader()  -- This cause a problem with the current.
 myMarkdownTableMode_loader()
 -- Custom lualine for my own preferences compatable with Lua 0.6
 lualine_loader()
@@ -747,3 +762,7 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/rewritten/main
