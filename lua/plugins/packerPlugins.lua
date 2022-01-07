@@ -57,7 +57,7 @@ require("packer").startup({
         -- ===========================================================================
         use({
             "lewis6991/impatient.nvim",
-            rocks = 'mpack',
+            --rocks = 'mpack',
             config = function()
                 require("plugins.configs.myImpatient")
             end

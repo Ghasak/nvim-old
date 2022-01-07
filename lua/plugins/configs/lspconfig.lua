@@ -1,5 +1,4 @@
 ----------------------------------------------------------------------------------------------------------------------
-
 -- ██╗░░░░░░█████╗░███╗░░██╗░██████╗░██╗░░░██╗░█████╗░░██████╗░███████╗  ░██████╗███████╗██████╗░██╗░░░██╗███████╗██████╗░
 -- ██║░░░░░██╔══██╗████╗░██║██╔════╝░██║░░░██║██╔══██╗██╔════╝░██╔════╝  ██╔════╝██╔════╝██╔══██╗██║░░░██║██╔════╝██╔══██╗
 -- ██║░░░░░███████║██╔██╗██║██║░░██╗░██║░░░██║███████║██║░░██╗░█████╗░░  ╚█████╗░█████╗░░██████╔╝╚██╗░██╔╝█████╗░░██████╔╝
@@ -66,7 +65,10 @@ local function custom_attach(client, bufnr)
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
-	local opts = { noremap = true, silent = true }
+	local opts = {
+		noremap = true,
+		silent = true,
+	}
 
 	-- Native LSP with Lua
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -91,17 +93,28 @@ local function custom_attach(client, bufnr)
 	--          The above keymapping will be overwritten by lsp-saga
 	-----------------------------------------------------------------------------------
 	-- Allow saga to do its magic (show diagnostic on hover of the line with error)
-	--vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
+	-- vim.api.nvim_command("autocmd CursorHold * Lspsaga show_line_diagnostics")
 	require("plugins.configs.mysaga").conf()
+	-----------------------------------------------------------------------------------
+	--          							lsp signture with nvim
+	-----------------------------------------------------------------------------------
 	require("lsp_signature").on_attach({
 		bind = true,
 		use_lspsaga = false,
 		floating_window = true,
 		fix_pos = true,
 		hint_enable = true,
-		hi_parameter = "Search",
-		handler_opts = { "double" },
+		hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
 		hint_prefix = "      ", -- Panda for parameter
+		-- hi_parameter = "Search",
+		-- handler_opts = { "double" },
+		handler_opts = {
+			border = "rounded",
+		}, -- double, rounded, single, shadow, none},
+		shadow_blend = 36, -- if you using shadow as border use this set the opacity
+		shadow_guibg = "Black", -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+		auto_close_after = 100, -- autoclose signature float win after x sec, disabled if nil.
+		timer_interval = 100, -- default timer check interval set to lower value if you want to reduce latency
 	})
 
 	-----------------------------------------------------------------------------------
@@ -182,8 +195,12 @@ local border = {
 
 -- LSP settings (for overriding per client)
 local handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		border = border,
+	}),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+		border = border,
+	}),
 }
 
 -- ===========================================================================
@@ -271,6 +288,9 @@ end)
 -- I have installed first the language server supprot for R language.
 require("lspconfig").r_language_server.setup({
 	cmd = { "R", "--slave", "-e", "languageserver::run()" },
+	handlers = handlers,
+	on_attach = custom_attach,
+	capabilities = capabilities,
 })
 -- Adding sql language server
 -- Insure you installed first the sql-language serer with (npm i -g sql-language-server)
@@ -318,7 +338,12 @@ local function setup_textlab()
 			latex = {
 				rootDirectory = ".",
 				build = {
-					args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-pvc" },
+					args = {
+						"-pdf",
+						"-interaction=nonstopmode",
+						"-synctex=1",
+						"-pvc",
+					},
 					forwardSearchAfter = true,
 					onSave = true,
 				},
@@ -332,33 +357,54 @@ local function setup_textlab()
 	})
 end
 
-
-
 -- julia language server
-require'lspconfig'.julials.setup{
-    filetypes = { "julia" },
-    single_file_support = true
-}
+require("lspconfig").julials.setup({
+	settings = {
+		filetypes = { "julia" },
+		handlers = handlers,
+		on_attach = custom_attach,
+		capabilities = capabilities,
+
+		-- server_path = "$HOME/.julia/packages/LanguageServer/y1ebo/src/",
+		single_file_support = true,
+		cmd = {
+			"julia",
+			"--startup-file=no",
+			"--history-file=no",
+			"-e",
+			'    # Load LanguageServer.jl: attempt to load from ~/.julia/environments/nvim-lspconfig\n    # with the regular load path as a fallback\n    ls_install_path = joinpath(\n        get(DEPOT_PATH, 1, joinpath(homedir(), ".julia")),\n        "environments", "nvim-lspconfig"\n    )\n    pushfirst!(LOAD_PATH, ls_install_path)\n    using LanguageServer\n    popfirst!(LOAD_PATH)\n    depot_path = get(ENV, "JULIA_DEPOT_PATH", "")\n    project_path = let\n        dirname(something(\n            ## 1. Finds an explicitly set project (JULIA_PROJECT)\n            Base.load_path_expand((\n                p = get(ENV, "JULIA_PROJECT", nothing);\n                p === nothing ? nothing : isempty(p) ? nothing : p\n            )),\n            ## 2. Look for a Project.toml file in the current working directory,\n            ##    or parent directories, with $HOME as an upper boundary\n            Base.current_project(),\n            ## 3. First entry in the load path\n            get(Base.load_path(), 1, nothing),\n            ## 4. Fallback to default global environment,\n            ##    this is more or less unreachable\n            Base.load_path_expand("@v#.#"),\n        ))\n    end\n    @info "Running language server" VERSION pwd() project_path depot_path\n    server = LanguageServer.LanguageServerInstance(stdin, stdout, project_path, depot_path)\n    server.runlinter = true\n    run(server)\n  ',
+		},
+	},
+})
 
 -----  call the special servers -------
 -- For CPP language server
 setup_cpp()
 -- For Latex language server better than latex, support to complie your markdonw file to pdf with zathura
---setup_textlab() --- you need to install the  server on your machine check:
---https://github.com/latex-lsp/texlab, also you will need Zathura compiled on
---your machine, also check :
+-- setup_textlab() --- you need to install the  server on your machine check:
+-- https://github.com/latex-lsp/texlab, also you will need Zathura compiled on
+-- your machine, also check :
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md of texlab lsp
---===========================================================================
+-- ===========================================================================
 --                    LSP Deep configurations
 -- ===========================================================================
 -- For more details check:
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
 -- ================= Change the lsp icons gutter of diagnostics ==============
 -- Change the icons of the gutter of the diagnostics based on the neovim diagonsitc built-in APIs.
-local signs = { Error = "", Information = "כֿ", Hint = "", Warn = "" }
+local signs = {
+	Error = "",
+	Information = "כֿ",
+	Hint = "",
+	Warn = "",
+}
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+	vim.fn.sign_define(hl, {
+		text = icon,
+		texthl = hl,
+		numhl = hl,
+	})
 end
 
 -- =================  Customizing how diagnostics are displayed ==============
