@@ -14,7 +14,7 @@ later).
 - Adding to a `git` version contorl to `.local/share/nvim` which will not be pushed to the Github, just to retrieve any version to my current nvim IDE.
 - Adding branches to the `~/.config/nvim/` , for each version, also a branch called `feature/dev` to check and try any new feature or package.
 
-### About Branch and Github
+### About Branch and Github,
 Current working flow with my main repo is:
 Once you have updated your `main` branch (change, modified, create ..etc)
 1. On main branch, `git add --> git commit --> git push `, you will get your main in `remote` updated to the latest comments.
@@ -23,7 +23,7 @@ Once you have updated your `main` branch (change, modified, create ..etc)
 - git add -a
 - git commit -m "some message"
 - git push
-3. On GitHub main repo. you will see that your pull-request to merge with the main doesnt appear, the reson is that your `main branch` is identical copy to your `nvim0.6 branch`.
+3. On GitHub main repo. you will see that your pull-request to merge with the main doesn't appear, the reson is that your `main branch` is identical copy to your `nvim0.6 branch`.
 
 
 

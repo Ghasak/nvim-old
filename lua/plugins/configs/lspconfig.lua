@@ -263,7 +263,7 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 -- ===========================================================================
---                   Custom Language Server
+--                   Custom Language Server (CLS)
 -- ===========================================================================
 -- These are the language servers for programming language not shown in the
 -- above list.
@@ -331,6 +331,14 @@ local function setup_textlab()
 		},
 	})
 end
+
+
+
+-- julia language server
+require'lspconfig'.julials.setup{
+    filetypes = { "julia" },
+    single_file_support = true
+}
 
 -----  call the special servers -------
 -- For CPP language server
