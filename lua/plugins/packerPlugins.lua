@@ -269,6 +269,7 @@ require("packer").startup({
         use({"rcarriga/nvim-dap-ui"})
         use({"Pocco81/DAPInstall.nvim"})
         use({"jbyuki/one-small-step-for-vimkind"})
+        use ({'nvim-telescope/telescope-dap.nvim'})
 
         -- ===========================================================================
         -- 	                       Aesthetics Plugins
