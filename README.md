@@ -50,6 +50,12 @@ instead of `init.vim` with vim scripting.
 ![Current versions view](./assets/SS-03.png)
 ![Packer Package Manager](./assets/SS-02.png)
 
+## Debugging Support
+I have added the most requested feature of `nvim0.6` with debugging support, right now I have finished:
+- [x] python debugger with `nvim-dap`, as shown below
+![python debugger with `nvim-dap`](./assets/SS-04.png)
+
+
 #### General notes
 
 The current configurations are a mix of common keys from my old configurations
