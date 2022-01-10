@@ -32,6 +32,8 @@ end
 
 vim.opt.completeopt = "menuone,noselect"
 
+
+
 -- nvim-cmp setup
 cmp.setup({
     snippet = {
@@ -51,12 +53,12 @@ cmp.setup({
 
             vim_item.menu = ({
                 -- nvim_lsp = "[LSP]",
-                nvim_lsp = "[曆 LSP]",
+                nvim_lsp = "[憐 LSP]",
                 nvim_lua = "[  Lua]",
                 buffer = "[﬘  BUF]",
                 ultisnips = "[   UltiSnips]",
                 cmp_tabnine = "[  TabNine]",
-                look = "[Look]",
+                look = "[  Look]",
                 path = "[  Path]",
                 spell = "[暈 Spell]",
                 calc = "[  Calc]",
@@ -112,7 +114,7 @@ cmp.setup({
             end
         end, {"i", "s"}),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
+           if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
@@ -236,3 +238,26 @@ cmp.setup({
 vim.api.nvim_exec([[
 autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 ]], false)
+
+--                            █▀▀ █▀▄▀█ █▀█ ▄▄ █▀▀ █▀▄▀█ █▀▄ █░░ █ █▄░█ █▀▀
+--                            █▄▄ █░▀░█ █▀▀ ░░ █▄▄ █░▀░█ █▄▀ █▄▄ █ █░▀█ ██▄
+--
+-- https://github.com/hrsh7th/cmp-cmdline
+-- Completions for command mode:
+-- it seems <C-j> and <C-k> don't work, and that the setting of cmp doesnt pass
+-- to the (:) and (/) events.
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+cmp.setup.cmdline(":", {
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+})
+
+

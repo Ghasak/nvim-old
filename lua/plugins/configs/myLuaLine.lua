@@ -271,10 +271,8 @@ return {
         lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
-            {
-                scrollbar,
-                separator = nil
-            }, {"% ʟ %l/%L c %c"}
+            {"% ʟ %l/%L c %c"},
+            {scrollbar, separator = nil},
         }
     },
     inactive_sections = {

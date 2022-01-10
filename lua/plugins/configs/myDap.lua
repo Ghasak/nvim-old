@@ -19,13 +19,7 @@
 --                 █▀▄ █▀▀ █▄▄ █░█ █▀▀ █▀▀ █ █▄░█ █▀▀   █▄▀ █▀▀ █▄█   █▀▄▀█ ▄▀█ █▀█ █▀█ █ █▄░█ █▀▀
 --                 █▄▀ ██▄ █▄█ █▄█ █▄█ █▄█ █ █░▀█ █▄█   █░█ ██▄ ░█░   █░▀░█ █▀█ █▀▀ █▀▀ █ █░▀█ █▄█
 --
-local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+local map = require("core.utils").keymapping
 
 map("n", "<leader>db", ':lua require"dap".toggle_breakpoint()<CR>')
 map("n", "<leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
@@ -67,6 +61,8 @@ require("nvim-dap-virtual-text").setup()
 -- - `DapBreakpointRejected`, defaults to `R` for breakpoints which the debug
 --   adapter rejected.
 
+local venv = os.getenv("VIRTUAL_ENV")
+local dap = require("dap")
 require("dap").set_log_level("INFO")
 dap.defaults.fallback.terminal_win_cmd = "80vsplit new"
 
@@ -84,9 +80,6 @@ vim.fn.sign_define("DapLogPoint", { text = "", texthl = "blue", linehl = "", 
 -- cd .virtualenvs
 -- python -m venv debugpy
 -- debugpy/bin/python -m pip install debugpy
-local venv = os.getenv("VIRTUAL_ENV")
-
-local dap = require("dap")
 dap.adapters.python = {
 	type = "executable",
 	-- Adding the current directory with the virtualenv that created with python
@@ -172,3 +165,6 @@ require("dapui").setup({
 	},
 	windows = { indent = 1 },
 })
+
+
+

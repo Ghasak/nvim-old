@@ -57,11 +57,10 @@ require("packer").startup({
         -- ===========================================================================
         use({
             "lewis6991/impatient.nvim",
-            --rocks = 'mpack',
+            -- rocks = 'mpack',
             config = function()
                 require("plugins.configs.myImpatient")
             end
-
         })
 
         -- ==========================================================================
@@ -269,7 +268,7 @@ require("packer").startup({
         use({"rcarriga/nvim-dap-ui"})
         use({"Pocco81/DAPInstall.nvim"})
         use({"jbyuki/one-small-step-for-vimkind"})
-        use ({'nvim-telescope/telescope-dap.nvim'})
+        use({"nvim-telescope/telescope-dap.nvim"})
 
         -- ===========================================================================
         -- 	                       Aesthetics Plugins
@@ -279,12 +278,13 @@ require("packer").startup({
         -- Using gruvbox theme
         use("morhetz/gruvbox")
         use({"tpope/vim-fugitive"})
-        --		use({ "vim-airline/vim-airline" })
-        -- status line built with lua
+        -- use({ "vim-airline/vim-airline" })
+        -- --status line built with lua
         --		use({
         --			"shadmansaleh/lualine.nvim",
         --			requires = { "kyazdani42/nvim-web-devicons", opt = true },
         --		})
+        use('vim-airline/vim-airline-themes')
 
         use({
             "nvim-lualine/lualine.nvim",
@@ -368,6 +368,12 @@ require("packer").startup({
         -- Delete a buffer and keep your opened windows intact
         -- Bdelete == bd (buffer delete)
         use({"famiu/bufdelete.nvim"})
+
+        -- Adding notification for nvim
+        use({
+            "rcarriga/nvim-notify",
+            config = function() require("plugins.configs.myNotify") end
+        })
 
         -- ===========================================================================
         --           Navigation and Searching
@@ -470,6 +476,18 @@ require("packer").startup({
             end
         })
 
+        -- alpha for welcome message of nvim
+        use({
+            "goolord/alpha-nvim",
+            requires = {"kyazdani42/nvim-web-devicons"},
+            config = function()
+                require("alpha").setup(require("alpha.themes.startify").opts)
+            end
+        })
+
+        -- Startify
+        use({"mhinz/vim-startify"})
+
         -- vim-eftt (highlight the f/t/F/T mappings)
         -- Source, https://github.com/hrsh7th/vim-eft
         use({
@@ -503,9 +521,21 @@ require("packer").startup({
             config = function() require("plugins.configs.myGit") end
         })
 
+        -- Git Diff
+        use({
+            "sindrets/diffview.nvim",
+            requires = "nvim-lua/plenary.nvim",
+            config = function() require("plugins.configs.myGitDiff") end,
+            cmd = {
+                "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles",
+                "DiffviewFocusFiles"
+            }
+        })
+
         -- ===========================================================================
         --                         For Editor
         -- ===========================================================================
+        -- Allow making tables in Markup-language (*.md) files.
         use({"dhruvasagar/vim-table-mode"})
         -- ===========================================================================
         --                          Other Plugins
@@ -554,12 +584,13 @@ require("packer").startup({
         package_root = require("packer.util").join_paths(vim.fn.stdpath("data"),
                                                          "site", "pack"),
         -- Old implementation without impatient plugins
-        compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"),
+        compile_path = require("packer.util").join_paths(vim.fn
+                                                             .stdpath("config"),
                                                          "plugin",
                                                          "packer_compiled.lua"),
         -- Check impatient plugin for more details
         -- Move to lua dir so impatient.nvim can cache it
-        --compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"),'/lua/packer_compiled.lua'),
+        -- compile_path = require("packer.util").join_paths(vim.fn.stdpath("config"),'/lua/packer_compiled.lua'),
         plugin_package = "packer", -- The default package for plugins
         max_jobs = nil, -- Limit the number of simultaneous jobs. nil means no limit
         auto_clean = true, -- During sync(), remove unused plugins
@@ -648,8 +679,7 @@ local path = require("packer.util").join_paths(vim.fn.stdpath("data"), "plugin",
 
 local function sneak_loader()
     local sneak_package_path = "/site/pack/packer/start/vim-sneak"
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. sneak_package_path
+    install_path = fn.stdpath("data") .. sneak_package_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] Sneak library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
@@ -665,8 +695,7 @@ end
 
 local function blamer_loader()
     local blamer_package_path = "/site/pack/packer/start/blamer.nvim"
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. blamer_package_path
+    install_path = fn.stdpath("data") .. blamer_package_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] Blamer library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
@@ -683,8 +712,7 @@ end
 
 local function undotree_loader()
     local undotree_package_path = "/site/pack/packer/start/undotree"
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. undotree_package_path
+    install_path = fn.stdpath("data") .. undotree_package_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] UndoTree library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
@@ -701,8 +729,7 @@ end
 
 local function lualine_loader()
     local lualine_package_path = "/site/pack/packer/start/lualine.nvim"
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. lualine_package_path
+    install_path = fn.stdpath("data") .. lualine_package_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] lualine library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
@@ -724,8 +751,7 @@ end
 local function myMarkdownTableMode_loader()
     local myMarkdownTableMode_package_path =
         "/site/pack/packer/start/vim-table-mode"
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. myMarkdownTableMode_package_path
+    install_path = fn.stdpath("data") .. myMarkdownTableMode_package_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] myMarkdownTableMode_package_path library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
@@ -735,6 +761,41 @@ local function myMarkdownTableMode_loader()
         require("plugins.configs.myMarkdownTableMode")
     end
 end
+
+-- ===========================================================================
+--                     Startify Config Lancher
+-- ===========================================================================
+-- To check if the startify plugin has been already installed
+local function myStartifyConfigLauncher()
+    local startify_plugin_path = "/site/pack/packer/start/vim-startify"
+    install_path = fn.stdpath("data") .. startify_plugin_path
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+        vim.api.nvim_command(
+            ([[echohl WarningMsg | echomsg "[+] Startify library at :%s is not existed, will be installed after packer sync and compiled ." | echohl None]]):format(
+                install_path))
+    else
+        -- Configure the startify table plugin
+        require("plugins.configs.myStarify")
+    end
+
+end
+-- ===========================================================================
+--                     Loading my custom Quote random generator.
+-- ===========================================================================
+
+local function myQuoteConfigLauncher()
+    local nvim_notify_loader_path = "/site/pack/packer/start/nvim-notify"
+    install_path = fn.stdpath("data") ..nvim_notify_loader_path
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+        vim.api.nvim_command(
+            ([[echohl WarningMsg | echomsg "[+] Nvim Notify library for my Quote generator at :%s is not existed, will be installed after packer sync and compiled ." | echohl None]]):format(
+                install_path))
+    else
+        -- Configure the quote table plugin
+        require("plugins.configs.myQuote")
+    end
+
+end
 -- ===========================================================================
 --               Fetching the startup packages
 -- ===========================================================================
@@ -742,11 +803,14 @@ end
 sneak_loader()
 -- blame git with the given code
 blamer_loader()
--- undotree_loader()  -- This cause a problem with the current.
+undotree_loader() -- This cause a problem with the current.
 myMarkdownTableMode_loader()
 -- Custom lualine for my own preferences compatable with Lua 0.6
 lualine_loader()
-
+-- myStarify  config launcher
+myStartifyConfigLauncher()
+-- myQuote Configuration loader
+myQuoteConfigLauncher()
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
@@ -763,4 +827,3 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
-
