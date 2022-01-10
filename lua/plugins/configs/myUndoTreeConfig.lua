@@ -18,7 +18,7 @@ if has("persistent_undo")
     set undofile
 endif
 
-nnoremap <leader>u :UndotreeShow<CR>
+"nnoremap <leader>u :UndotreeShow<CR>     " Note This will cause problemm wiht nvim-tree <leader>e => <leader>u, simply comment this part only, problemm already solved,
 
 "=================================================
 " File: plugin/undotree.vim

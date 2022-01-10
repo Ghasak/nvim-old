@@ -43,32 +43,37 @@
 -- Notice setting has to come before core,  as the  ruler highlight color will
 -- be reset by the server diagonstic in the core from packerPackgeInit/config.
 vim.g.start_time = vim.fn.reltime()
--- Helper function for loading sub-modules
-local function load_module(mod_name)
-    local ok, err = pcall(require, mod_name)
-    if not ok then
-        local msg = "failed loading: " .. mod_name .. "\n " .. err
-        vim.notify(msg, "error")
-    end
+local load_module = require("core.utils").load_module
+-- initalize the impatient to speed up the loading
+local impatient_loaded_succeed = pcall(require, "impatient")
+if impatient_loaded_succeed  then
+    require("plugins.configs.myImpatient")
 end
 
--- initalize the impatient to speed up the loading
-if load_module("impatient") then require("plugins.configs.myImpatient") end
 -- initalize the pre-defined modules of all setting and configurations
-local init_modules = {"settings", "core", "scripts"}
+local init_modules = {"settings", "core", "scripts" , "units.neovideConfig", "plugins.configs.myDap"}
 for _, module in ipairs(init_modules) do
     load_module(module)
 end
 
 -- Configurations of the Neovide IDE
-require("units.neovideConfig").neovide_config()
+--require("units.neovideConfig").neovide_config()
+
+-- Module of debugging with lsp
+--require("plugins.configs.myDap")
+
 
 -- Function to show the full path in nvim when you open a given file
 local function show_full_path()
     local file = vim.fn.expand("%:p")
+    local async =require("plenary.async")
+    local notify =require("notify").async
     --vim.notify(file)
-    vim.notify(string.format("Initializing file: %s at %s ... ", file, os.date("%H:%M:%S")), "trace")
+    async.run(function()
+        local messege = string.format(" %s at %s ... ", file, os.date("%H:%M:%S"))
+        notify(messege, "INFO", {title = " Initializing file"})
+    end)
 end
 
 show_full_path()
-require("plugins.configs.myDap")
+

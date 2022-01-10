@@ -472,12 +472,13 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
 ## References
 
-- [Reference Num -1-](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
-  - Got the tab complelation for the cmp pluging
-  - Got the neovide configuration if the neovide buffer is launched, instead of sourcing, can be found in (options)
-- [Reference Num -2-](https://github.com/alpha2phi/dotfiles/blob/main/config/nvim/lua/plugins.lua)
+- [CMP module](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
+  - Got the tab completion for the `cmp` plugin.
+  - Got the `neovide` configuration if the `neovide` buffer is launched, instead of sourcing, can be found in (options)
+- [lua plugins configs](https://github.com/alpha2phi/dotfiles/blob/main/config/nvim/lua/plugins.lua)
   I got the set of tpope plugins for developments, with debugging and dap for python and other language-server.
-- [Julia Language Reference] (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#julials)
+- [Julia Language Reference](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#julials)
+- [lsp language server configurations](https://github.com/itstheandre/config/blob/620fee79d77711001903d6d751c08c71c198c8b4/nvim/.config/nvim/lua/andre/lsp/language_servers.lua)
 
 ```sh
 -- Debugging

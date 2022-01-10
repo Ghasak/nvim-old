@@ -116,6 +116,12 @@ local function custom_attach(client, bufnr)
 		auto_close_after = 100, -- autoclose signature float win after x sec, disabled if nil.
 		timer_interval = 100, -- default timer check interval set to lower value if you want to reduce latency
 	})
+	-- Set some keybinds conditional on server capabilities
+	if client.resolved_capabilities.document_formatting then
+		buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	elseif client.resolved_capabilities.document_range_formatting then
+		buf_set_keymap("n", "ff", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+	end
 
 	-----------------------------------------------------------------------------------
 	--             This will highlight the soope and words instances in the code
@@ -161,6 +167,14 @@ local servers = {
 	"jsonls", -- JSON  language server
 	"julials", -- julia language server
 	"yamlls", -- YAML  language server
+	"html", -- html language server
+	"cssls", -- css language server
+	-- "ls_emmet",
+	"svelte",
+	"dockerls",
+	"graphql",
+	"tailwindcss",
+	-- "ansiblels",
 }
 
 for _, name in pairs(servers) do
@@ -297,6 +311,8 @@ require("lspconfig").r_language_server.setup({
 -- To know the location of the sql-language-server use (type, or which command)
 require("lspconfig").sqlls.setup({
 	cmd = { "/usr/local/bin/sql-language-server", "up", "--method", "stdio" },
+	on_attach = custom_attach,
+	handlers = handlers,
 	filetypes = { "sql", "mysql" },
 })
 
@@ -359,13 +375,11 @@ end
 
 -- julia language server
 require("lspconfig").julials.setup({
+	on_attach = custom_attach,
+	capabilities = capabilities,
 	settings = {
 		filetypes = { "julia" },
 		handlers = handlers,
-		on_attach = custom_attach,
-		capabilities = capabilities,
-
-		-- server_path = "$HOME/.julia/packages/LanguageServer/y1ebo/src/",
 		single_file_support = true,
 		cmd = {
 			"julia",
@@ -444,7 +458,7 @@ vim.cmd([[
   highlight DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
 ]])
 
--- ================== Highlight symobl under curosr ========================
+-- ================== Highlight symbols with (/) search command event ========================
 
 -- Setting for the multi-instance searching with /
 vim.cmd([[set hlsearch]])
