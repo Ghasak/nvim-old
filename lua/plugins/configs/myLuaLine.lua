@@ -57,6 +57,24 @@ local check_git = function()
     return result
 end
 
+
+-- ================== check copilot if its installed and enabled =============
+local function copilot_status()
+
+    local copilot_icon_loaded = "   ﮧ "
+    local copilot_icon_not_loaded = "   ﮧ "
+
+    if vim.fn.exists("g:copilot_enabled") == 1 then
+        if (vim.inspect(vim.api.nvim_get_var('copilot_enabled')) == "true") then
+            -- return true if copilot is installed and set to be enabled
+            return string.format("%s",copilot_icon_loaded)
+        else
+            return string.format("%s",copilot_icon_not_loaded )
+
+        end
+end
+end
+
 -- =================  Branch checking ==========================
 local colors = {
     bg = "#202328",
@@ -157,8 +175,12 @@ local scrollbar = function()
 
     -- local chars = { "", "", "", "", "", "", "▆▆", "▇▇", "██" }
     -- local chars = { " ", " ", " ", " ", " ", " ", " ", " ", " " , " ", " ", " ", " "}
+    -- local chars = {
+    --     " ", " ", " ", " ", " ", " ", " ", " ", " "
+    -- }
     local chars = {
-        " ", " ", " ", " ", " ", " ", " ", " ", " "
+        "  __", "  ▁▁", "  ▂▂", "  ▃▃", "  ▄▄",
+        "  ▅▅", "  ▆▆", "  ▇▇", "  ██"
     }
     local line_ratio = current_line / total_lines
     local index = math.ceil(line_ratio * #chars)
@@ -271,8 +293,11 @@ return {
         lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
-            {"% ʟ %l/%L c %c"},
-            {scrollbar, separator = nil},
+            {copilot_status},
+            {"% ʟ %l/%L c %c"}, {
+                scrollbar,
+                separator = nil
+            }
         }
     },
     inactive_sections = {

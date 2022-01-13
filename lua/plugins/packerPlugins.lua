@@ -270,6 +270,12 @@ require("packer").startup({
         use({"jbyuki/one-small-step-for-vimkind"})
         use({"nvim-telescope/telescope-dap.nvim"})
 
+
+        -- Copilot AI
+        -- Technical review of copilot, an AI solution built on top of openAI
+        -- Davincie.
+        use({"github/copilot.vim"})
+
         -- ===========================================================================
         -- 	                       Aesthetics Plugins
         -- ===========================================================================
