@@ -190,21 +190,21 @@ require("packer").startup({
         })
 
         -- sidebar.nvim
-        use({
-            "sidebar-nvim/sidebar.nvim",
-            config = function()
-                require("sidebar-nvim").setup({
-                    disable_default_keybindings = 0,
-                    bindings = nil,
-                    open = false,
-                    side = "right",
-                    initial_width = 35,
-                    update_interval = 1000,
-                    sections = {"datetime", "git-status", "lsp-diagnostics"},
-                    section_separator = "-----"
-                })
-            end
-        })
+        -- use({
+        --     "sidebar-nvim/sidebar.nvim",
+        --     config = function()
+        --         require("sidebar-nvim").setup({
+        --             disable_default_keybindings = 0,
+        --             bindings = nil,
+        --             open = false,
+        --             side = "right",
+        --             initial_width = 35,
+        --             update_interval = 1000,
+        --             sections = {"datetime", "git", "diagnostics"},
+        --             section_separator = "-----"
+        --         })
+        --     end
+        -- })
 
         -- Code running
         use({
@@ -380,6 +380,8 @@ require("packer").startup({
             "rcarriga/nvim-notify",
             config = function() require("plugins.configs.myNotify") end
         })
+
+        -- Context that shows the currently visible buffer contents.
 
         -- ===========================================================================
         --           Navigation and Searching

@@ -506,6 +506,12 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
   I got the set of tpope plugins for developments, with debugging and dap for python and other language-server.
 - [Julia Language Reference](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#julials)
 - [lsp language server configurations](https://github.com/itstheandre/config/blob/620fee79d77711001903d6d751c08c71c198c8b4/nvim/.config/nvim/lua/andre/lsp/language_servers.lua)
+- [ASCII Arts I](https://asciiart.website/index.php?art=comics/batman)
+- [ASCII Arts II](https://curlie.org/en/Arts/Visual_Arts/ASCII_Art/Collections)
+- [ASCII Arts III](https://www.wikiwand.com/en/ASCII_art#/Non_fixed-width_ASCII)
+- [Getting starting using lua with Neovim](https://giters.com/mrowegawd/nvim-lua-guide)
+- How to program a status line in lua
+- [How I Made My NEOVIM STATUSLINE IN LUA](https://elianiva.my.id/post/neovim-lua-statusline)
 
 ```sh
 -- Debugging
