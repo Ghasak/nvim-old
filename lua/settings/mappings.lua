@@ -51,7 +51,7 @@ noremap <silent> <C-j> <c-w>j
 
 ]])
 -- Explorer with Nvim-tree( ensure first the undotree is not toggled )
-vim.api.nvim_set_keymap("n", "<Leader>e", ":<cmd>:UndotreeHide<CR>:NvimTreeToggle<CR>", {
+vim.api.nvim_set_keymap("n", "<Leader>e", ":SymbolsOutline<CR>:<cmd>UndotreeHide<CR>:NvimTreeToggle<CR>", {
 	noremap = true,
 	silent = true,
 })

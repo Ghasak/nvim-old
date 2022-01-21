@@ -32,6 +32,7 @@ The current working flow to address such updates with my `main` repo is:
 
 2. Switch to the release branch currently I am using the `nvim0.6` branch, using
    `git checkout nvim0.6`,
+
   - git merge main
   - git add -a
   - git commit -m "some message"
@@ -54,6 +55,28 @@ instead of `init.vim` with vim scripting.
 I have added the most requested feature of `nvim0.6` with debugging support, right now I have finished:
 - [x] python debugger with `nvim-dap`, as shown below
 ![python debugger with `nvim-dap`](./assets/SS-04.png)
+
+## Features to be developed
+This section will be dedicated to show new feature for my new `nvim` IDE.
+### Implement OpenAI
+- This is to be investigated later, as I need to pay for `openAi` for the amount
+of all `token` with `DaVinci` model. Simply use the `nvim.magic` to get the
+backend of the integration with `openAi`.
+  - Maybe you can use `GPT-3’s free alternative`
+
+### Implement GitHub Copilot
+The `Github Copilot` is built on top of `openAi` `DaVinci` model, I am already
+in the technical preview, and my `Github` account is already connected with the
+`copilot`. Steps that I followed are mainly from the repository of `GitHub
+copilot`. I remapped the `TAB` to `leader TAB` to not affect any other
+plugins' workflow.
+
+### Implementation of Remote Server IDE
+
+Check
+- [Explanation](https://www.youtube.com/watch?v=wVAsbpByQ3o&ab_channel=senkwich)
+- [distance](https://github.com/chipsenkbeil/distant)
+- [distance.nvim](https://github.com/chipsenkbeil/distant.nvim)
 
 
 #### General notes
@@ -182,7 +205,9 @@ Things to be included in my current developed branch.
 - [x] `Tab` configurations.
 - [x] Moving block of code on request.
 - [x] Navigate using `ctrl + j` and `k` for `omini-windows`.
-- [x] Installing `CCC-Server`, but not conflict with our `nvim-lspconfig` language-servers, (this feature is not required anymore with `lsp-config.lua`).
+- [x] Installing `CCC-Server`, but not conflict with our `nvim-lspconfig`
+  language-servers, (this feature is not required anymore with
+  `lsp-config.lua`).
 
 #### Things to be considered
 
@@ -263,26 +288,26 @@ vim.cmd[[let g:clap_theme = 'material_design_dark']]
 - Simply changed the color of the background to fit my terminal.
 
 ```sh
-" Author: liuchengxu <xuliuchengxlc@gmail.com>
-" Description: Clap theme based on the material_design_dark theme."
-let s:save_cpo = &cpoptions
-set cpoptions&vim
-let s:palette = {}
-let s:palette.display = { 'ctermbg': '235', 'guibg': '#424242' }
-" Let ClapInput, ClapSpinner and ClapSearchText use the same background.
-let s:bg0 = { 'ctermbg': '60', 'guibg': '#424242' }
-let s:palette.input = s:bg0
-let s:palette.indicator = extend({ 'ctermfg': '238', 'guifg':'#676b83' }, s:bg0)
-let s:palette.spinner = extend({ 'ctermfg': '11', 'guifg':'#ffe500', 'cterm': 'bold', 'gui': 'bold'}, s:bg0)
-let s:palette.search_text = extend({ 'ctermfg': '195', 'guifg': '#CADFF3', 'cterm': 'bold', 'gui': 'bold' }, s:bg0)
-let s:palette.preview = { 'ctermbg': '238', 'guibg': '#424242' }
-let s:palette.selected = { 'ctermfg': '81', 'guifg': '#5FD7d7', 'cterm': 'bold,underline', 'gui': 'bold,underline' }
-let s:palette.current_selection = { 'ctermbg': '236', 'guibg': '#31364D', 'cterm': 'bold', 'gui': 'bold' }
-let s:palette.selected_sign = { 'ctermfg': '196', 'guifg': '#f2241f' }
-let s:palette.current_selection_sign = s:palette.selected_sign
-let g:clap#themes#material_design_dark#palette = s:palette
-let &cpoptions = s:save_cpo
-unlet s:save_cpo
+  " Author: liuchengxu <xuliuchengxlc@gmail.com>
+  " Description: Clap theme based on the material_design_dark theme."
+  let s:save_cpo = &cpoptions
+  set cpoptions&vim
+  let s:palette = {}
+  let s:palette.display = { 'ctermbg': '235', 'guibg': '#424242' }
+  " Let ClapInput, ClapSpinner and ClapSearchText use the same background.
+  let s:bg0 = { 'ctermbg': '60', 'guibg': '#424242' }
+  let s:palette.input = s:bg0
+  let s:palette.indicator = extend({ 'ctermfg': '238', 'guifg':'#676b83' }, s:bg0)
+  let s:palette.spinner = extend({ 'ctermfg': '11', 'guifg':'#ffe500', 'cterm': 'bold', 'gui': 'bold'}, s:bg0)
+  let s:palette.search_text = extend({ 'ctermfg': '195', 'guifg': '#CADFF3', 'cterm': 'bold', 'gui': 'bold' }, s:bg0)
+  let s:palette.preview = { 'ctermbg': '238', 'guibg': '#424242' }
+  let s:palette.selected = { 'ctermfg': '81', 'guifg': '#5FD7d7', 'cterm': 'bold,underline', 'gui': 'bold,underline' }
+  let s:palette.current_selection = { 'ctermbg': '236', 'guibg': '#31364D', 'cterm': 'bold', 'gui': 'bold' }
+  let s:palette.selected_sign = { 'ctermfg': '196', 'guifg': '#f2241f' }
+  let s:palette.current_selection_sign = s:palette.selected_sign
+  let g:clap#themes#material_design_dark#palette = s:palette
+  let &cpoptions = s:save_cpo
+  unlet s:save_cpo
 ```
 
 ## Checking my key-mapping with
@@ -408,13 +433,15 @@ local filename = vim.fn.expand "%:t"
 local extension = vim.fn.expand "%:e"
 local extension = vim.fn.expand "%:f"
 local extension = vim.fn.expand "%:F"
+#  This will get us the full path
+local file = vim.fn.expand("%:p")
 ```
 
 ## Table mode in nvim
 
 Using a plugin `vim-table-mode` to create a nice table, need to remember the following
 
-- <leader> tm => is the trigger to the table in markdonw format (\*.md)
+- <leader> tm => is the trigger to the table in markdown format (\*.md)
 
 #### How it works
 
@@ -444,7 +471,7 @@ Using a plugin `vim-table-mode` to create a nice table, need to remember the fol
 
 Installing the `Julia-lsp` needs, read from the references `Julia Language Reference`.
 
-- [Julia Language Server] (https://github.com/julia-vscode/julia-vscode)
+- [Julia Language Server](https://github.com/julia-vscode/julia-vscode)
 
 `LanguageServer.jl` can be installed with `julia` and `Pkg`:
 
@@ -479,6 +506,12 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
   I got the set of tpope plugins for developments, with debugging and dap for python and other language-server.
 - [Julia Language Reference](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#julials)
 - [lsp language server configurations](https://github.com/itstheandre/config/blob/620fee79d77711001903d6d751c08c71c198c8b4/nvim/.config/nvim/lua/andre/lsp/language_servers.lua)
+- [ASCII Arts I](https://asciiart.website/index.php?art=comics/batman)
+- [ASCII Arts II](https://curlie.org/en/Arts/Visual_Arts/ASCII_Art/Collections)
+- [ASCII Arts III](https://www.wikiwand.com/en/ASCII_art#/Non_fixed-width_ASCII)
+- [Getting starting using lua with Neovim](https://giters.com/mrowegawd/nvim-lua-guide)
+- How to program a status line in lua
+- [How I Made My NEOVIM STATUSLINE IN LUA](https://elianiva.my.id/post/neovim-lua-statusline)
 
 ```sh
 -- Debugging

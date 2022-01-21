@@ -46,32 +46,27 @@ vim.g.start_time = vim.fn.reltime()
 local load_module = require("core.utils").load_module
 -- initalize the impatient to speed up the loading
 local impatient_loaded_succeed = pcall(require, "impatient")
-if impatient_loaded_succeed  then
-    require("plugins.configs.myImpatient")
-end
+if impatient_loaded_succeed then require("plugins.configs.myImpatient") end
 
 -- initalize the pre-defined modules of all setting and configurations
-local init_modules = {"settings", "core", "scripts" , "units.neovideConfig", "plugins.configs.myDap"}
-for _, module in ipairs(init_modules) do
-    load_module(module)
-end
-
--- Configurations of the Neovide IDE
---require("units.neovideConfig").neovide_config()
-
--- Module of debugging with lsp
---require("plugins.configs.myDap")
-
+local init_modules = {
+    "settings", "core", "scripts", "units.neovideConfig",
+    "plugins.configs.myDap", "plugins.configs.myCopilot"
+}
+for _, module in ipairs(init_modules) do load_module(module) end
 
 -- Function to show the full path in nvim when you open a given file
 local function show_full_path()
     local file = vim.fn.expand("%:p")
-    local async =require("plenary.async")
-    local notify =require("notify").async
-    --vim.notify(file)
+    local async = require("plenary.async")
+    local notify = require("notify").async
+    -- vim.notify(file)
     async.run(function()
-        local messege = string.format(" %s at %s ... ", file, os.date("%H:%M:%S"))
-        notify(messege, "INFO", {title = " Initializing file"})
+        local messege = string.format(" %s at %s ... ", file,
+                                      os.date("%H:%M:%S"))
+        notify(messege, "INFO", {
+            title = " Initializing file"
+        })
     end)
 end
 

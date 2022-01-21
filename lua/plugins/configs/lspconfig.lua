@@ -137,10 +137,11 @@ local function custom_attach(client, bufnr)
 	-- https://vi.stackexchange.com/questions/9754/how-to-change-vim-background-color-in-hex-code-or-rgb-color-code
 
 	if client.resolved_capabilities.document_highlight then
+		-- gray color =>  #505050
 		vim.cmd([[
-			      hi LspReferenceRead cterm=bold ctermbg=red guibg=#505050
-			      hi LspReferenceText cterm=bold ctermbg=red guibg=#505050
-			      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#505050
+			      hi LspReferenceRead cterm=bold ctermbg=black guibg=#FAFF7F
+			      hi LspReferenceText cterm=bold ctermbg=black guibg=#505050
+			      hi LspReferenceWrite cterm=bold ctermbg=black guibg=#E5989B
 			      augroup lsp_document_highlight
 				autocmd! * <buffer>
 				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
