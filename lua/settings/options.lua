@@ -251,6 +251,13 @@ end
 -- require("units.neovideConfig").neovide_config()
 
 -----------------------------------------------------------
+--          Glow for Markdown
+-----------------------------------------------------------
+vim.g.glow_border = "rounded"
+vim.g.glow_width = 200
+--vim.g.glow_use_pager = true
+--vim.g.glow_style = "light"
+-----------------------------------------------------------
 --          Air Line Configurations
 -----------------------------------------------------------
 -- You will need (Airline installed, all the rest configurations are written in native vim)
