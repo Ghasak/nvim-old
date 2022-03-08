@@ -48,3 +48,6 @@ python3 -m install --upgrade pynvim
 "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
 "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/VSCode_setting/init.vim"
 ```
+
+## References
+-[How to integrate python with vscode nvim](https://www.reddit.com/r/neovim/comments/i65pwd/no_python3_provider_found_run_checkhealth_provider/)
