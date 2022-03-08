@@ -28,6 +28,20 @@ ln -s ~/dev/bin/nvim  /usr/local/bin/nvim
 
 you will add the following in the `VSCode Setting file`,
 
+## For Virtualenv or a new python
+To ensure things are working you need to install `pynvim` integrated with the python that you are working on
+I usuaully use
+
+### For Global python
+```shell
+python3 -m install --user --upgrade pynvim
+```
+### For virtualenv python
+this will work for both `pipenv` or `virtualenv`
+```shell
+python3 -m install --upgrade pynvim
+```
+
 ```shell
 "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
 # This one is not needed //"vscode-neovim.neovimExecutablePaths.darwin": " /Users/ghasak.ibrahim/dev/bin/nvim",
