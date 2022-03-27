@@ -126,4 +126,11 @@ nnoremap J :m .+1<CR>==
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap J :m '>+1<CR>gv=gv
 
-
+"##################################################
+"        Auto-formatting for Nvim V.6.1+
+"##################################################
+if has("termguicolors")     " set true colors
+    set t_8f=\[[38;2;%lu;%lu;%lum
+    set t_8b=\[[48;2;%lu;%lu;%lum
+    set termguicolors
+endif
