@@ -1,4 +1,4 @@
-# Neovim Configurations File (build v.02)
+# Neovim Configurations File (build v.01)
 
 ## What is new?
 
@@ -497,6 +497,19 @@ To install the `intractive REPL` of Julia with `jupyter` you can use, inside
 the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
 
+## How to capitalize and unCapitalize in nvim
+
+```shell
+Using the keybinding
+g + u : for first letter capitalize
+g + U : for capitalize all the letters
+g + ~ : to switch between the capitlal to small letter and viceversa.
+
+bonus
+g + U 3 w will do for 3 words a head and captilze each word.
+```
+
+
 ## References
 
 - [CMP module](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
@@ -525,4 +538,5 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
 

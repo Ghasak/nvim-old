@@ -71,5 +71,4 @@ local function show_full_path()
 end
 
 
-
 show_full_path()

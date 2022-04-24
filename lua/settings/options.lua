@@ -47,6 +47,14 @@ vim.cmd([[
 ]])
 --
 -----------------------------------------------------------
+--              Spelling and dictionary
+-----------------------------------------------------------
+vim.cmd([[
+    set spell
+    set spelllang=en_us
+    "set spellfile = /usr/share/myspell/en_US.dic
+]])
+-----------------------------------------------------------
 --              Cursor shape
 -----------------------------------------------------------
 -- cmd[[set guicursor=a:/iCursor-blinkon40-blinkoff40-blinkwait10]]   -- To change the  cursor options such as the size and blinking, not used at the moment
