@@ -274,7 +274,9 @@ return {
     options = {
         theme = "gruvbox",
         icons_enabled = true,
-        disabled_filetypes = {"dashboard", "NvimTree", "Outline"}
+        disabled_filetypes = {"dashboard", "NvimTree", "Outline"},
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
     },
     sections = {
 
@@ -311,3 +313,4 @@ return {
     tabline = {},
     extensions = {}
 }
+
