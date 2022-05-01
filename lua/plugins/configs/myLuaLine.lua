@@ -40,6 +40,9 @@ local lsp_func = function(msg)
             return string.format("%s : javascript-lsp", server_icon)
         elseif buff_ft == "julia" and server.name == "julials" then
             return string.format("%s : Julia-lsp", server_icon)
+        -- Define  C++ language server
+        elseif buff_ft == "cpp" and server.name == "clangd" then
+            return string.format("%s : cpp-lsp", server_icon)
         else
             return string.format("%s : %s-lsp*", server_icon_not_not_known,
                                  buff_ft)
@@ -275,8 +278,9 @@ return {
         theme = "gruvbox",
         icons_enabled = true,
         disabled_filetypes = {"dashboard", "NvimTree", "Outline"},
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+
+        --component_separators = { left = '', right = ''},
+        -- section_separators = { left = '', right = ''},
     },
     sections = {
 

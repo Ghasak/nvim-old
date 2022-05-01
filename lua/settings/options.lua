@@ -54,6 +54,7 @@ vim.cmd([[
     set spelllang=en_us
     "set spellfile = /usr/share/myspell/en_US.dic
 ]])
+vim.cmd("set dictionary+=/usr/share/dict/words")
 -----------------------------------------------------------
 --              Cursor shape
 -----------------------------------------------------------

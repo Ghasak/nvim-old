@@ -538,5 +538,3 @@ g + U 3 w will do for 3 words a head and captilze each word.
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
-
-
