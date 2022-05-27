@@ -40,9 +40,11 @@ cmp.setup({
         expand = function(args) require("luasnip").lsp_expand(args.body) end
     },
 
-    documentation = {
-        border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}
+    window={
+
+    bordered= {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}
     },
+
     formatting = {
         fields = {"kind", "abbr", "menu"},
         format = function(entry, vim_item)

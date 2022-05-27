@@ -42,6 +42,15 @@ The current working flow to address such updates with my `main` repo is:
    main doesn't appear, the reason is that your `main branch` becomes an
    identical copy to our `nvim0.6 branch`.
 
+## Update history
+I have upgraded my `nvim` to version `7.0` which is the latest to 20,
+simply need to change the following
+
+```shell
+window.documention => cmp.config.window.bordered()
+
+```
+
 ## Contents
 The following configurations are based on `lua` with `nvim` as my daily-working
 environment. Nowadays, the main `nvim` developers team have recommended using
