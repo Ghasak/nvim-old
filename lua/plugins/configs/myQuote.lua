@@ -267,5 +267,5 @@ local notify =require("notify").async
 --vim.notify(file)
 async.run(function()
     local messege = QUOTS[x]
-    notify(messege, "TRACE", {title = " Ranom Science Quote ... "})
+    notify(messege, "INFO", {title = " Ranom Science Quote ... "})
 end)
