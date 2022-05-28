@@ -19,7 +19,7 @@ M.Style = function()
     " Add a shadow window, value is equal to 100 will disable shadow
     let g:rnvimr_shadow_winblend = 70
     " Draw border with both
-    let g:rnvimr_ranger_cmd = 'ranger --cmd="set draw_borders both"'
+    let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
     " Link CursorLine into RnvimrNormal highlight in the Floating window
     highlight link RnvimrNormal CursorLine
     "nnoremap <silent> <M-o> :RnvimrToggle<CR>
