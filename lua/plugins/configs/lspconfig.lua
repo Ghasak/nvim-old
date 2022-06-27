@@ -175,6 +175,7 @@ local servers = {
 	"dockerls",
 	"graphql",
 	"tailwindcss",
+	"textlab", -- textlab language server for latex writing
 	-- "ansiblels",
 }
 

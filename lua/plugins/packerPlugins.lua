@@ -545,6 +545,9 @@ require("packer").startup({
         -- ===========================================================================
         -- Allow making tables in Markup-language (*.md) files.
         use({"dhruvasagar/vim-table-mode"})
+        -- For latex to preview lively the pdf while editing
+        use("xuhdev/vim-latex-live-preview")
+
         -- ===========================================================================
         --                          Other Plugins
         -- ===========================================================================
@@ -771,7 +774,7 @@ local function myMarkdownTableMode_loader()
 end
 
 -- ===========================================================================
---                     Startify Config Lancher
+--                     Startify Config launcher
 -- ===========================================================================
 -- To check if the startify plugin has been already installed
 local function myStartifyConfigLauncher()

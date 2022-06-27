@@ -108,7 +108,7 @@ local function check_to_show_copilot_status_in_lualine_statusbar()
     end
 end
 
-copilot_plugin_enabled_check()
+-- copilot_plugin_enabled_check()
 -- print(check_to_show_copilot_status_in_lualine_statusbar())
 --print(vim.inspect(vim.api.nvim_get_var('copilot_enabled')))
 --print(check_to_show_copilot_status_in_lualine_statusbar())

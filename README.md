@@ -23,6 +23,12 @@ are, to name few:
 - Adding branches to the `~/.config/nvim/`, for each version, also a branch
   called `feature/dev` to check and try any new feature or package.
 
+### Nvim in nutshell
+You will always need to configure
+1. Packer for new library/package
+2. LSInstall to get the language sever setup and configurations.
+3. tree-sitter for getting the syntax highlighting with much better way.
+
 ### About Branch and GitHub
 Once you have updated the `main` branch (change, modify, create ... etc.)
 The current working flow to address such updates with my `main` repo is:
@@ -135,7 +141,7 @@ with `COC and COC-LSP` and my current one with `nvim-lsp`.
 | 22  | :leader + ,              | To open the configuration file (init.vim)                                                                                             |            |
 | 23  | :leader + e              | Open coc-explorer better than nerdTree                                                                                                |            |
 | 24  | :leader + u              | UndoTree                                                                                                                              |            |
-| 25  | using F5                 | Open `ipython` and run the script you have                                                                                              |            |
+| 25  | using F5                 | Open `ipython` and run the script you have                                                                                            |            |
 | 26  | :index                   | To see all key maps                                                                                                                   |            |
 | 27  | F1                       | See hover of definition with coc                                                                                                      |            |
 | 28  | d0 or d^                 | Delete to beginning of line from the cursor position                                                                                  |            |
@@ -145,17 +151,18 @@ with `COC and COC-LSP` and my current one with `nvim-lsp`.
 | 32  | c + s + " + '            | this will work as change the surrender (you need a plugin)                                                                            |            |
 | 33  | :Markdown_preview        | Toggle markdown using browser (not like glow)                                                                                         |
 | 34  | double ""                | in normal mode (double ") will give us the terminal of the register                                                                   |
-| 35  | :SymbolOutlines          | Open the symbol-outline menu for fast coding movements                                                                                 |
+| 35  | :SymbolOutlines          | Open the symbol-outline menu for fast coding movements                                                                                |
 | 36  | :Trouble                 | Code diagnostic with nice layouts                                                                                                     |
 | 37  | :Ctrl-\                  | open quick terminal written in lua super fast.                                                                                        |
 | 38  | ~                        | changing the letter (Capital to small letter)                                                                                         |
 | 39  | gr                       | replace with register yanking then paste (repeatable)                                                                                 |
 | 40  | gy                       | re-mapping to lsp-config for show references                                                                                          |
 | 41  | grr                      | form lspsaga replace the work with a given sentence.                                                                                  |            |
-| 42  | leader t+m               | `Activite` the table mode                                                                                                               |            |
+| 42  | leader t+m               | `Activite` the table mode                                                                                                             |            |
 | 43  | leader b+n               | Open terminal horizontally                                                                                                            |            |
 | 44  | leader g d               | go to definition in nvim-lsp built-in, while (g d) will be using lspSaga                                                              |            |
-| 45  | g  h                     | hover with `lspsaga`, while F1 hover using `nvim-lsp` built-in.                                                                           |            |
+| 45  | g  h                     | hover with `lspsaga`, while F1 hover using `nvim-lsp` built-in.                                                                                    |
+| 46  | Neoformat -formatter     | Using the formatter with the nvim depending on the language server, (e.g., Lua: luastyla)                                                          |
 
 ---
 
@@ -506,7 +513,7 @@ To install the `intractive REPL` of Julia with `jupyter` you can use, inside
 the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
 
-## How to capitalize and unCapitalize in nvim
+## How to capitalize and decapitalize in NeoVim
 
 ```shell
 Using the keybinding
@@ -517,6 +524,27 @@ g + ~ : to switch between the capitlal to small letter and viceversa.
 bonus
 g + U 3 w will do for 3 words a head and captilze each word.
 ```
+
+## Adding Latex language server
+I have chosen the `latex:textlab` as my language sever for the latex to get all
+the features required to write in `latex`. Following the Steps
+
+1. Install the language server using
+I have chosen the `textlab` as it is developed with `Rust`,and it is superFast.
+
+```shell
+LSInstall latex
+# choice textab
+
+```
+2. Compile your `file.text` into a `PDF` you need to use the following command
+
+```shell
+latex -pdf file.text  <- This will complie your entire .text file at once.
+latex -pvc file.text  <- This will allow the  document to be complied while you write your code and once you save it will complied automatically
+# To exit the automatical compliation use Ctrl+Z
+```
+
 
 
 ## References
@@ -534,6 +562,7 @@ g + U 3 w will do for 3 words a head and captilze each word.
 - [Getting starting using lua with Neovim](https://giters.com/mrowegawd/nvim-lua-guide)
 - How to program a status line in lua
 - [How I Made My NEOVIM STATUSLINE IN LUA](https://elianiva.my.id/post/neovim-lua-statusline)
+- [ChristianChirulli awesome repository-supporting lua config](https://github.com/ChristianChiarulli/nvim)
 
 ```sh
 -- Debugging
@@ -547,3 +576,5 @@ g + U 3 w will do for 3 words a head and captilze each word.
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
+

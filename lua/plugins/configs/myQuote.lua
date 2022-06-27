@@ -261,11 +261,28 @@ local QUOTS = {
 -- INFO
 -- DEBUG
 -- TRACE
-local x = math.random(#QUOTS)
-local async =require("plenary.async")
-local notify =require("notify").async
---vim.notify(file)
-async.run(function()
-    local messege = QUOTS[x]
-    notify(messege, "INFO", {title = " Ranom Science Quote ... "})
-end)
+--local x = math.random(#QUOTS)
+--local async =require("plenary.async")
+--local notify =require("notify").async
+----vim.notify(file)
+--async.run(function()
+--    local messege = QUOTS[x]
+--    notify(messege, "INFO", {title = " Ranom Science Quote ... "})
+--end)
+
+
+
+local function show_quote()
+
+    local x = math.random(#QUOTS)
+    local async =require("plenary.async")
+    local notify =require("notify").async
+    --vim.notify(file)
+    async.run(function()
+        local messege = QUOTS[x]
+        notify(messege, "INFO", {title = " Ranom Science Quote ... "})
+    end)
+
+end
+
+--show_quote()
