@@ -81,7 +81,7 @@ nvim_tree.setup {
     highlight_opened_files = "none",
     root_folder_modifier = ":t",
     indent_markers = {
-      enable = false,
+      enable = true,
       icons = {
         corner = "└ ",
         edge = "│ ",
@@ -105,7 +105,8 @@ nvim_tree.setup {
         folder = {
           arrow_open = icons.ui.ArrowOpen,
           arrow_closed = icons.ui.ArrowClosed,
-          default = "",
+          --default = "",
+          default = "  ",
           open = "",
           empty = "",
           empty_open = "",
