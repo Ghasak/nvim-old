@@ -69,4 +69,3 @@ local function show_full_path()
     end)
 end
 
-
