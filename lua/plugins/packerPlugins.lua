@@ -556,7 +556,10 @@ require("packer").startup({
         -- Allow making tables in Markup-language (*.md) files.
         use({"dhruvasagar/vim-table-mode"})
         -- For latex to preview lively the pdf while editing
-        use("xuhdev/vim-latex-live-preview")
+        --use("xuhdev/vim-latex-live-preview")
+        use({"frabjous/knap", config = function()
+            require("plugins.configs.myknap")
+        end})
 
         -- ===========================================================================
         --                          Other Plugins

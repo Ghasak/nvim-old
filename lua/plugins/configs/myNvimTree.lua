@@ -114,24 +114,35 @@ nvim_tree.setup {
           symlink_open = "",
         },
         git = {
-          unstaged = "",
-          staged = "S",
+          --unstaged = "",
+          --staged = "S",
           unmerged = "",
           renamed = "➜",
-          untracked = "U",
+          --untracked = "U",
           deleted = "",
           ignored = "◌",
+          staged = "ﱘ ",
+          unstaged = "ﱙ ",
+          untracked = " ",
+
         },
       },
     },
   },
+
+
+
   diagnostics = {
     enable = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      -- hint = "",
+      -- info = "",
+      -- warning = "",
+      -- error = "",
+	error = "",
+	info = "כֿ",
+	hint = "",
+	warning  = "",
     },
   },
   update_focused_file = {
