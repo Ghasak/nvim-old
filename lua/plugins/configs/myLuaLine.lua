@@ -276,11 +276,13 @@ end
 return {
     options = {
         theme = "gruvbox",
+        -- Github theme: https://github.com/projekt0n/github-nvim-theme/blob/main/LUALINE.md
+        --theme = "github_dimmed",
         icons_enabled = true,
         disabled_filetypes = {"dashboard", "NvimTree", "Outline"},
 
-        --component_separators = { left = '', right = ''},
-        -- section_separators = { left = '', right = ''},
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
     },
     sections = {
 

@@ -93,6 +93,7 @@ end
 local function theme_loader()
 	local gruvbox_theme_dir = "/site/pack/packer/start/gruvbox"
 	local gruvbox_material_theme_dir = "/site/pack/packer/start/gruvbox-material"
+	local Github_material_theme_dir = "/site/pack/packer/start/gruvbox-material"
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. gruvbox_material_theme_dir
 	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then

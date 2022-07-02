@@ -239,6 +239,8 @@ capabilities.textDocument.completion.completionItem.tagSupport = {
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = { "documentatin", "detail", "additionalTextEdits" },
 }
+--capabilities.offsetEncoding = {'utf-8', 'utf-16'}
+capabilities.offsetEncoding = 'utf-8'
 
 -- ===========================================================================
 --      5.       Core Server loading with handler and capabilities

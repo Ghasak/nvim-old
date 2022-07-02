@@ -3,7 +3,7 @@
 ## What is new?
 
 As `nvim` is now updated to version `0.6` with a stable release. The plugin
-`nvim-telescope` has no backward compatibility and require only `nvim 0.6+`.
+`nvim-telescope` has no backward compatibility and require only `nvim 0.7+`.
 Therefore, it is time to upgrade the configuration file of `init.lua`. The
 native `nvim` module of `nvim-lsp` has become `nvim-diagonstics`, the built-in
 APIs are now different, which many other third-party-plugins haven't been
@@ -36,8 +36,8 @@ The current working flow to address such updates with my `main` repo is:
 1. On the main branch, `git add --> git commit --> git push `, you will get your
    `main` branch in the `remote` repository at `GitHub` to the latest comments.
 
-2. Switch to the release branch currently I am using the `nvim0.6` branch, using
-   `git checkout nvim0.6`,
+2. Switch to the release branch currently I am using the `nvim0.7` branch, using
+   `git checkout nvim0.7`,
 
   - git merge main
   - git add -a
@@ -544,6 +544,20 @@ latex -pdf file.text  <- This will complie your entire .text file at once.
 latex -pvc file.text  <- This will allow the  document to be complied while you write your code and once you save it will complied automatically
 # To exit the automatical compliation use Ctrl+Z
 ```
+# Possible Isssues and Fixes
+1. Nvim 0.7
+- For`README.md` there was an issue can be solved using `:TSupdate`, follow here
+  - [Fixing the issue of markup server error](https://github.com/nvim-treesitter/nvim-treesitter/issues/634)
+- Clang has an issue to due not adding the cababilities
+  - [nvim language server - clang ](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd)
+
+```shell
+# First I added this one but it was not working
+--capabilities.offsetEncoding = {'utf-8', 'utf-16'}
+# Then remvoed the lua-table (a.k.a. dictionary)
+capabilities.offsetEncoding = 'utf-8'
+
+```
 
 
 
@@ -576,5 +590,4 @@ latex -pvc file.text  <- This will allow the  document to be complied while you 
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
-
 

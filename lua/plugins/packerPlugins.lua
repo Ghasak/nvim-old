@@ -75,7 +75,7 @@ require("packer").startup({
             -- 	require("plugins.configs.treesitter")
             -- end,
         })
-        -------------------------------------------------------------------------------------------------------------------
+        ---------------------------------------------------------------------------------------------------------------
         -- LSP neovim (integrate with native language server)
         -- A collection of common configurations for Neovim's built-in language server client.
         use({
@@ -207,13 +207,13 @@ require("packer").startup({
         -- })
 
         -- Code running
-        use({
-            "michaelb/sniprun",
-            run = "bash install.sh",
-            config = function()
-                require("plugins.configs.mySniprun").setup()
-            end
-        })
+        -- use({
+        --     "michaelb/sniprun",
+        --     run = "bash install.sh",
+        --     config = function()
+        --         require("plugins.configs.mySniprun").setup()
+        --     end
+        -- })
         -- Code formatting
         -- Null-ls.nvim allow to inject LSP diagnostics, code actions and more via lua.
         use({"jose-elias-alvarez/null-ls.nvim"})
@@ -283,6 +283,16 @@ require("packer").startup({
         use({"navarasu/onedark.nvim"})
         -- Using gruvbox theme
         use("morhetz/gruvbox")
+        -- Using Github wiht configurations
+        -- use({
+        --   'projekt0n/github-nvim-theme',
+        --   config = function()
+        --     require("github-theme").setup({
+        --         require('../colors/themes/myGitHubTheme')
+        --         })
+        --   end
+        -- })
+
         use({"tpope/vim-fugitive"})
         -- use({ "vim-airline/vim-airline" })
         -- --status line built with lua
@@ -477,12 +487,12 @@ require("packer").startup({
         use({"junegunn/fzf.vim"})
 
         -- Dashboard
-        use({
-            "glepnir/dashboard-nvim",
-            config = function()
-                require("plugins.configs.dashboard").setup()
-            end
-        })
+        -- use({
+        --     "glepnir/dashboard-nvim",
+        --     config = function()
+        --         require("plugins.configs.dashboard").setup()
+        --     end
+        -- })
 
         -- alpha for welcome message of nvim
         use({
