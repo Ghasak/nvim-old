@@ -127,55 +127,25 @@ require("packer").startup({
         })
         -- The completion plugin
 
-        use({
-            "saadparwaiz1/cmp_luasnip",
-            after = "LuaSnip"
-        })
+        use({"saadparwaiz1/cmp_luasnip", after = "LuaSnip"})
 
-        use({
-            "hrsh7th/cmp-nvim-lua",
-            after = "cmp_luasnip"
-        })
+        use({"hrsh7th/cmp-nvim-lua", after = "cmp_luasnip"})
 
-        use({
-            "hrsh7th/cmp-nvim-lsp",
-            after = "cmp-nvim-lua"
-        })
+        use({"hrsh7th/cmp-nvim-lsp", after = "cmp-nvim-lua"})
 
-        use({
-            "hrsh7th/cmp-buffer",
-            after = "cmp-nvim-lsp"
-        })
+        use({"hrsh7th/cmp-buffer", after = "cmp-nvim-lsp"})
 
         -- use({
         --     "rafamadriz/friendly-snippets",
         --     after = "cmp-buffer"
         -- })
-        use({
-            "hrsh7th/cmp-calc",
-            after = "cmp-buffer"
-        })
+        use({"hrsh7th/cmp-calc", after = "cmp-buffer"})
 
-        use({
-            "f3fora/cmp-spell",
-            after = "cmp-buffer"
-        })
-        use({
-            "hrsh7th/cmp-path",
-            after = "cmp-buffer"
-        })
-        use({
-            "hrsh7th/cmp-emoji",
-            after = "cmp-buffer"
-        })
-        use({
-            "ray-x/cmp-treesitter",
-            after = "cmp-buffer"
-        })
-        use({
-            "hrsh7th/cmp-cmdline",
-            after = "cmp-buffer"
-        })
+        use({"f3fora/cmp-spell", after = "cmp-buffer"})
+        use({"hrsh7th/cmp-path", after = "cmp-buffer"})
+        use({"hrsh7th/cmp-emoji", after = "cmp-buffer"})
+        use({"ray-x/cmp-treesitter", after = "cmp-buffer"})
+        use({"hrsh7th/cmp-cmdline", after = "cmp-buffer"})
 
         -- tags with vista (compatible with clap)
         -- Showing all funtions and parameters in the buffer, see also <ctags>
@@ -256,10 +226,7 @@ require("packer").startup({
         })
 
         -- Debugging
-        use({
-            "puremourning/vimspector",
-            event = "BufWinEnter"
-        })
+        use({"puremourning/vimspector", event = "BufWinEnter"})
 
         -- DAP
         use({"mfussenegger/nvim-dap"})
@@ -269,7 +236,6 @@ require("packer").startup({
         use({"Pocco81/DAPInstall.nvim"})
         use({"jbyuki/one-small-step-for-vimkind"})
         use({"nvim-telescope/telescope-dap.nvim"})
-
 
         -- Copilot AI
         -- Technical review of copilot, an AI solution built on top of openAI
@@ -304,10 +270,7 @@ require("packer").startup({
 
         use({
             "nvim-lualine/lualine.nvim",
-            requires = {
-                "kyazdani42/nvim-web-devicons",
-                opt = true
-            }
+            requires = {"kyazdani42/nvim-web-devicons", opt = true}
         })
 
         -- To show the diff of file
@@ -376,9 +339,21 @@ require("packer").startup({
         })
 
         -- Using MarkdownPreview
+        -- use({
+        --     "iamcco/markdown-preview.nvim",
+        --     run = "cd app && yarn install"
+        -- })
+        -- install without yarn or npm
+        -- use({
+        --     "iamcco/markdown-preview.nvim",
+        --     run = function() vim.fn["mkdp#util#install"]() end
+        -- })
+
         use({
             "iamcco/markdown-preview.nvim",
-            run = "cd app && yarn install"
+            run = "cd app && npm install",
+            setup = function() vim.g.mkdp_filetypes = {"markdown"} end,
+            ft = {"markdown"}
         })
 
         -- Delete a buffer and keep your opened windows intact
@@ -450,8 +425,9 @@ require("packer").startup({
                 local cmd = vim.cmd
                 -- Allow the ctrlP to not search the .git repository.
                 cmd([[
-          let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-        ]])
+                  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+                  ]])
+
             end
         })
         -- Using sneak for faster jump inside the buffer
@@ -473,10 +449,7 @@ require("packer").startup({
         -- Development
         use({"tpope/vim-dispatch"})
         use({"tpope/vim-commentary"})
-        use({
-            "tpope/vim-rhubarb",
-            event = "VimEnter"
-        })
+        use({"tpope/vim-rhubarb", event = "VimEnter"})
         use({"tpope/vim-unimpaired"})
         use({"tpope/vim-vinegar"})
         use({"tpope/vim-sleuth"})
@@ -556,10 +529,11 @@ require("packer").startup({
         -- Allow making tables in Markup-language (*.md) files.
         use({"dhruvasagar/vim-table-mode"})
         -- For latex to preview lively the pdf while editing
-        --use("xuhdev/vim-latex-live-preview")
-        use({"frabjous/knap", config = function()
-            require("plugins.configs.myknap")
-        end})
+        -- use("xuhdev/vim-latex-live-preview")
+        use({
+            "frabjous/knap",
+            config = function() require("plugins.configs.myknap") end
+        })
 
         -- ===========================================================================
         --                          Other Plugins
@@ -647,9 +621,7 @@ require("packer").startup({
         display = {
 
             open_fn = function()
-                return require("packer.util").float({
-                    border = "rounded"
-                })
+                return require("packer.util").float({border = "rounded"})
             end, -- An optional function to open a window for packer's display
             open_cmd = "65vnew \\[packer\\]", -- An optional command to open a window for packer's display
             working_sym = "  ", -- '⟳', -- The symbol for a plugin being installed/updated
@@ -671,9 +643,7 @@ require("packer").startup({
         luarocks = {
             python_cmd = "python" -- Set the python command to use for running hererocks
         },
-        log = {
-            level = "warn"
-        }, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
+        log = {level = "warn"}, -- The default print log level. One of: "trace", "debug", "info", "warn", "error", "fatal".
         profile = {
             enable = true,
             threshold = 1 -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
@@ -803,13 +773,14 @@ local function myStartifyConfigLauncher()
     end
 
 end
+
 -- ===========================================================================
 --                     Loading my custom Quote random generator.
 -- ===========================================================================
 
 local function myQuoteConfigLauncher()
     local nvim_notify_loader_path = "/site/pack/packer/start/nvim-notify"
-    install_path = fn.stdpath("data") ..nvim_notify_loader_path
+    install_path = fn.stdpath("data") .. nvim_notify_loader_path
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.api.nvim_command(
             ([[echohl WarningMsg | echomsg "[+] Nvim Notify library for my Quote generator at :%s is not existed, will be installed after packer sync and compiled ." | echohl None]]):format(
@@ -820,6 +791,7 @@ local function myQuoteConfigLauncher()
     end
 
 end
+
 -- ===========================================================================
 --               Fetching the startup packages
 -- ===========================================================================

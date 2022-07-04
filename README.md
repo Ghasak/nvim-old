@@ -1,8 +1,8 @@
-# Neovim Configurations File (build v.01)
+#  Neovim Configurations File (build v.01)
 
 ## What is new?
 
-As `nvim` is now updated to version `0.6` with a stable release. The plugin
+As `nvim` is now updated to version `0.7` with a stable release. The plugin
 `nvim-telescope` has no backward compatibility and require only `nvim 0.7+`.
 Therefore, it is time to upgrade the configuration file of `init.lua`. The
 native `nvim` module of `nvim-lsp` has become `nvim-diagonstics`, the built-in
@@ -12,7 +12,7 @@ fixing the `lsp-saga`, this including the `lsp-signture` which are both
 now working synchronously with the `lsp-connfig`. Features in this migration
 are, to name few:
 
-- Now all packages are supported with the `NVIM v.06+`.
+- Now all packages are supported with the `NVIM v.07+`.
 - Some compatibility issues are now fixed with the `lsp-configs`, especially
   passing the `custom_attach`, `handler`, and `compatibility` to the
   `nvim-lsp-installer` setup API.
@@ -521,25 +521,136 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 Using the keybinding
 g + u : for first letter capitalize
 g + U : for capitalize all the letters
-g + ~ : to switch between the capitlal to small letter and viceversa.
+g + ~ : to switch between the capitlal to small letter and viceversa (you will need shift to get the telda)
 
 bonus
 g + U 3 w will do for 3 words a head and captilze each word.
 ```
-## How to add text to end of several lines altogether
+- [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
 
-NOTE:(read entry 47 in the table commands above for our daily shortcuts)
+# Tips and tricks in NVIM
+The following tips and tricks are for heavy `nvim` usages
+### Auto-complete
+editing `auto comoplete` can you use `Ctrl + p` or `Ctrl + n`
+
+### Buffers
+You can use the following commands `:bnext`, `:bprevious` `buffers`, `bd` and `:enew` which
+allow us to work with buffers more accurately.
+
+### Recordings
+Recording is just using the `Macros` in `Nvim`, this need to study more about
+this feature and to be added here later.
+- Press `q + a`.
+- Do the sub-task.
+- Close macro `q`
+- Apply the macro using `@a` or `@a 12` will be repeated 12 times.
+
+### Norm command
+`normal` or `norm` can be used with a lot of features.
+#### Adding to end or beginning of lines
+NOTE: (Read entry 47 in the table commands above for our daily shortcuts)
+The following trick allow us to write to the end of lines or beginning of lines
 Simply you can use the following.
-1. Highlight all the lines using *shift + v* then use *:* to get: :`<,`>
-2. Adding `normal` or `norm` to the formula
-3. Adding to end you can use *A* to the beginning add *I*
-4. Add your text to the end
+1. Highlight all the lines using *shift + v* then use *:* to get: :`<,`>.
+2. Adding `normal` or `norm` to the formula.
+3. Adding to end you can use *A* to the beginning add *I*.
+4. Add your text to the end.
 
 ```shell
 :`<,`>norm A whatever you will add to end of all lines.
 :`<,`>norm I whatever you will add to beginning of all lines.
+:`<,`>norm $X this  will delete last character at the end.
+:`<,`>norm ^X this  will delete first character at the end.
 ```
+## Executing CLI commands (from LINUX)
+We can use the following `:!command` that will be show the command with input and output
+
+```shell
+# This command will be used to sort alot of lines uniquly
+:`<,`>! sort # for sorting
+:`<,`>! wc -l  # for count number of lines
+```
+## Open Website from nvim, or go to file
+the command `g` stand for `G-command` one of the features that I like is `gx`
+will open the link while the cursor on it in the browser. Open files / URLs with gf / gx
+
+## Encrypting files with :X
+[this feature available only for `Vim`, and it is not available for `nvim`, We
+can add encryption to our file and only can be opened using the password we
+have offer
+1. to Encrypt
+```shell
+:X
+```
+It will allow to encrypt your file after you input and confirm your password for this file.
+
+2. To decryPt
+do same without passwords by hitting enter + enter
+
+## Spell Checking
+you can use `z=` once your cursor is on top of the wrong-spelling word, which
+will give you a list of all the possible options to fix the wrong spelling.
+To add a word to the custom dictionary use `zg` over the new word (e.g., treeSitter)
+it will be added to `~/.config/nvim/spell/en.utf-8.add`.
+
+## Arithmetic Expression
+### Increment and decrements
+You can basically do arithmetic in `nvim` such as
+- increment and decrements an integer value using `ctrl + a` or `ctrl +x` over the number (e.g., 144)
+Using it with number increment list with `macro`
+1. Record a macro using `q+a`
+2. make a line with a number then copy it for next line
+3. increment the number of the list using `ctrl+a`
+4. finish recording the macro with `q`
+5. repeat the macro using `@a` or `@a 3` to repeat it three times
+
+### Execution commands
+- Put the cursor over the following expression in a new line:
+echo $((100 + 54))
+- You can execute a command in your `nvim buffer` using `:.!zsh` to redraw your command line and get you the results inside the buffer.
+- You can execute a command in your `nvim command palette` with `:!!zsh`
+
+### Combine Commands
+
+
+1. Hello world
+2. Hello world
+3. Hello world
+4. Hello world
+5. Hello world
+6. Hello world
+7. Hello world
+
+- Assume we have the text above. highlight all these lines
+- use :`<,`>s/\..\+//cig
+- It will get you all the numbers
+1
+2
+3
+4
+5
+6
+7
+- Highlight again and use `<,`>norm A + to add (+) to the end of each line
+1 +
+2 +
+3 +
+4 +
+5 +
+6 +
+7 +
+
+- Highlight again and use `<,`>join (or simply j) to join them all together.
+1 + 2 + 3 + 4 + 5 + 6 + 7 +
+- Finally get the value of this expression using `:.!zsh` as:
+echo $((1 + 2 + 3 + 4 + 5 + 6 + 7))
+
+- Now we can get the final value as
+28
+
 - [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
+- [dotfile](https://github.com/sdaschner/dotfiles/blob/master/.vimrc)
+
 ## Adding Latex language server
 I have chosen the `latex:textlab` as my language sever for the latex to get all
 the features required to write in `latex`. Following the Steps
@@ -569,7 +680,8 @@ which is faster and dynamically update the PDF while typing.
 - [Sioyek pdf](https://sioyek.info), You need a cheat-sheet for `Sioyek`
 
 
-# Possible Issues and Fixes
+# Troubleshooting, Bugs and Errors
+after running `nvim` it is a good pratice to use `:messages` or `:notifications` for debugging messages.
 1. Nvim 0.7
 - For`README.md` there was an issue can be solved using `:TSupdate`, follow here
   - [Fixing the issue of markup server error](https://github.com/nvim-treesitter/nvim-treesitter/issues/634)
@@ -583,6 +695,9 @@ which is faster and dynamically update the PDF while typing.
 capabilities.offsetEncoding = 'utf-8'
 
 ```
+- `Markdown-preview` doesnt do anything.
+This thread has allowed me to fix this problem as I needed to update the plugin dependencies using `:call mkdp#util#install()`
+- [markdown-preview bugs and fixes](https://github.com/iamcco/markdown-preview.nvim/issues/188)
 
 ## References
 
@@ -612,4 +727,3 @@ capabilities.offsetEncoding = 'utf-8'
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
-

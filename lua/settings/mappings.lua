@@ -233,13 +233,13 @@ vim.cmd([[let g:clap_theme = 'material_design_dark']])
 
 -- replace with the register (you need a plugin  vim-scripts/replacewithregister)
 -- vim.api.nvim_set_keymap('n','<leader>cr','<Plug>replacewithregisteroperator',{noremap  = true, silent = true})
--- vim.api.nvim_set_keymap('n','<leader>crr','<plug>replacewithregisterline',{noremap  = true, silent = true})
--- vim.api.nvim_set_keymap('x','<leader>cr','<plug>replacewithregistervisual',{noremap  = true, silent = true})
--- vim.cmd([[
---     nmap <leader>cr  <Plug>replacewithregisteroperator
---     nmap <leader>crr <Plug>replacewithregisterline
---     xmap <leader>cr  <Plug>replacewithregistervisual
--- ]])
+-- vim.api.nvim_set_keymap('n','<leader>crr','<Plug>replacewithregisterline',{noremap  = true, silent = true})
+-- vim.api.nvim_set_keymap('x','<leader>cr','<Plug>replacewithregistervisual',{noremap  = true, silent = true})
+vim.cmd([[
+    nmap <leader>cr  <Plug>replacewithregisteroperator
+    nmap <leader>crr <Plug>replacewithregisterline
+    xmap <leader>cr  <Plug>replacewithregistervisual
+]])
 
 -- using vista with clap to see all the functions definitions and their implementation,
 vim.api.nvim_set_keymap("n", "<leader>vt", "<cmd>clap tags<cr>", {
@@ -332,4 +332,9 @@ nmap <space>gJ <Plug>JupyterExecuteAll
 vim.cmd([[
     " Set recommended to false
     let g:coq_settings = { "keymap.recommended": v:false }
+]])
+-- Ctrl + P to open the the navigator faster
+vim.cmd([[
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
 ]])
