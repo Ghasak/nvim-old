@@ -23,15 +23,15 @@ are, to name few:
 - Adding branches to the `~/.config/nvim/`, for each version, also a branch
   called `feature/dev` to check and try any new feature or package.
 
-### Nvim in nutshell
+### Nvim updates in nutshell
 You will always need to configure
 1. Packer for new library/package
-2. LSInstall to get the language sever setup and configurations.
-3. tree-sitter for getting the syntax highlighting with much better way.
+2. `LSInstall` to get the language sever setup and configurations.
+3. `tree-sitter` for getting the syntax highlighting with much better way.
 
 ### About Branch and GitHub
 Once you have updated the `main` branch (change, modify, create ... etc.)
-The current working flow to address such updates with my `main` repo is:
+The current working flow to address such updates with my `main` repository is:
 
 1. On the main branch, `git add --> git commit --> git push `, you will get your
    `main` branch in the `remote` repository at `GitHub` to the latest comments.
@@ -39,12 +39,14 @@ The current working flow to address such updates with my `main` repo is:
 2. Switch to the release branch currently I am using the `nvim0.7` branch, using
    `git checkout nvim0.7`,
 
+```shell
   - git merge main
   - git add -a
   - git commit -m "some message"
   - git push
+```
 
-3. On GitHub main repo. You will see that your pull request to merge with the
+3. On GitHub main repository. You will see that your pull request to merge with the
    main doesn't appear, the reason is that your `main branch` becomes an
    identical copy to our `nvim0.6 branch`.
 
@@ -163,7 +165,7 @@ with `COC and COC-LSP` and my current one with `nvim-lsp`.
 | 44  | leader g d               | go to definition in nvim-lsp built-in, while (g d) will be using lspSaga                                                              |            |
 | 45  | g  h                     | hover with `lspsaga`, while F1 hover using `nvim-lsp` built-in.                                                                                    |
 | 46  | Neoformat -formatter     | Using the formatter with the nvim depending on the language server, (e.g., Lua: luastyla)                                                          |
-
+| 47  | shift+f                  | first highlight to get (:\`\<,\`\>)norm (**A** for end of lines, **I** for beginning of lines) adding the text you want               | https://www.youtube.com/watch?v=gccGjwTZA7k
 ---
 
 ### Requirements
@@ -513,7 +515,7 @@ To install the `intractive REPL` of Julia with `jupyter` you can use, inside
 the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
 
-## How to capitalize and decapitalize in NeoVim
+## How to capitalize and deCapitalize in NeoVim
 
 ```shell
 Using the keybinding
@@ -524,7 +526,20 @@ g + ~ : to switch between the capitlal to small letter and viceversa.
 bonus
 g + U 3 w will do for 3 words a head and captilze each word.
 ```
+## How to add text to end of several lines altogether
 
+NOTE:(read entry 47 in the table commands above for our daily shortcuts)
+Simply you can use the following.
+1. Highlight all the lines using *shift + v* then use *:* to get: :`<,`>
+2. Adding `normal` or `norm` to the formula
+3. Adding to end you can use *A* to the beginning add *I*
+4. Add your text to the end
+
+```shell
+:`<,`>norm A whatever you will add to end of all lines.
+:`<,`>norm I whatever you will add to beginning of all lines.
+```
+- [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
 ## Adding Latex language server
 I have chosen the `latex:textlab` as my language sever for the latex to get all
 the features required to write in `latex`. Following the Steps
@@ -544,22 +559,30 @@ latex -pdf file.text  <- This will complie your entire .text file at once.
 latex -pvc file.text  <- This will allow the  document to be complied while you write your code and once you save it will complied automatically
 # To exit the automatical compliation use Ctrl+Z
 ```
-# Possible Isssues and Fixes
+3. Automatically compile the Latex file to PDF
+Following the `nvim` plugin `knap` which can automatically compile the text file
+to PDF. The file should compile and display using one of the `pdf` reader that
+the author specified in his repository. The one I am using is the `Sioyek`
+which is faster and dynamically update the PDF while typing.
+
+- [knap plugin](https://github.com/frabjous/knap#mupdf)
+- [Sioyek pdf](https://sioyek.info), You need a cheat-sheet for `Sioyek`
+
+
+# Possible Issues and Fixes
 1. Nvim 0.7
 - For`README.md` there was an issue can be solved using `:TSupdate`, follow here
   - [Fixing the issue of markup server error](https://github.com/nvim-treesitter/nvim-treesitter/issues/634)
-- Clang has an issue to due not adding the cababilities
+- Clang has an issue due to not adding the capabilities option for the `utf-8`
   - [nvim language server - clang ](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd)
 
 ```shell
 # First I added this one but it was not working
---capabilities.offsetEncoding = {'utf-8', 'utf-16'}
+-- capabilities.offsetEncoding = {'utf-8', 'utf-16'}
 # Then remvoed the lua-table (a.k.a. dictionary)
 capabilities.offsetEncoding = 'utf-8'
 
 ```
-
-
 
 ## References
 
@@ -581,7 +604,6 @@ capabilities.offsetEncoding = 'utf-8'
 ```sh
 -- Debugging
     use { "puremourning/vimspector", event = "BufWinEnter" }
-
     -- DAP
     use { "mfussenegger/nvim-dap" }
     use { "mfussenegger/nvim-dap-python" }
