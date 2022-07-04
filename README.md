@@ -189,8 +189,8 @@ The requirements that I am looking for in my IDE are: **note**, check sign means
 - [x] Optimize the performance of the launched packages with events, `cmd`, `impatient` plugin and `lazy-loading`.
 - [x] Adding `org mode`, `to-do` list and some other interesting plugins.
 - [x] Automate `lua` coding with optimized `nvim` scripts for on-first installation and on-first launching,
-      (such as changing the packer-compiled directory with packer.init(), up to
-      now, the `nvim` will not automated to recompiled on attach, need manually to
+      (such as changing the packer-compiled directory with packer.`init()`, up to
+      now, the `nvim` will not be automated to recompiled on attach, need manually to
       compile).
 
 - [x] Adding `auto commenting` Lines.
@@ -204,7 +204,7 @@ Things to be included in my current developed branch.
 
 - [x] Syntax highlighting
 - [x] Snippets
-- [x] TreeSitter
+- [x] Tree-sitter
 - [x] Jump to definition
 - [x] Show definition on hover
 - [x] Show Implementations.
@@ -519,8 +519,8 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
 ```shell
 Using the keybinding
-g + u : for first letter capitalize
-g + U : for capitalize all the letters
+g + u : for first letter capitalize (change upper to lower, you need to do that on the letter you want to change then escape then l or h only once)
+g + U : for capitalize all the letters (change upper to upper, you need to do that on the letter you want to change then escape then l or h only once)
 g + ~ : to switch between the capitlal to small letter and viceversa (you will need shift to get the telda)
 
 bonus
@@ -647,6 +647,40 @@ echo $((1 + 2 + 3 + 4 + 5 + 6 + 7))
 
 - Now we can get the final value as
 28
+
+## How to increment a list (most elegant way)
+We can use the following steps:
+- Create a list with zeros as shown using `ctrl+v` then `shit + i` then `0` and enter.
+```shell
+- [0] list number 1
+- [0] list number 1
+- [0] list number 1
+- [0] list number 1
+```
+- Now you highlight `visual block` using `<C-v>` also knows as `ctrl+v` again the list at `0` and perform `g<C-a>`
+```shell
+- [1] list number 1
+- [2] list number 2
+- [3] list number 3
+- [4] list number 4
+
+```
+
+- [Quick vim tips to generate and increment numbers](https://irian.to/blogs/quick-vim-tips-to-generate-and-increment-numbers/)
+
+### More example
+1. Try to put some text with increment
+```shell
+:for i in range(1,10) | put ='192.168.0.'.i | endfor
+```
+2. Try to create counter with 00 prefixes
+```shell
+:put =map(range(1,150), 'printf(''%04d'', v:val)')
+```
+- [More tips and tricks about increments](https://vim.fandom.com/wiki/Making_a_list_of_numbers)
+
+## How to capitalize first letter in many lines
+- [my comment can be found here](https://stackoverflow.com/questions/3126500/how-do-i-capitalize-the-first-letter-of-a-word-in-vim/72860055#728600550)
 
 - [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
 - [dotfile](https://github.com/sdaschner/dotfiles/blob/master/.vimrc)
