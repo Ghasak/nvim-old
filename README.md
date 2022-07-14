@@ -514,6 +514,19 @@ julia --project=/path/to/my/project -e 'using Pkg; Pkg.instantiate()'
 To install the `intractive REPL` of Julia with `jupyter` you can use, inside
 the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
+## Adding auto-formatter for shell-scripts or bash
+For using `NeoVim`, if the language server is `shell-lsp` for `bash` or `shell`, you can add the autoformatter similar to `lua` as following.
+1. Instal Go to your system
+2. Install using Go the auto-shell-formatter, `Neoformat` must see it that it is being installed to your default shell (`zsh`)
+```shell
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+```
+3. you can source the `shfmt` to your terminal so that the `neoformat` can see it, as `export PATH=$PATH:$HOME/go/bin/`. You can also run it externally using
+
+
+```shell
+shfmt -l -w script.sh
+```
 
 ## How to capitalize and deCapitalize in NeoVim
 
@@ -732,6 +745,42 @@ capabilities.offsetEncoding = 'utf-8'
 - `Markdown-preview` doesnt do anything.
 This thread has allowed me to fix this problem as I needed to update the plugin dependencies using `:call mkdp#util#install()`
 - [markdown-preview bugs and fixes](https://github.com/iamcco/markdown-preview.nvim/issues/188)
+
+2. Nvim 0.7.2
+I have encountered with the following problems
+- `Language server error message` I have fixed by adding a function in the bottom on lsp-config.lua file
+```lua
+-- suppress error messages from lang servers
+vim.notify = function(msg, log_level, _opts)
+    if msg:match("exit code") then
+        return
+    end
+    if log_level == vim.log.levels.ERROR then
+        vim.api.nvim_err_writeln(msg)
+    else
+        vim.api.nvim_echo({{msg}}, true, {})
+    end
+end
+```
+- `tabnine` was not updated because simply you can remove it first and re-install this plugin or you can go to
+```lua
+-- Solution number -1-
+return require("packer").startup(
+ function(use)
+ 	use "hrsh7th/nvim-cmp" --completion
+ 	use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+ end
+)
+
+-- Solution number -2-
+-- go to
+cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
+-- and run
+./install.sh
+
+```
+- `tree-sitter` was broken for each language, simple I executed in nvim command line `:TSUpdate`
+
 
 ## References
 
