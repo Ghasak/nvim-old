@@ -742,7 +742,7 @@ after running `nvim` it is a good pratice to use `:messages` or `:notifications`
 capabilities.offsetEncoding = 'utf-8'
 
 ```
-- `Markdown-preview` doesnt do anything.
+- `Markdown-preview` doesn't do anything.
 This thread has allowed me to fix this problem as I needed to update the plugin dependencies using `:call mkdp#util#install()`
 - [markdown-preview bugs and fixes](https://github.com/iamcco/markdown-preview.nvim/issues/188)
 
