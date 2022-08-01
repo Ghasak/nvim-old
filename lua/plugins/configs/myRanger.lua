@@ -39,6 +39,8 @@ M.Style = function()
     " Customize multiple preset layouts
     " '{}' represents the initial layout
     let g:rnvimr_presets = [{'width': 0.600, 'height': 0.600},{},{'width': 0.800, 'height': 0.800},{'width': 0.950, 'height': 0.950},{'width': 0.500, 'height': 0.500, 'col': 0, 'row': 0},{'width': 0.500, 'height': 0.500, 'col': 0, 'row': 0.5},{'width': 0.500, 'height': 0.500, 'col': 0.5, 'row': 0},{'width': 0.500, 'height': 0.500, 'col': 0.5, 'row': 0.5},{'width': 0.500, 'height': 1.000, 'col': 0, 'row': 0},{'width': 0.500, 'height': 1.000, 'col': 0.5, 'row': 0},{'width': 1.000, 'height': 0.500, 'col': 0, 'row': 0},{'width': 1.000, 'height': 0.500, 'col': 0, 'row': 0.5}]
+    " Allow to show hidden files in Ranger"
+    let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
   ]]
 
 end

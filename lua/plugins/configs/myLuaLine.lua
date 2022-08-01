@@ -305,7 +305,7 @@ return {
         lualine_z = {
            {copilot_status},
             --{"% ʟ %l/%L c %c"}, -- This has a problem which I couldn't figure out
-            {"%m%5([ʟ%l/%L%)c %p%%]"},
+            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"},
             --{"%m%"},
             {
                 scrollbar,
