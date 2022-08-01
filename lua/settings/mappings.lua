@@ -274,7 +274,7 @@ vim.cmd([[
  nmap j <plug>(accelerated_jk_gj_position)
  nmap k <plug>(accelerated_jk_gk_position)
 ]])
---
+
 -- open a link in vim in browser: in linux use : xdg-open instead of open (for mac).
 -- source: " https://stackoverflow.com/questions/9458294/open-url-under-cursor-in-vim-with-browser "
 -- nnoremap <silent> gx :execute 'silent! !open ' . shellescape(expand('<cWORD>'), 1)<cr>

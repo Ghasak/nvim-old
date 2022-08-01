@@ -10,6 +10,8 @@ end
 
 local lsp_func = function(msg)
     -- Function that return the client language server corresponding to the
+    -- This setting will mean that you have one single statusline drawn accross the entire display
+    vim.o.laststatus=3
     local server_icon = "歷"
     local server_icon_not_not_known = "轢"
     local servers = {}
@@ -301,22 +303,25 @@ return {
         lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
-            {copilot_status},
-            {"% ʟ %l/%L c %c"}, {
+           {copilot_status},
+            --{"% ʟ %l/%L c %c"}, -- This has a problem which I couldn't figure out
+            {"%m%5([ʟ%l/%L%)c %p%%]"},
+            --{"%m%"},
+            {
                 scrollbar,
                 separator = nil
             }
         }
     },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {}
-    },
-    tabline = {},
-    extensions = {}
+    -- inactive_sections = {
+    --     lualine_a = {},
+    --     lualine_b = {},
+    --     lualine_c = {},
+    --     lualine_x = {},
+    --     lualine_y = {},
+    --     lualine_z = {}
+    -- },
+    -- tabline = {},
+    -- extensions = {}
 }
 
