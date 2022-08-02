@@ -302,7 +302,9 @@ return {
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
             {copilot_status},
-            {"% ʟ %l/%L c %c"}, {
+            --{"% ʟ %l/%L c %c"},
+            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"},  -- compatible with nvim 0.7
+            {
                 scrollbar,
                 separator = nil
             }
