@@ -263,7 +263,26 @@ luarocks install --server=https://luarocks.org/dev luaformatter
 ```
 
 # Useful information
+## Execute lua in cmd
+For example, to get the operation system name we can run
+```shell
+:lua print(vim.ovim.loop.os_uname().sysname) <- this will return Darwin.
+:lua print(jit.os)                           <- this will return OSX
+```
+## Some useful API functions
 
+```sh
+-- Getting to know the cursor location
+local current_line = vim.fn.line(".")
+local total_line = vim.fn.line("$")
+-- Getting to know the directory , file name, and extension
+local filename = vim.fn.expand "%:t"
+local extension = vim.fn.expand "%:e"
+local extension = vim.fn.expand "%:f"
+local extension = vim.fn.expand "%:F"
+#  This will get us the full path
+local file = vim.fn.expand("%:p")
+```
 ## Testing the speed of neovim launching time.
 
 Use the command `vim-startuptime` which will offer a quick calculation of the launching time.
@@ -440,20 +459,6 @@ Total Average: 506.968300 msec
 
 ```
 
-## Some useful API functions
-
-```sh
--- Getting to know the cursor location
-local current_line = vim.fn.line(".")
-local total_line = vim.fn.line("$")
--- Getting to know the directory , file name, and extension
-local filename = vim.fn.expand "%:t"
-local extension = vim.fn.expand "%:e"
-local extension = vim.fn.expand "%:f"
-local extension = vim.fn.expand "%:F"
-#  This will get us the full path
-local file = vim.fn.expand("%:p")
-```
 
 ## Table mode in nvim
 
