@@ -703,6 +703,17 @@ We can use the following steps:
 - [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
 - [dotfile](https://github.com/sdaschner/dotfiles/blob/master/.vimrc)
 
+## How to select or append from position to end of multi-lines
+
+1. Click somewhere (anywhere) in the first line you wish to append text to.
+2. Press Control + V.
+3. Press Down to create an arbitrary vertical block selection that spans the desired lines.
+4. Press $ to expand the visual block selection to the ends of every line selected.
+5. Press Shift + A to append text to every selected line.
+6. Type the text you want to append.
+7. Press Escape and the text will be appended across the selected lines.
+- [Vim Select the ends of multiple lines block mode ](https://stackoverflow.com/questions/10772598/vim-select-the-ends-of-multiple-lines-block-mode-but-where-the-ending-column-v)
+# Language Server
 ## Adding Latex language server
 I have chosen the `latex:textlab` as my language sever for the latex to get all
 the features required to write in `latex`. Following the Steps

@@ -1,4 +1,6 @@
--- =================  LSP language server client ==========================
+-- =================  Help can be found here  ==========================
+-- :h statusline
+-- =================  LSP language server client =======================
 local function env_cleanup(venv)
     if string.find(venv, "/") then
         local final_venv = venv
