@@ -518,6 +518,14 @@ require("packer").startup({
 		--             branch = "master"
 		--         })
 		use({ "gennaro-tedesco/nvim-peekup" })
+		-- Using a GPS to navigate the current cursor position and to be displaied later in lualine
+		use({
+			"SmiteshP/nvim-gps",
+			requires = "nvim-treesitter/nvim-treesitter",
+			config = function()
+				require("nvim-gps").setup()
+			end,
+		})
 		-- ===========================================================================
 		--                            Git and Diff
 		-- ===========================================================================
@@ -756,6 +764,8 @@ end
 --                      Check for luaStatus if it is installed
 -- ===========================================================================
 
+-- Default config
+require("nvim-gps").setup()
 local function lualine_loader()
 	local lualine_package_path = "/site/pack/packer/start/lualine.nvim"
 	install_path = fn.stdpath("data") .. lualine_package_path
@@ -768,6 +778,7 @@ local function lualine_loader()
 	else
 		-- Configure the status line
 		local conf = require("plugins.configs.myLuaLine")
+
 		require("lualine").setup({
 			options = conf["options"],
 			sections = conf["sections"],
@@ -871,3 +882,4 @@ require("glow").setup({
 	border = "rounded",
 	width = 100,
 })
+

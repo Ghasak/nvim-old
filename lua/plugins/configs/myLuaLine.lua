@@ -275,6 +275,9 @@ local system_icon = function()
 end
 
 -- ==================== What to show on the status bar =====================
+
+local gps = require("nvim-gps")
+
 return {
     options = {
         theme = "gruvbox",
@@ -299,7 +302,11 @@ return {
                 sources = {"nvim_diagnostic", "coc"} --  for nvim 0.6
             }
         },
-        lualine_c = {{[[""]]}, {full_path}},
+        lualine_c = {{[[""]]}, {full_path}, {
+          gps.get_location,
+          cond = gps.is_available,
+          color = { fg = "#f3ca28" },
+        }},
         lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
