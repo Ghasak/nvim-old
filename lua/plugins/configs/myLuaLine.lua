@@ -305,7 +305,9 @@ return {
         lualine_c = {
             {[[""]]}, {full_path},
             {navic.get_location, cond = navic.is_available,
-            color = { fg = "#f3ca28" },
+           -- color = { fg = "#f3ca28" },CE9178
+           --color = { fg = "#DCDCAA" },569CD6
+           color = { fg = "#569CD6" }, --569CD6
 
         }
         },
