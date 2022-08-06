@@ -105,6 +105,7 @@ local function theme_loader()
 		print(install_path)
 	else
 		vim.cmd([[colorscheme gruvbox-material]]) -- Others:  gruvbox-flat, onedark
+		--vim.cmd([[colorscheme Github_dark]]) -- Others:  gruvbox-flat, onedark
 		-- vim.cmd[[colorscheme gruvbox]] -- Others:  gruvbox-flat, onedark
 		vim.o.background = "dark" -- or "light" for light mode
 	end
