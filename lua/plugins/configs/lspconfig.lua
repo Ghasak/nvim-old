@@ -54,6 +54,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- 4. [Still many things to be investigated] https://github.com/LunarVim/Neovim-from-scratch/tree/06-LSP/lua/user/lsp
 -- Adding the gps for the language server
 local navic = require("nvim-navic")
+vim.g.navic_silence = true
 
 local function custom_attach(client, bufnr)
 	local function buf_set_keymap(...)
@@ -103,6 +104,7 @@ local function custom_attach(client, bufnr)
 	--          							lsp signture with nvim
 	-----------------------------------------------------------------------------------
 	require("lsp_signature").on_attach({
+		navic.attach(client, bufnr), -- gps utility,
 		bind = true,
 		use_lspsaga = false,
 		floating_window = true,
