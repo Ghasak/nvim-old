@@ -42,7 +42,7 @@ local lsp_func = function(msg)
             return string.format("%s : javascript-lsp", server_icon)
         elseif buff_ft == "julia" and server.name == "julials" then
             return string.format("%s : Julia-lsp", server_icon)
-        -- Define  C++ language server
+            -- Define  C++ language server
         elseif buff_ft == "cpp" and server.name == "clangd" then
             return string.format("%s : cpp-lsp", server_icon)
         else
@@ -62,7 +62,6 @@ local check_git = function()
     return result
 end
 
-
 -- ================== check copilot if its installed and enabled =============
 local function copilot_status()
 
@@ -72,12 +71,12 @@ local function copilot_status()
     if vim.fn.exists("g:copilot_enabled") == 1 then
         if (vim.inspect(vim.api.nvim_get_var('copilot_enabled')) == "true") then
             -- return true if copilot is installed and set to be enabled
-            return string.format("%s",copilot_icon_loaded)
+            return string.format("%s", copilot_icon_loaded)
         else
-            return string.format("%s",copilot_icon_not_loaded )
+            return string.format("%s", copilot_icon_not_loaded)
 
         end
-end
+    end
 end
 
 -- =================  Branch checking ==========================
@@ -275,17 +274,20 @@ local system_icon = function()
 end
 
 -- ==================== What to show on the status bar =====================
+
+local navic = require("nvim-navic")
+
 return {
     options = {
         theme = "gruvbox",
-        --theme = "github_dark",
+        -- theme = "github_dark",
         -- Github theme: https://github.com/projekt0n/github-nvim-theme/blob/main/LUALINE.md
-        --theme = "github_dimmed",
+        -- theme = "github_dimmed",
         icons_enabled = true,
         disabled_filetypes = {"dashboard", "NvimTree", "Outline"},
 
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = {left = '', right = ''},
+        section_separators = {left = '', right = ''}
     },
     sections = {
 
@@ -300,17 +302,19 @@ return {
                 sources = {"nvim_diagnostic", "coc"} --  for nvim 0.6
             }
         },
-        lualine_c = {{[[""]]}, {full_path}},
+        lualine_c = {
+            {[[""]]}, {full_path},
+            {navic.get_location, cond = navic.is_available,
+            color = { fg = "#f3ca28" },
+
+        }
+        },
         lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
-            {copilot_status},
-            --{"% ʟ %l/%L c %c"},
-            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"},  -- compatible with nvim 0.7
-            {
-                scrollbar,
-                separator = nil
-            }
+            {copilot_status}, -- {"% ʟ %l/%L c %c"},
+            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"}, -- compatible with nvim 0.7
+            {scrollbar, separator = nil}
         }
     },
     inactive_sections = {

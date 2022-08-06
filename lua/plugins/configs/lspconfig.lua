@@ -52,13 +52,17 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- 2. http://118.127.101.89/ashleyis/dotfiles/src/branch/master/private_dot_config/nvim/lua/config/lsp.lua
 -- 3. https://github.com/neovim/nvim-lspconfig/issues/836
 -- 4. [Still many things to be investigated] https://github.com/LunarVim/Neovim-from-scratch/tree/06-LSP/lua/user/lsp
+-- Adding the gps for the language server
+local navic = require("nvim-navic")
 
 local function custom_attach(client, bufnr)
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
+		navic.attach(client, bufnr) -- gps utility
 	end
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
+		navic.attach(client, bufnr) -- gps utility
 	end
 
 	-- Enable completion triggered by <c-x><c-o>

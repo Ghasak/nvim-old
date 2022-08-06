@@ -266,7 +266,7 @@ require("packer").startup({
         --			"shadmansaleh/lualine.nvim",
         --			requires = { "kyazdani42/nvim-web-devicons", opt = true },
         --		})
-        use('vim-airline/vim-airline-themes')
+        use("vim-airline/vim-airline-themes")
 
         use({
             "nvim-lualine/lualine.nvim",
@@ -368,6 +368,11 @@ require("packer").startup({
 
         -- Context that shows the currently visible buffer contents.
 
+        -- GPS
+        use({"SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig",
+            config = function() require("plugins.configs.myGPS") end
+    })
+
         -- ===========================================================================
         --           Navigation and Searching
         -- ===========================================================================
@@ -427,7 +432,6 @@ require("packer").startup({
                 cmd([[
                   let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
                   ]])
-
             end
         })
         -- Using sneak for faster jump inside the buffer
@@ -729,7 +733,7 @@ local function lualine_loader()
             ([[echohl WarningMsg | echomsg "[+] lualine library at :%s is not existed, will be installed after packer compiled ." | echohl None]]):format(
                 install_path))
     else
-        -- Configure the status line
+        -- Configure the status line for gpb
         local conf = require("plugins.configs.myLuaLine")
         require("lualine").setup({
             options = conf["options"],
@@ -771,7 +775,6 @@ local function myStartifyConfigLauncher()
         -- Configure the startify table plugin
         require("plugins.configs.myStarify")
     end
-
 end
 
 -- ===========================================================================
@@ -789,7 +792,6 @@ local function myQuoteConfigLauncher()
         -- Configure the quote table plugin
         require("plugins.configs.myQuote")
     end
-
 end
 
 -- ===========================================================================
