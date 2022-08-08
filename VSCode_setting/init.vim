@@ -1,6 +1,6 @@
 " TODO there is a more contemporary version of this file
 " TODO Also some of it is redundant
-packadd quickscope
+"packadd quickscope
 
 "luafile ~/.config/nvim/lua/settings.lua
 

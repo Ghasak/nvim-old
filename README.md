@@ -781,7 +781,6 @@ cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
 ```
 - `tree-sitter` was broken for each language, simple I executed in nvim command line `:TSUpdate`
 
-
 ## References
 
 - [CMP module](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)
