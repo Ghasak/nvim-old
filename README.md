@@ -483,9 +483,9 @@ Using a plugin `vim-table-mode` to create a nice table, need to remember the fol
 | Formulate the address first | For on the idea for | Create the right table in material_design_dark |
 | This could                  | How about the       | Working on the second objectives               |
 
-# Special Language Servers Configurations.
+## Special Language Servers Configurations.
 
-## Julia LSP
+### Julia LSP
 
 Installing the `Julia-lsp` needs, read from the references `Julia Language Reference`.
 
@@ -541,16 +541,16 @@ g + U 3 w will do for 3 words a head and captilze each word.
 ```
 - [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
 
-# Tips and tricks in NVIM
+## Tips and tricks in NVIM
 The following tips and tricks are for heavy `nvim` usages
-### Auto-complete
+#### Auto-complete
 editing `auto comoplete` can you use `Ctrl + p` or `Ctrl + n`
 
-### Buffers
+#### Buffers
 You can use the following commands `:bnext`, `:bprevious` `buffers`, `bd` and `:enew` which
 allow us to work with buffers more accurately.
 
-### Recordings
+#### Recordings
 Recording is just using the `Macros` in `Nvim`, this need to study more about
 this feature and to be added here later.
 - Press `q + a`.
@@ -558,9 +558,9 @@ this feature and to be added here later.
 - Close macro `q`
 - Apply the macro using `@a` or `@a 12` will be repeated 12 times.
 
-### Norm command
+#### Norm command
 `normal` or `norm` can be used with a lot of features.
-#### Adding to end or beginning of lines
+##### Adding to end or beginning of lines
 NOTE: (Read entry 47 in the table commands above for our daily shortcuts)
 The following trick allow us to write to the end of lines or beginning of lines
 Simply you can use the following.
@@ -575,7 +575,7 @@ Simply you can use the following.
 :`<,`>norm $X this  will delete last character at the end.
 :`<,`>norm ^X this  will delete first character at the end.
 ```
-## Executing CLI commands (from LINUX)
+### Executing CLI commands (from LINUX)
 We can use the following `:!command` that will be show the command with input and output
 
 ```shell
@@ -583,11 +583,11 @@ We can use the following `:!command` that will be show the command with input an
 :`<,`>! sort # for sorting
 :`<,`>! wc -l  # for count number of lines
 ```
-## Open Website from nvim, or go to file
+### Open Website from nvim, or go to file
 the command `g` stand for `G-command` one of the features that I like is `gx`
 will open the link while the cursor on it in the browser. Open files / URLs with gf / gx
 
-## Encrypting files with :X
+### Encrypting files with :X
 [this feature available only for `Vim`, and it is not available for `nvim`, We
 can add encryption to our file and only can be opened using the password we
 have offer
@@ -600,7 +600,7 @@ It will allow to encrypt your file after you input and confirm your password for
 2. To decryPt
 do same without passwords by hitting enter + enter
 
-## Spell Checking
+#### Spell Checking-1
 you can use `z=` once your cursor is on top of the wrong-spelling word, which
 will give you a list of all the possible options to fix the wrong spelling.
 To add a word to the custom dictionary use `zg` over the new word (e.g., treeSitter)
@@ -727,8 +727,8 @@ which is faster and dynamically update the PDF while typing.
 - [Sioyek pdf](https://sioyek.info), You need a cheat-sheet for `Sioyek`
 
 
-# Troubleshooting, Bugs and Errors
-after running `nvim` it is a good pratice to use `:messages` or `:notifications` for debugging messages.
+## Troubleshooting, Bugs and Errors
+After running `nvim` it is a good practice to use `:messages` or `:notifications` for debugging messages.
 1. Nvim 0.7
 - For`README.md` there was an issue can be solved using `:TSupdate`, follow here
   - [Fixing the issue of markup server error](https://github.com/nvim-treesitter/nvim-treesitter/issues/634)
