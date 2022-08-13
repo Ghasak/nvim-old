@@ -305,9 +305,11 @@ return {
         lualine_c = {
             {[[""]]}, {full_path},
             {navic.get_location, cond = navic.is_available,
-           -- color = { fg = "#f3ca28" },CE9178
+            --color = { fg = "#f3ca28" }, --CE9178
            --color = { fg = "#DCDCAA" },569CD6
-           color = { fg = "#569CD6" }, --569CD6
+           --color = { fg = "#569CD6" }, --569CD6
+           color = { fg =  colors.orange  }, --569CD6
+
 
         }
         },
@@ -315,7 +317,8 @@ return {
         lualine_y = {{get_file_size}, {hsp_progress}},
         lualine_z = {
             {copilot_status}, -- {"% ʟ %l/%L c %c"},
-            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"}, -- compatible with nvim 0.7
+            --{"%m%5([%l/%L%)(%c)%p%%]"}, -- compatible with nvim 0.7
+            {"%m%5([ﭨ ʟ%l/%L%)(c%c)%p%%]"}, -- compatible with nvim 0.7
             {scrollbar, separator = nil}
         }
     },

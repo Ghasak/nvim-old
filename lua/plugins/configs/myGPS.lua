@@ -3,7 +3,7 @@ local status_ok, navic  = pcall(require, "nvim-navics")
 if not status_ok then
   return
 end
-
+local icons = require "user.icons"
 
 local gray = "#32363e"
 local dark_gray = "#282C34"
@@ -48,10 +48,15 @@ navic.setup {
 	Operator = " ",
 	TypeParameter = " "
     },
-    highlight = false,
-    separator = " > ",
+    --highlight = false,
+    highlight = true,
+    --separator = " > ",
+    --separator = " > ",
+    separator = " " .. icons.ui.ChevronRight .. " ",
+
     depth_limit = 0,
     depth_limit_indicator = "..",
+
 }
 
 

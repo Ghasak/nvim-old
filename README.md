@@ -52,7 +52,6 @@ The current working flow to address such updates with my `main` repository is:
 
 ## Update history
 I have upgraded my `nvim` to version `7.0` which is the latest to 20,
-simply need to change the following
 
 ```shell
 window.documention => cmp.config.window.bordered()
@@ -435,7 +434,7 @@ are shown below
 - Applying a stress test for the launching time for `nvim 0.6` with the new configurations `Thus. Jan. 6th 2022`.
 ```bash
 # Applying
-╰ for ((i = 1; i < 10; i++)); do echo "\ue741 \uf432  Trial no. ${i}\n"; vim-startuptime --vimpath=nvim | head -n 4 | grep "Total Average"; done                                                                                                                                                                     祥:7.193s  [   Jan 06, 2022-   1:56:20 PM]
+╰ for ((i = 1; i < 10; i++)); do echo "\ue741 \uf432  Trial no. ${i}\n"; vim-startuptime --vimpath=nvim | head -n 4 | grep "Total Average"; done
 # Results
 
    Trial no. 1
