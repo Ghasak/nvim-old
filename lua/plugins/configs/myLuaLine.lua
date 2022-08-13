@@ -65,8 +65,8 @@ end
 -- ================== check copilot if its installed and enabled =============
 local function copilot_status()
 
-    local copilot_icon_loaded = "   ﮧ "
-    local copilot_icon_not_loaded = "   ﮧ "
+    local copilot_icon_loaded = "  ﮧ "
+    local copilot_icon_not_loaded = "  ﮧ "
 
     if vim.fn.exists("g:copilot_enabled") == 1 then
         if (vim.inspect(vim.api.nvim_get_var('copilot_enabled')) == "true") then
@@ -313,10 +313,10 @@ return {
 
         }
         },
-        lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
-        lualine_y = {{get_file_size}, {hsp_progress}},
+        lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()},separator=nil},
+        lualine_y = {{get_file_size},{hsp_progress}, separator = nil},
         lualine_z = {
-            {copilot_status}, -- {"% ʟ %l/%L c %c"},
+            {copilot_status, separator= nil}, -- {"% ʟ %l/%L c %c"},
             --{"%m%5([%l/%L%)(%c)%p%%]"}, -- compatible with nvim 0.7
             {"%m%5([ﭨ ʟ%l/%L%)(c%c)%p%%]"}, -- compatible with nvim 0.7
             {scrollbar, separator = nil}
