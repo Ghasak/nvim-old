@@ -333,8 +333,10 @@ vim.cmd([[
     " Set recommended to false
     let g:coq_settings = { "keymap.recommended": v:false }
 ]])
+
+
 -- Ctrl + P to open the the navigator faster
-vim.cmd([[
-let g:ctrlp_map = '<leader>p'
-let g:ctrlp_cmd = 'CtrlP'
-]])
+vim.api.nvim_set_keymap('n', '<leader>p',
+    "<cmd>lua require('fzf-lua').files()<CR>",
+    { noremap = true, silent = true })
+

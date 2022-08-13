@@ -369,9 +369,11 @@ require("packer").startup({
         -- Context that shows the currently visible buffer contents.
 
         -- GPS
-        use({"SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig",
+        use({
+            "SmiteshP/nvim-navic",
+            requires = "neovim/nvim-lspconfig",
             config = function() require("plugins.configs.myGPS") end
-    })
+        })
 
         -- ===========================================================================
         --           Navigation and Searching
@@ -423,17 +425,18 @@ require("packer").startup({
         --     end
         --   }
 
-        -- Ctrl + P searching
-        use({
-            "ctrlpvim/ctrlp.vim",
-            config = function()
-                local cmd = vim.cmd
-                -- Allow the ctrlP to not search the .git repository.
-                cmd([[
-                  let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-                  ]])
-            end
-        })
+        -- better than ctrl + p
+        use {
+            'ibhagwan/fzf-lua',
+            -- optional for icon support
+            requires = {'kyazdani42/nvim-web-devicons'},
+            --require('fzf-lua').setup {winopts = {hl = {border = "FloatBorder"} , split = "belowright new",}}
+            require("plugins.configs.myFZF")
+        }
+        -- config = function()
+        --    --require("plugins.configs.myFzf").setup()
+        -- end
+
         -- Using sneak for faster jump inside the buffer
         use({
             "justinmk/vim-sneak",
@@ -809,6 +812,8 @@ lualine_loader()
 myStartifyConfigLauncher()
 -- myQuote Configuration loader
 myQuoteConfigLauncher()
+-- ctrl+p fzf nvim with lua support
+-- require("plugins.configs.myfzf").setup()
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
@@ -825,3 +830,4 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
+
