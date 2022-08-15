@@ -11,6 +11,8 @@ vim.cmd[[
       " Also from Telescope: <Leader> f + g or <Leader> f + f
       command! MYRg FloatermNew --width=0.8 --height=0.8 rg
       " Using XPLR
+      "https://peterbabic.dev/blog/excluding-file-name-from-vim-fzf-ripgrep/
+      command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
       command! XPLR FloatermNew xplr
       " Using lazygit
       command! LAZYGIT FloatermNew lazygit

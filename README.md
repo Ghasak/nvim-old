@@ -813,6 +813,7 @@ cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
 - How to program a status line in lua
 - [How I Made My NEOVIM STATUSLINE IN LUA](https://elianiva.my.id/post/neovim-lua-statusline)
 - [ChristianChirulli awesome repository-supporting lua config](https://github.com/ChristianChiarulli/nvim)
+- [Packages status in neovim](https://neovimcraft.com)
 
 ```sh
 -- Debugging
