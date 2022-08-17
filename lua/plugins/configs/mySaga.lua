@@ -56,9 +56,9 @@ M.conf = function()
 	})
 
 	-- LSP: lsp_finder
-	vim.api.nvim_set_keymap("n", "gf", "<cmd>lua require('lspsaga.provider').lsp_finder()<CR>", {
-		silent = true,
-	})
+	-- vim.api.nvim_set_keymap("n", "gf", "<cmd>lua require('lspsaga.provider').lsp_finder()<CR>", {
+	-- 	silent = true,
+	-- })
 
 	-- LSP: lsp preview definition
 	vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('lspsaga.provider').preview_definition()<CR>", {

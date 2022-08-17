@@ -1,4 +1,6 @@
--- =================  LSP language server client ==========================
+-- =================  Help can be found here  ==========================
+-- :h statusline
+-- =================  LSP language server client =======================
 local function env_cleanup(venv)
     if string.find(venv, "/") then
         local final_venv = venv
@@ -10,8 +12,6 @@ end
 
 local lsp_func = function(msg)
     -- Function that return the client language server corresponding to the
-    -- This setting will mean that you have one single statusline drawn accross the entire display
-    vim.o.laststatus=3
     local server_icon = "歷"
     local server_icon_not_not_known = "轢"
     local servers = {}
@@ -42,7 +42,7 @@ local lsp_func = function(msg)
             return string.format("%s : javascript-lsp", server_icon)
         elseif buff_ft == "julia" and server.name == "julials" then
             return string.format("%s : Julia-lsp", server_icon)
-        -- Define  C++ language server
+            -- Define  C++ language server
         elseif buff_ft == "cpp" and server.name == "clangd" then
             return string.format("%s : cpp-lsp", server_icon)
         else
@@ -62,22 +62,21 @@ local check_git = function()
     return result
 end
 
-
 -- ================== check copilot if its installed and enabled =============
 local function copilot_status()
 
-    local copilot_icon_loaded = "   ﮧ "
-    local copilot_icon_not_loaded = "   ﮧ "
+    local copilot_icon_loaded = "  ﮧ "
+    local copilot_icon_not_loaded = "  ﮧ "
 
     if vim.fn.exists("g:copilot_enabled") == 1 then
         if (vim.inspect(vim.api.nvim_get_var('copilot_enabled')) == "true") then
             -- return true if copilot is installed and set to be enabled
-            return string.format("%s",copilot_icon_loaded)
+            return string.format("%s", copilot_icon_loaded)
         else
-            return string.format("%s",copilot_icon_not_loaded )
+            return string.format("%s", copilot_icon_not_loaded)
 
         end
-end
+    end
 end
 
 -- =================  Branch checking ==========================
@@ -276,18 +275,19 @@ end
 
 -- ==================== What to show on the status bar =====================
 
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 
 return {
     options = {
         theme = "gruvbox",
+        -- theme = "github_dark",
         -- Github theme: https://github.com/projekt0n/github-nvim-theme/blob/main/LUALINE.md
-        --theme = "github_dimmed",
+        -- theme = "github_dimmed",
         icons_enabled = true,
         disabled_filetypes = {"dashboard", "NvimTree", "Outline"},
 
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = {left = '', right = ''},
+        section_separators = {left = '', right = ''}
     },
     sections = {
 
@@ -302,33 +302,35 @@ return {
                 sources = {"nvim_diagnostic", "coc"} --  for nvim 0.6
             }
         },
-        lualine_c = {{[[""]]}, {full_path}, {
-          gps.get_location,
-          cond = gps.is_available,
-          color = { fg = "#f3ca28" },
-        }},
-        lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()}},
-        lualine_y = {{get_file_size}, {hsp_progress}},
+        lualine_c = {
+            {[[""]]}, {full_path},
+            {navic.get_location, cond = navic.is_available,
+            --color = { fg = "#f3ca28" }, --CE9178
+           --color = { fg = "#DCDCAA" },569CD6
+           --color = { fg = "#569CD6" }, --569CD6
+           color = { fg =  colors.orange  }, --569CD6
+
+
+        }
+        },
+        lualine_x = {{"encoding"}, {"filetype"}, {lsp_func}, {system_icon()},separator=nil},
+        lualine_y = {{get_file_size},{hsp_progress}, separator = nil},
         lualine_z = {
-           {copilot_status},
-            --{"% ʟ %l/%L c %c"}, -- This has a problem which I couldn't figure out
-            {"%m%5([ʟ%l/%L%)(c%c) %p%%]"},
-            --{"%m%"},
-            {
-                scrollbar,
-                separator = nil
-            }
+            {copilot_status, separator= nil}, -- {"% ʟ %l/%L c %c"},
+            --{"%m%5([%l/%L%)(%c)%p%%]"}, -- compatible with nvim 0.7
+            {"%m%5([ﭨ ʟ%l/%L%)(c%c)%p%%]"}, -- compatible with nvim 0.7
+            {scrollbar, separator = nil}
         }
     },
-    -- inactive_sections = {
-    --     lualine_a = {},
-    --     lualine_b = {},
-    --     lualine_c = {},
-    --     lualine_x = {},
-    --     lualine_y = {},
-    --     lualine_z = {}
-    -- },
-    -- tabline = {},
-    -- extensions = {}
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    extensions = {}
 }
 
