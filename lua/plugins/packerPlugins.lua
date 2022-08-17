@@ -338,7 +338,8 @@ require("packer").startup({
 
         -- Markdown, Markup-language better view (two plugins)
         use({
-            "npxbr/glow.nvim",
+            --"npxbr/glow.nvim",
+            "ellisonleao/glow.nvim",
             config = function() require("plugins.configs.myGlowMark") end
         })
 
@@ -747,6 +748,7 @@ local function lualine_loader()
             options = conf["options"],
             sections = conf["sections"]
         })
+
     end
 end
 
@@ -802,6 +804,39 @@ local function myQuoteConfigLauncher()
     end
 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- ===========================================================================
 --               Fetching the startup packages
 -- ===========================================================================
@@ -817,9 +852,20 @@ lualine_loader()
 myStartifyConfigLauncher()
 -- myQuote Configuration loader
 myQuoteConfigLauncher()
--- Loading necessary 
+-- Loading necessary
+-- fzf-nvim setup
 require("plugins.configs.myFZF")
+-- symbols setup
 require("symbols-outline").setup()
+-- Glow setup
+require('glow').setup({
+  style = "dark",
+  width = 120,
+  glow_path = "", -- filled automatically with your glow bin in $PATH, will be empty if no executable is found
+  glow_install_path = "~/.local/bin", -- default path for installing glow binary if not executable is found
+  border = "shadow", -- floating window border config
+  pager = false,
+})
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
@@ -836,6 +882,5 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
-
 
 

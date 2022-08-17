@@ -809,8 +809,6 @@ This one is not working
 - [cmp-tabnine](https://github.com/tzachar/cmp-tabnine/blob/main/install.sh)
 
 
-
-
 ## References
 
 - [CMP module](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)

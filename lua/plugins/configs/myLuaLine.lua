@@ -92,7 +92,11 @@ local colors = {
     magenta = "#c678dd",
     purple = "#c678dd",
     blue = "#51afef",
-    red = "#ec5f67"
+    red = "#ec5f67",
+      gray = "#303030",
+      dark_gray = "#303030",
+      yellow_orange = "#D7BA7D",
+      purple = "#B48EAD",
 }
 
 -- To make it works: uncomment (watch_head), and including in section_a or b or c {{branch}}
@@ -276,6 +280,8 @@ end
 -- ==================== What to show on the status bar =====================
 
 local navic = require("nvim-navic")
+
+
 
 return {
     options = {
