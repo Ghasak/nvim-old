@@ -154,7 +154,7 @@ require("packer").startup({
         -- Adding symbols outline (similar to vista)
         use({
             "simrat39/symbols-outline.nvim",
-            setup = require("symbols-outline").setup(),
+            --setup = require("symbols-outline").setup(),
             config = function()
                 require("plugins.configs.mySymbolsOutline").init()
             end
@@ -273,7 +273,8 @@ require("packer").startup({
 
         use({
             "nvim-lualine/lualine.nvim",
-            requires = {"kyazdani42/nvim-web-devicons", opt = true}
+            requires = {"kyazdani42/nvim-web-devicons", opt = true},
+
         })
 
         -- To show the diff of file
@@ -434,7 +435,7 @@ require("packer").startup({
             -- optional for icon support
             requires = {'kyazdani42/nvim-web-devicons'},
             --require('fzf-lua').setup {winopts = {hl = {border = "FloatBorder"} , split = "belowright new",}}
-            setup = require("plugins.configs.myFZF")
+            --setup = require("plugins.configs.myFZF")
 
         })
         -- config = function()
@@ -816,6 +817,9 @@ lualine_loader()
 myStartifyConfigLauncher()
 -- myQuote Configuration loader
 myQuoteConfigLauncher()
+-- Loading necessary 
+require("plugins.configs.myFZF")
+require("symbols-outline").setup()
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md

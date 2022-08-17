@@ -781,6 +781,36 @@ cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
 ```
 - `tree-sitter` was broken for each language, simple I executed in nvim command line `:TSUpdate`
 
+### TabNine Is not supported
+# Backup for TabNine
+
+I have created these as a packup for the tabnine as I cannot install them directly. The backup is located in .GScript
+copy all the files in this directory `binaries` to the directory of the `nvim-cmp`, but you need to change the name from the original if you want to download from here
+- [codota/tabnine-vim](https://github.com/codota/tabnine-vim)
+
+```shell
+mv i386-apple-darwin x86_64-apple-darwin
+```
+
+and include them here
+`~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/binaries/x86_64-apple-darwin`
+
+```shell
+╭─ Ghasak.Ibrahim   JPC02DW0YWML86 on ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/binaries/x86_64-apple-darwin   
+├─ﮧ INSERT  6h55m|main
+╰─ lsd                                                                                                                                                   祥:5ms  [   Aug 17, 2022 -  11:25:48 PM ]
+   rwxr-xr-x   1   Ghasak.Ibrahim   staff     18 MiB   Wed Aug 17 23:06:11 2022    TabNine
+   rwxr-xr-x   1   Ghasak.Ibrahim   staff      9 MiB   Wed Aug 17 23:06:11 2022    TabNine-deep-cloud
+   rwxr-xr-x   1   Ghasak.Ibrahim   staff     12 MiB   Wed Aug 17 23:06:11 2022    TabNine-deep-local
+   rwxr-xr-x   1   Ghasak.Ibrahim   staff      7 MiB   Wed Aug 17 23:06:11 2022    WD-TabNine
+```
+
+This one is not working
+- [cmp-tabnine](https://github.com/tzachar/cmp-tabnine/blob/main/install.sh)
+
+
+
+
 ## References
 
 - [CMP module](https://github.com/abzcoding/nvim/blob/main/lua/config/cmp.lua)

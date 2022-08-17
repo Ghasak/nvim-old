@@ -52,13 +52,18 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- 2. http://118.127.101.89/ashleyis/dotfiles/src/branch/master/private_dot_config/nvim/lua/config/lsp.lua
 -- 3. https://github.com/neovim/nvim-lspconfig/issues/836
 -- 4. [Still many things to be investigated] https://github.com/LunarVim/Neovim-from-scratch/tree/06-LSP/lua/user/lsp
+-- Adding the gps for the language server
+local navic = require("nvim-navic")
+vim.g.navic_silence = true
 
 local function custom_attach(client, bufnr)
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
+		navic.attach(client, bufnr) -- gps utility
 	end
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
+		navic.attach(client, bufnr) -- gps utility
 	end
 
 	-- Enable completion triggered by <c-x><c-o>
@@ -99,6 +104,7 @@ local function custom_attach(client, bufnr)
 	--          							lsp signture with nvim
 	-----------------------------------------------------------------------------------
 	require("lsp_signature").on_attach({
+		navic.attach(client, bufnr), -- gps utility,
 		bind = true,
 		use_lspsaga = false,
 		floating_window = true,
@@ -457,9 +463,9 @@ vim.diagnostic.config({
 -- ================== Highlight line number instead of having icons in sign column ==================
 vim.cmd([[
   highlight DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
-  highlight DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
-  highlight DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
-  highlight DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+  highlight DiagnosticLineNrWarn  guibg=#51412A guifg=#FFA500 gui=bold
+  highlight DiagnosticLineNrInfo  guibg=#1E535D guifg=#00FFFF gui=bold
+  highlight DiagnosticLineNrHint  guibg=#1E205D guifg=#0000FF gui=bold
 ]])
 
 -- ================== Highlight symbols with (/) search command event ========================
@@ -479,3 +485,6 @@ vim.notify = function(msg, log_level, _opts)
         vim.api.nvim_echo({{msg}}, true, {})
     end
 end
+
+
+
