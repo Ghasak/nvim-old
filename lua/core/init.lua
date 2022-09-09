@@ -93,6 +93,7 @@ end
 local function theme_loader()
 	local gruvbox_theme_dir = "/site/pack/packer/start/gruvbox"
 	local gruvbox_material_theme_dir = "/site/pack/packer/start/gruvbox-material"
+	local Github_material_theme_dir = "/site/pack/packer/start/gruvbox-material"
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. gruvbox_material_theme_dir
 	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -104,6 +105,7 @@ local function theme_loader()
 		print(install_path)
 	else
 		vim.cmd([[colorscheme gruvbox-material]]) -- Others:  gruvbox-flat, onedark
+		--vim.cmd([[colorscheme Github_dark]]) -- Others:  gruvbox-flat, onedark
 		-- vim.cmd[[colorscheme gruvbox]] -- Others:  gruvbox-flat, onedark
 		vim.o.background = "dark" -- or "light" for light mode
 	end

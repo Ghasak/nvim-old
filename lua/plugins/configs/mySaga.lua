@@ -103,9 +103,9 @@ M.conf = function()
 		silent = true,
 	})
 
-	vim.api.nvim_set_keymap("n", "gu", "<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<CR>", {
-		silent = true,
-	})
+	-- vim.api.nvim_set_keymap("n", "gu", "<cmd>lua require('lspsaga.diagnostic').show_cursor_diagnostics()<CR>", {
+	-- 	silent = true,
+	-- })
 
 	vim.api.nvim_set_keymap("n", "gm", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<CR>", {
 		silent = true,

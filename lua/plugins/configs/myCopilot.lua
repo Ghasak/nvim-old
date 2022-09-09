@@ -43,7 +43,7 @@ vim.cmd([[
 --                         -- --
 -- This is the setting option for enabling/dsiable the copilot globally.
 vim.cmd([[
-        let g:copilot_enabled = v:true
+        let g:copilot_enabled = v:false
 ]])
 
 --                          █▀▀ █▀█ █▀█ █ █░░ █▀█ ▀█▀   █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀ 
@@ -57,7 +57,7 @@ local function copilot_plugin_installed_check()
     -- This will check if the current command is existed but not checking if
     -- the command is enabled or not.
     if vim.fn.exists("g:copilot_enabled") == 1 then
-        print("copilot plugin is installed")
+        print("copilot plugin is installed ...")
         local async = require("plenary.async")
         local notify = require("notify").async
         -- vim.notify(file)
@@ -70,6 +70,16 @@ local function copilot_plugin_installed_check()
     end
 end
 
+
+-- local async = require("plenary.async")
+-- local notify = require("notify").async
+
+-- async.run(function()
+--   notify("Let's wait for this to close").events.close()
+--   notify("It closed!")
+-- end)
+
+
 local function copilot_plugin_enabled_check()
     -- This will check the option of our current setting variable for the
     -- copilot if its set to true or false
@@ -81,9 +91,9 @@ local function copilot_plugin_enabled_check()
             -- vim.notify(file)
             async.run(function()
                 local messege = "copilot is enabled ... "
-                notify(messege, "DEBUG", {
+                notify(messege, "WARN", {
                     title = " Copilot plugin status"
-                })
+                }).events.close()
             end)
         end
     end
@@ -98,7 +108,7 @@ local function check_to_show_copilot_status_in_lualine_statusbar()
     end
 end
 
-copilot_plugin_enabled_check()
+-- copilot_plugin_enabled_check()
 -- print(check_to_show_copilot_status_in_lualine_statusbar())
 --print(vim.inspect(vim.api.nvim_get_var('copilot_enabled')))
 --print(check_to_show_copilot_status_in_lualine_statusbar())

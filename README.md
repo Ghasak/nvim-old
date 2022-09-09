@@ -1,9 +1,9 @@
-# Neovim Configurations File (build v.02)
+#  Neovim Configurations File (build v.01)
 
 ## What is new?
 
-As `nvim` is now updated to version `0.6` with a stable release. The plugin
-`nvim-telescope` has no backward compatibility and require only `nvim 0.6+`.
+As `nvim` is now updated to version `0.7` with a stable release. The plugin
+`nvim-telescope` has no backward compatibility and require only `nvim 0.7+`.
 Therefore, it is time to upgrade the configuration file of `init.lua`. The
 native `nvim` module of `nvim-lsp` has become `nvim-diagonstics`, the built-in
 APIs are now different, which many other third-party-plugins haven't been
@@ -12,7 +12,7 @@ fixing the `lsp-saga`, this including the `lsp-signture` which are both
 now working synchronously with the `lsp-connfig`. Features in this migration
 are, to name few:
 
-- Now all packages are supported with the `NVIM v.06+`.
+- Now all packages are supported with the `NVIM v.07+`.
 - Some compatibility issues are now fixed with the `lsp-configs`, especially
   passing the `custom_attach`, `handler`, and `compatibility` to the
   `nvim-lsp-installer` setup API.
@@ -23,24 +23,40 @@ are, to name few:
 - Adding branches to the `~/.config/nvim/`, for each version, also a branch
   called `feature/dev` to check and try any new feature or package.
 
+### Nvim updates in nutshell
+You will always need to configure
+1. Packer for new library/package
+2. `LSInstall` to get the language sever setup and configurations.
+3. `tree-sitter` for getting the syntax highlighting with much better way.
+
 ### About Branch and GitHub
 Once you have updated the `main` branch (change, modify, create ... etc.)
-The current working flow to address such updates with my `main` repo is:
+The current working flow to address such updates with my `main` repository is:
 
 1. On the main branch, `git add --> git commit --> git push `, you will get your
    `main` branch in the `remote` repository at `GitHub` to the latest comments.
 
-2. Switch to the release branch currently I am using the `nvim0.6` branch, using
-   `git checkout nvim0.6`,
+2. Switch to the release branch currently I am using the `nvim0.7` branch, using
+   `git checkout nvim0.7`,
 
+```shell
   - git merge main
   - git add -a
   - git commit -m "some message"
   - git push
+```
 
-3. On GitHub main repo. You will see that your pull request to merge with the
+3. On GitHub main repository. You will see that your pull request to merge with the
    main doesn't appear, the reason is that your `main branch` becomes an
    identical copy to our `nvim0.6 branch`.
+
+## Update history
+I have upgraded my `nvim` to version `7.0` which is the latest to 20,
+
+```shell
+window.documention => cmp.config.window.bordered()
+
+```
 
 ## Contents
 The following configurations are based on `lua` with `nvim` as my daily-working
@@ -126,7 +142,7 @@ with `COC and COC-LSP` and my current one with `nvim-lsp`.
 | 22  | :leader + ,              | To open the configuration file (init.vim)                                                                                             |            |
 | 23  | :leader + e              | Open coc-explorer better than nerdTree                                                                                                |            |
 | 24  | :leader + u              | UndoTree                                                                                                                              |            |
-| 25  | using F5                 | Open `ipython` and run the script you have                                                                                              |            |
+| 25  | using F5                 | Open `ipython` and run the script you have                                                                                            |            |
 | 26  | :index                   | To see all key maps                                                                                                                   |            |
 | 27  | F1                       | See hover of definition with coc                                                                                                      |            |
 | 28  | d0 or d^                 | Delete to beginning of line from the cursor position                                                                                  |            |
@@ -136,18 +152,19 @@ with `COC and COC-LSP` and my current one with `nvim-lsp`.
 | 32  | c + s + " + '            | this will work as change the surrender (you need a plugin)                                                                            |            |
 | 33  | :Markdown_preview        | Toggle markdown using browser (not like glow)                                                                                         |
 | 34  | double ""                | in normal mode (double ") will give us the terminal of the register                                                                   |
-| 35  | :SymbolOutlines          | Open the symbol-outline menu for fast coding movements                                                                                 |
+| 35  | :SymbolOutlines          | Open the symbol-outline menu for fast coding movements                                                                                |
 | 36  | :Trouble                 | Code diagnostic with nice layouts                                                                                                     |
 | 37  | :Ctrl-\                  | open quick terminal written in lua super fast.                                                                                        |
 | 38  | ~                        | changing the letter (Capital to small letter)                                                                                         |
 | 39  | gr                       | replace with register yanking then paste (repeatable)                                                                                 |
 | 40  | gy                       | re-mapping to lsp-config for show references                                                                                          |
 | 41  | grr                      | form lspsaga replace the work with a given sentence.                                                                                  |            |
-| 42  | leader t+m               | `Activite` the table mode                                                                                                               |            |
+| 42  | leader t+m               | `Activite` the table mode                                                                                                             |            |
 | 43  | leader b+n               | Open terminal horizontally                                                                                                            |            |
 | 44  | leader g d               | go to definition in nvim-lsp built-in, while (g d) will be using lspSaga                                                              |            |
-| 45  | g  h                     | hover with `lspsaga`, while F1 hover using `nvim-lsp` built-in.                                                                           |            |
-
+| 45  | g  h                     | hover with `lspsaga`, while F1 hover using `nvim-lsp` built-in.                                                                                    |
+| 46  | Neoformat -formatter     | Using the formatter with the nvim depending on the language server, (e.g., Lua: luastyla)                                                          |
+| 47  | shift+f                  | first highlight to get (:\`\<,\`\>)norm (**A** for end of lines, **I** for beginning of lines) adding the text you want               | https://www.youtube.com/watch?v=gccGjwTZA7k
 ---
 
 ### Requirements
@@ -171,8 +188,8 @@ The requirements that I am looking for in my IDE are: **note**, check sign means
 - [x] Optimize the performance of the launched packages with events, `cmd`, `impatient` plugin and `lazy-loading`.
 - [x] Adding `org mode`, `to-do` list and some other interesting plugins.
 - [x] Automate `lua` coding with optimized `nvim` scripts for on-first installation and on-first launching,
-      (such as changing the packer-compiled directory with packer.init(), up to
-      now, the `nvim` will not automated to recompiled on attach, need manually to
+      (such as changing the packer-compiled directory with packer.`init()`, up to
+      now, the `nvim` will not be automated to recompiled on attach, need manually to
       compile).
 
 - [x] Adding `auto commenting` Lines.
@@ -186,7 +203,7 @@ Things to be included in my current developed branch.
 
 - [x] Syntax highlighting
 - [x] Snippets
-- [x] TreeSitter
+- [x] Tree-sitter
 - [x] Jump to definition
 - [x] Show definition on hover
 - [x] Show Implementations.
@@ -245,7 +262,26 @@ luarocks install --server=https://luarocks.org/dev luaformatter
 ```
 
 # Useful information
+## Execute lua in cmd
+For example, to get the operation system name we can run
+```shell
+:lua print(vim.ovim.loop.os_uname().sysname) <- this will return Darwin.
+:lua print(jit.os)                           <- this will return OSX
+```
+## Some useful API functions
 
+```sh
+-- Getting to know the cursor location
+local current_line = vim.fn.line(".")
+local total_line = vim.fn.line("$")
+-- Getting to know the directory , file name, and extension
+local filename = vim.fn.expand "%:t"
+local extension = vim.fn.expand "%:e"
+local extension = vim.fn.expand "%:f"
+local extension = vim.fn.expand "%:F"
+#  This will get us the full path
+local file = vim.fn.expand("%:p")
+```
 ## Testing the speed of neovim launching time.
 
 Use the command `vim-startuptime` which will offer a quick calculation of the launching time.
@@ -398,7 +434,7 @@ are shown below
 - Applying a stress test for the launching time for `nvim 0.6` with the new configurations `Thus. Jan. 6th 2022`.
 ```bash
 # Applying
-╰ for ((i = 1; i < 10; i++)); do echo "\ue741 \uf432  Trial no. ${i}\n"; vim-startuptime --vimpath=nvim | head -n 4 | grep "Total Average"; done                                                                                                                                                                     祥:7.193s  [   Jan 06, 2022-   1:56:20 PM]
+╰ for ((i = 1; i < 10; i++)); do echo "\ue741 \uf432  Trial no. ${i}\n"; vim-startuptime --vimpath=nvim | head -n 4 | grep "Total Average"; done
 # Results
 
    Trial no. 1
@@ -422,20 +458,6 @@ Total Average: 506.968300 msec
 
 ```
 
-## Some useful API functions
-
-```sh
--- Getting to know the cursor location
-local current_line = vim.fn.line(".")
-local total_line = vim.fn.line("$")
--- Getting to know the directory , file name, and extension
-local filename = vim.fn.expand "%:t"
-local extension = vim.fn.expand "%:e"
-local extension = vim.fn.expand "%:f"
-local extension = vim.fn.expand "%:F"
-#  This will get us the full path
-local file = vim.fn.expand("%:p")
-```
 
 ## Table mode in nvim
 
@@ -496,6 +518,309 @@ julia --project=/path/to/my/project -e 'using Pkg; Pkg.instantiate()'
 To install the `intractive REPL` of Julia with `jupyter` you can use, inside
 the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 
+## Adding auto-formatter for shell-scripts or bash
+For using `NeoVim`, if the language server is `shell-lsp` for `bash` or `shell`, you can add the autoformatter similar to `lua` as following.
+1. Instal Go to your system
+2. Install using Go the auto-shell-formatter, `Neoformat` must see it that it is being installed to your default shell (`zsh`)
+```shell
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+```
+3. you can source the `shfmt` to your terminal so that the `neoformat` can see it, as `export PATH=$PATH:$HOME/go/bin/`. You can also run it externally using
+
+
+```shell
+shfmt -l -w script.sh
+```
+
+## How to capitalize and deCapitalize in NeoVim
+
+```shell
+Using the keybinding
+g + u : for first letter capitalize (change upper to lower, you need to do that on the letter you want to change then escape then l or h only once)
+g + U : for capitalize all the letters (change upper to upper, you need to do that on the letter you want to change then escape then l or h only once)
+g + ~ : to switch between the capitlal to small letter and viceversa (you will need shift to get the telda)
+
+bonus
+g + U 3 w will do for 3 words a head and captilze each word.
+```
+- [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
+
+# Tips and tricks in NVIM
+The following tips and tricks are for heavy `nvim` usages
+### Auto-complete
+editing `auto comoplete` can you use `Ctrl + p` or `Ctrl + n`
+
+### Buffers
+You can use the following commands `:bnext`, `:bprevious` `buffers`, `bd` and `:enew` which
+allow us to work with buffers more accurately.
+
+### Recordings
+Recording is just using the `Macros` in `Nvim`, this need to study more about
+this feature and to be added here later.
+- Press `q + a`.
+- Do the sub-task.
+- Close macro `q`
+- Apply the macro using `@a` or `@a 12` will be repeated 12 times.
+
+### Norm command
+`normal` or `norm` can be used with a lot of features.
+#### Adding to end or beginning of lines
+NOTE: (Read entry 47 in the table commands above for our daily shortcuts)
+The following trick allow us to write to the end of lines or beginning of lines
+Simply you can use the following.
+1. Highlight all the lines using *shift + v* then use *:* to get: :`<,`>.
+2. Adding `normal` or `norm` to the formula.
+3. Adding to end you can use *A* to the beginning add *I*.
+4. Add your text to the end.
+
+```shell
+:`<,`>norm A whatever you will add to end of all lines.
+:`<,`>norm I whatever you will add to beginning of all lines.
+:`<,`>norm $X this  will delete last character at the end.
+:`<,`>norm ^X this  will delete first character at the end.
+```
+## Executing CLI commands (from LINUX)
+We can use the following `:!command` that will be show the command with input and output
+
+```shell
+# This command will be used to sort alot of lines uniquly
+:`<,`>! sort # for sorting
+:`<,`>! wc -l  # for count number of lines
+```
+
+## Form multi-lines into one-line single line in vim
+You can first select using `shift+v` for horizontal selection, to select all the lines you have
+Then
+```shell
+:'<,'>j
+```
+or you can use
+`g + shift +j` g command means only hits `g` letter to trigger the vim function for this purpose
+## Do the opposite, form one-line to multi-lines
+For sure we can do the opposite using, you can select the maximum number of your given string in oneline
+```shell
+:set textwidth=10
+then use
+g then q
+dont forget to reset after you finish
+:set textwidth=0
+```
+- [Vim Tutorial - Join and Split Lines](https://www.youtube.com/watch?v=MA9WFO_WUOM)
+
+## What the meaning of visual-mode
+`v`          :is selecting visually a segment of a a given line.
+`shift v`    :is selecting visually multi-lines horizontally
+`ctrl v`     :si selecting visually multi-lines vertically.
+
+## Open Website from nvim, or go to file
+the command `g` stand for `G-command` one of the features that I like is `gx`
+will open the link while the cursor on it in the browser. Open files / URLs with gf / gx
+
+## Encrypting files with :X
+[this feature available only for `Vim`, and it is not available for `nvim`, We
+can add encryption to our file and only can be opened using the password we
+have offer
+1. to Encrypt
+```shell
+:X
+```
+It will allow to encrypt your file after you input and confirm your password for this file.
+
+2. To decryPt
+do same without passwords by hitting enter + enter
+
+## Spell Checking
+you can use `z=` once your cursor is on top of the wrong-spelling word, which
+will give you a list of all the possible options to fix the wrong spelling.
+To add a word to the custom dictionary use `zg` over the new word (e.g., treeSitter)
+it will be added to `~/.config/nvim/spell/en.utf-8.add`.
+
+## Arithmetic Expression
+### Increment and decrements
+You can basically do arithmetic in `nvim` such as
+- increment and decrements an integer value using `ctrl + a` or `ctrl +x` over the number (e.g., 144)
+Using it with number increment list with `macro`
+1. Record a macro using `q+a`
+2. make a line with a number then copy it for next line
+3. increment the number of the list using `ctrl+a`
+4. finish recording the macro with `q`
+5. repeat the macro using `@a` or `@a 3` to repeat it three times
+
+### Execution commands
+- Put the cursor over the following expression in a new line:
+echo $((100 + 54))
+- You can execute a command in your `nvim buffer` using `:.!zsh` to redraw your command line and get you the results inside the buffer.
+- You can execute a command in your `nvim command palette` with `:!!zsh`
+
+### Combine Commands
+
+
+1. Hello world
+2. Hello world
+3. Hello world
+4. Hello world
+5. Hello world
+6. Hello world
+7. Hello world
+
+- Assume we have the text above. highlight all these lines
+- use :`<,`>s/\..\+//cig
+- It will get you all the numbers
+1
+2
+3
+4
+5
+6
+7
+- Highlight again and use `<,`>norm A + to add (+) to the end of each line
+1 +
+2 +
+3 +
+4 +
+5 +
+6 +
+7 +
+
+- Highlight again and use `<,`>join (or simply j) to join them all together.
+1 + 2 + 3 + 4 + 5 + 6 + 7 +
+- Finally get the value of this expression using `:.!zsh` as:
+echo $((1 + 2 + 3 + 4 + 5 + 6 + 7))
+
+- Now we can get the final value as
+28
+
+## How to increment a list (most elegant way)
+We can use the following steps:
+- Create a list with zeros as shown using `ctrl+v` then `shit + i` then `0` and enter.
+```shell
+- [0] list number 1
+- [0] list number 1
+- [0] list number 1
+- [0] list number 1
+```
+- Now you highlight `visual block` using `<C-v>` also knows as `ctrl+v` again the list at `0` and perform `g<C-a>`
+```shell
+- [1] list number 1
+- [2] list number 2
+- [3] list number 3
+- [4] list number 4
+
+```
+
+- [Quick vim tips to generate and increment numbers](https://irian.to/blogs/quick-vim-tips-to-generate-and-increment-numbers/)
+
+### More example
+1. Try to put some text with increment
+```shell
+:for i in range(1,10) | put ='192.168.0.'.i | endfor
+```
+2. Try to create counter with 00 prefixes
+```shell
+:put =map(range(1,150), 'printf(''%04d'', v:val)')
+```
+- [More tips and tricks about increments](https://vim.fandom.com/wiki/Making_a_list_of_numbers)
+
+## How to capitalize first letter in many lines
+- [my comment can be found here](https://stackoverflow.com/questions/3126500/how-do-i-capitalize-the-first-letter-of-a-word-in-vim/72860055#728600550)
+
+- [10 Advanced Vim Features You probably didn't know](https://www.youtube.com/watch?v=gccGjwTZA7k)
+- [dotfile](https://github.com/sdaschner/dotfiles/blob/master/.vimrc)
+
+## How to select or append from position to end of multi-lines
+
+1. Click somewhere (anywhere) in the first line you wish to append text to.
+2. Press Control + V.
+3. Press Down to create an arbitrary vertical block selection that spans the desired lines.
+4. Press $ to expand the visual block selection to the ends of every line selected.
+5. Press Shift + A to append text to every selected line.
+6. Type the text you want to append.
+7. Press Escape and the text will be appended across the selected lines.
+- [Vim Select the ends of multiple lines block mode ](https://stackoverflow.com/questions/10772598/vim-select-the-ends-of-multiple-lines-block-mode-but-where-the-ending-column-v)
+# Language Server
+## Adding Latex language server
+I have chosen the `latex:textlab` as my language sever for the latex to get all
+the features required to write in `latex`. Following the Steps
+
+1. Install the language server using
+I have chosen the `textlab` as it is developed with `Rust`,and it is superFast.
+
+```shell
+LSInstall latex
+# choice textab
+
+```
+2. Compile your `file.text` into a `PDF` you need to use the following command
+
+```shell
+latex -pdf file.text  <- This will complie your entire .text file at once.
+latex -pvc file.text  <- This will allow the  document to be complied while you write your code and once you save it will complied automatically
+# To exit the automatical compliation use Ctrl+Z
+```
+3. Automatically compile the Latex file to PDF
+Following the `nvim` plugin `knap` which can automatically compile the text file
+to PDF. The file should compile and display using one of the `pdf` reader that
+the author specified in his repository. The one I am using is the `Sioyek`
+which is faster and dynamically update the PDF while typing.
+
+- [knap plugin](https://github.com/frabjous/knap#mupdf)
+- [Sioyek pdf](https://sioyek.info), You need a cheat-sheet for `Sioyek`
+
+
+# Troubleshooting, Bugs and Errors
+after running `nvim` it is a good pratice to use `:messages` or `:notifications` for debugging messages.
+1. Nvim 0.7
+- For`README.md` there was an issue can be solved using `:TSupdate`, follow here
+  - [Fixing the issue of markup server error](https://github.com/nvim-treesitter/nvim-treesitter/issues/634)
+- Clang has an issue due to not adding the capabilities option for the `utf-8`
+  - [nvim language server - clang ](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#clangd)
+
+```shell
+# First I added this one but it was not working
+-- capabilities.offsetEncoding = {'utf-8', 'utf-16'}
+# Then remvoed the lua-table (a.k.a. dictionary)
+capabilities.offsetEncoding = 'utf-8'
+
+```
+- `Markdown-preview` doesn't do anything.
+This thread has allowed me to fix this problem as I needed to update the plugin dependencies using `:call mkdp#util#install()`
+- [markdown-preview bugs and fixes](https://github.com/iamcco/markdown-preview.nvim/issues/188)
+
+2. Nvim 0.7.2
+I have encountered with the following problems
+- `Language server error message` I have fixed by adding a function in the bottom on lsp-config.lua file
+```lua
+-- suppress error messages from lang servers
+vim.notify = function(msg, log_level, _opts)
+    if msg:match("exit code") then
+        return
+    end
+    if log_level == vim.log.levels.ERROR then
+        vim.api.nvim_err_writeln(msg)
+    else
+        vim.api.nvim_echo({{msg}}, true, {})
+    end
+end
+```
+- `tabnine` was not updated because simply you can remove it first and re-install this plugin or you can go to
+```lua
+-- Solution number -1-
+return require("packer").startup(
+ function(use)
+ 	use "hrsh7th/nvim-cmp" --completion
+ 	use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+ end
+)
+
+-- Solution number -2-
+-- go to
+cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
+-- and run
+./install.sh
+
+```
+- `tree-sitter` was broken for each language, simple I executed in nvim command line `:TSUpdate`
+
 
 ## References
 
@@ -512,11 +837,12 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
 - [Getting starting using lua with Neovim](https://giters.com/mrowegawd/nvim-lua-guide)
 - How to program a status line in lua
 - [How I Made My NEOVIM STATUSLINE IN LUA](https://elianiva.my.id/post/neovim-lua-statusline)
+- [ChristianChirulli awesome repository-supporting lua config](https://github.com/ChristianChiarulli/nvim)
+- [Packages status in neovim](https://neovimcraft.com)
 
 ```sh
 -- Debugging
     use { "puremourning/vimspector", event = "BufWinEnter" }
-
     -- DAP
     use { "mfussenegger/nvim-dap" }
     use { "mfussenegger/nvim-dap-python" }
@@ -525,4 +851,5 @@ the `julia` REPL use `]` to access the `Pkg` the package manager of `nvim`.
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
 

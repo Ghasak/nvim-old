@@ -20,11 +20,11 @@
 -- let g:neovide_cursor_vfx_mode = "torpedo"
 -- "
 
-
 local M = {}
 
 M.neovide_config = function()
-    vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h15]]
+    --vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h15]]
+    vim.cmd [[set guifont=VictorMono\ NF\ Regular\:h15]]
     --vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
     vim.g.neovide_refresh_rate = 60
     vim.g.neovide_cursor_vfx_mode = "railgun"
@@ -37,7 +37,6 @@ M.neovide_config = function()
     vim.g.neovide_cursor_vfx_particle_speed = 20.0
     vim.g.neovide_cursor_vfx_particle_density = 5.0
 end
-
 
 
 return M

@@ -5,26 +5,6 @@ local exec = vim.api.nvim_exec 	-- execute Vimscript
 
 
 exec([[
-if has("persistent_undo")
-   let target_path = expand('~/.undodir')
-
-    " create the directory and any parent directories
-    " if the location does not exist.
-    if !isdirectory(target_path)
-        call mkdir(target_path, "p", 0700)
-    endif
-
-    let &undodir=target_path
-    set undofile
-endif
-
-"nnoremap <leader>u :UndotreeShow<CR>     " Note This will cause problemm wiht nvim-tree <leader>e => <leader>u, simply comment this part only, problemm already solved,
-
-"=================================================
-" File: plugin/undotree.vim
-" Description: Manage your undo history in a graph.
-" Author: Ming Bai <mbbill@gmail.com>
-" License: BSD
 
 " Avoid installing twice.
 if exists('g:loaded_undotree')
@@ -47,11 +27,23 @@ let g:loaded_undotree = 1   " Signal plugin availability with a value of 1.
 
 "=================================================
 "Options:
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
 
 " Window layout
 " style 1
 " +----------+------------------------+
-" |          |                        |
+" |          |                       |
 " |          |                        |
 " | undotree |                        |
 " |          |                        |
@@ -141,6 +133,16 @@ if !exists('g:undotree_TreeVertShape')
     let g:undotree_TreeVertShape = '|'
 endif
 
+" tree split shape.
+if !exists('g:undotree_TreeSplitShape')
+    let g:undotree_TreeSplitShape = '/'
+endif
+
+" tree return shape.
+if !exists('g:undotree_TreeReturnShape')
+    let g:undotree_TreeReturnShape = '\'
+endif
+
 if !exists('g:undotree_DiffCommand')
     let g:undotree_DiffCommand = "diff"
 endif
@@ -174,7 +176,8 @@ endif
 
 " Deprecates the old style configuration.
 if exists('g:undotree_SplitLocation')
-    echo "g:undotree_SplitLocation is deprecated,please use g:undotree_WindowLayout instead."
+    echo "g:undotree_SplitLocation is deprecated,
+                \ please use g:undotree_WindowLayout instead."
 endif
 
 " Show help line
@@ -195,6 +198,8 @@ command! -n=0 -bar UndotreeShow     :call undotree#UndotreeShow()
 command! -n=0 -bar UndotreeFocus    :call undotree#UndotreeFocus()
 
 " vim: set et fdm=marker sts=4 sw=4:
+
+
 ]],true)
 
 
