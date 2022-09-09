@@ -68,3 +68,8 @@ local function show_full_path()
         })
     end)
 end
+
+vim.cmd([[
+set modifiable
+set write
+]])

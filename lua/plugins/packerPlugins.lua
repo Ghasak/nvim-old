@@ -82,6 +82,8 @@ require("packer").startup({
             "neovim/nvim-lspconfig",
             config = function() require("plugins.configs.lspconfig") end
         })
+        -- Using meson for package confirmation
+        use { "williamboman/mason.nvim" }
         -- LSP language server Manager
         use("williamboman/nvim-lsp-installer")
         -- lspsaga.nvim
@@ -431,7 +433,6 @@ require("packer").startup({
             -- optional for icon support
             requires = {'kyazdani42/nvim-web-devicons'},
             --require('fzf-lua').setup {winopts = {hl = {border = "FloatBorder"} , split = "belowright new",}}
-            require("plugins.configs.myFZF")
         }
         -- config = function()
         --    --require("plugins.configs.myFzf").setup()
@@ -812,8 +813,11 @@ lualine_loader()
 myStartifyConfigLauncher()
 -- myQuote Configuration loader
 myQuoteConfigLauncher()
--- ctrl+p fzf nvim with lua support
--- require("plugins.configs.myfzf").setup()
+-- Loading necessary
+require("plugins.configs.myFZF")
+require("symbols-outline").setup()
+-- Meson loader
+require("mason").setup()
 -- ===========================================================================
 --              Treesitter highlighting, indentation, folading ..etc
 --              check: https://codevion.github.io/#!vim/treelsp.md
@@ -830,4 +834,5 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
+
 

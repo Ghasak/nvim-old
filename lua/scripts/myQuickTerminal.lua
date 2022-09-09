@@ -40,11 +40,12 @@ au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+n
 function! OpenTerminal()
   split term://zsh
-  resize 10
+  resize 15
 endfunction
 nnoremap <space>bn :call OpenTerminal()<CR>
 
 " Exit any terminal opened using leader + Esc
-tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
+"tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
+tnoremap <Esc><Esc> <C-\><C-n>:q!<CR>
 ]])
 

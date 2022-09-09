@@ -2,6 +2,7 @@
 M = {}
 
 local colors = require("colors").get()
+--- @module "bufferline.colors"
 
 M.setup = function ()
 
@@ -10,7 +11,11 @@ M.setup = function ()
       numbers = "ordinal",
       right_mouse_command = "bdelete! %d",
       left_mosue_command = "buffer %d",
-      indicator_icon = '▎',
+      -- indicator_icon = '▎',
+      indicator = {
+      icon ='▐ ',
+      style = "icon",
+       },
       buffer_close_icon = '',
       modified_icon = '',--'●',
       close_icon = '',

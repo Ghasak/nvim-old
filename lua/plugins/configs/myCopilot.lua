@@ -43,7 +43,7 @@ vim.cmd([[
 --                         -- --
 -- This is the setting option for enabling/dsiable the copilot globally.
 vim.cmd([[
-        let g:copilot_enabled = v:true
+        let g:copilot_enabled = v:false
 ]])
 
 --                          █▀▀ █▀█ █▀█ █ █░░ █▀█ ▀█▀   █▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀ 

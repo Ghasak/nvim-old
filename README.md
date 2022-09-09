@@ -587,6 +587,31 @@ We can use the following `:!command` that will be show the command with input an
 :`<,`>! sort # for sorting
 :`<,`>! wc -l  # for count number of lines
 ```
+
+## Form multi-lines into one-line single line in vim
+You can first select using `shift+v` for horizontal selection, to select all the lines you have
+Then
+```shell
+:'<,'>j
+```
+or you can use
+`g + shift +j` g command means only hits `g` letter to trigger the vim function for this purpose
+## Do the opposite, form one-line to multi-lines
+For sure we can do the opposite using, you can select the maximum number of your given string in oneline
+```shell
+:set textwidth=10
+then use
+g then q
+dont forget to reset after you finish
+:set textwidth=0
+```
+- [Vim Tutorial - Join and Split Lines](https://www.youtube.com/watch?v=MA9WFO_WUOM)
+
+## What the meaning of visual-mode
+`v`          :is selecting visually a segment of a a given line.
+`shift v`    :is selecting visually multi-lines horizontally
+`ctrl v`     :si selecting visually multi-lines vertically.
+
 ## Open Website from nvim, or go to file
 the command `g` stand for `G-command` one of the features that I like is `gx`
 will open the link while the cursor on it in the browser. Open files / URLs with gf / gx
@@ -826,3 +851,5 @@ cd ~/.local/share/nvim/site/pack/packer/opt/cmp-tabnine/
     use { "Pocco81/DAPInstall.nvim" }
     use { "jbyuki/one-small-step-for-vimkind" }
 ```
+
+
