@@ -45,6 +45,7 @@ endfunction
 nnoremap <space>bn :call OpenTerminal()<CR>
 
 " Exit any terminal opened using leader + Esc
-tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
+"tnoremap <leader><Esc> <C-\><C-n>:q!<CR>
+tnoremap <Esc><Esc> <C-\><C-n>:q!<CR>
 ]])
 

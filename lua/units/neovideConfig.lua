@@ -24,10 +24,16 @@
 local M = {}
 
 M.neovide_config = function()
-    vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h15]]
+    vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h12]]
+   -- vim.cmd [[set guifont=FuraCode\ Nerd\ Font\Reqular\:h12]]
     --vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
+    --vim.o.guifont = "SauceCodePro Nerd Font"
+    --vim.cmd [[set guifont=VictorMono\ NF\ Regular\:h20]]
+    --vim.o.guifont = "VictorMono NF:h14"
+    --vim.o.guifont = "Fira Code Regular"
     vim.g.neovide_refresh_rate = 60
     vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_vfx_mode = "torpedo"
     vim.g.neovide_no_idle = true
     vim.g.neovide_cursor_animation_length = 0.03
     vim.g.neovide_cursor_trail_length = 0.05
