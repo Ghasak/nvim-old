@@ -285,7 +285,7 @@ local navic = require("nvim-navic")
 
 return {
     options = {
-        theme = "gruvbox",
+        theme = "gruvbox-material",
         -- theme = "github_dark",
         -- Github theme: https://github.com/projekt0n/github-nvim-theme/blob/main/LUALINE.md
         -- theme = "github_dimmed",
