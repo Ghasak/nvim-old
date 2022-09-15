@@ -51,6 +51,7 @@ require("packer").startup({
         -- use 'gruvbox-community/gruvbox'
         --
         use({"sainnhe/gruvbox-material"})
+        use({"sam4llis/nvim-tundra"})
 
         -- ==========================================================================
         -- 	                      Utilities for NVIM IDE Env
@@ -242,7 +243,7 @@ require("packer").startup({
         -- Copilot AI
         -- Technical review of copilot, an AI solution built on top of openAI
         -- Davincie.
-        use({"github/copilot.vim"})
+       -- use({"github/copilot.vim"})
 
         -- ===========================================================================
         -- 	                       Aesthetics Plugins
@@ -502,6 +503,11 @@ require("packer").startup({
         --             branch = "master"
         --         })
         use({"gennaro-tedesco/nvim-peekup"})
+
+        -- ===========================================================================
+        --                           For language server tools
+        -- ===========================================================================
+        use({'simrat39/rust-tools.nvim'})
         -- ===========================================================================
         --                            Git and Diff
         -- ===========================================================================
@@ -834,5 +840,7 @@ configs.setup({
         enable = false -- default is disabled anyways
     }
 })
+
+
 
 

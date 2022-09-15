@@ -104,10 +104,13 @@ local function theme_loader()
 		)
 		print(install_path)
 	else
-		vim.cmd([[colorscheme gruvbox-material]]) -- Others:  gruvbox-flat, onedark
+		--vim.cmd([[colorscheme gruvbox-material]]) -- Others:  gruvbox-flat, onedark
 		--vim.cmd([[colorscheme Github_dark]]) -- Others:  gruvbox-flat, onedark
 		-- vim.cmd[[colorscheme gruvbox]] -- Others:  gruvbox-flat, onedark
-		vim.o.background = "dark" -- or "light" for light mode
+		--vim.cmd([[colorscheme tundra]])
+		-- vim.o.background = "dark" -- or "light" for light mode
+		-- vim.cmd('colorscheme tundra')
+		print("gruvbox theme is installed ...")
 	end
 end
 
@@ -117,6 +120,9 @@ end
 
 -- remove whitespace on save
 vim.cmd([[au BufWritePre * :%s/\s\+$//e]])
+
+
+
 
 -- ===========================================================================
 --              Main Function to start all modules and plugins
@@ -130,7 +136,7 @@ local load_core = function()
 	-- Disable distribution plugins default configurations
 	disable_distribution_plugins()
 	-- Adding theme loader to check for the them installation
-	theme_loader()
+	--theme_loader()
 end
 
 load_core()

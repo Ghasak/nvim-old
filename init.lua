@@ -41,6 +41,18 @@
 -- --------------------------------------------------------------------------------------------------------------------
 -- Notice setting has to come before core,  as the  ruler highlight color will
 -- be reset by the server diagonstic in the core from packerPackgeInit/config.
+
+
+--vim.opt.background = 'dark'
+-- vim.cmd('colorscheme gruvbox-material')
+vim.cmd [[
+try
+  colorscheme gruvbox-material
+  colorscheme default
+  set background=dark
+endtry
+]]
+
 vim.g.start_time = vim.fn.reltime()
 local load_module = require("core.utils").load_module
 -- initalize the impatient to speed up the loading
@@ -69,7 +81,4 @@ local function show_full_path()
     end)
 end
 
-vim.cmd([[
-set modifiable
-set write
-]])
+

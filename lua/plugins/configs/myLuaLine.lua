@@ -1,3 +1,18 @@
+
+--             ██╗░░░░░██╗░░░██╗░█████╗░██╗░░░░░██╗███╗░░██╗███████╗  
+--             ██║░░░░░██║░░░██║██╔══██╗██║░░░░░██║████╗░██║██╔════╝  
+--             ██║░░░░░██║░░░██║███████║██║░░░░░██║██╔██╗██║█████╗░░  
+--             ██║░░░░░██║░░░██║██╔══██║██║░░░░░██║██║╚████║██╔══╝░░  
+--             ███████╗╚██████╔╝██║░░██║███████╗██║██║░╚███║███████╗  
+--             ╚══════╝░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝╚═╝░░╚══╝╚══════╝  
+--
+--             ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░
+--             ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░
+--             ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░
+--             ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗
+--             ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝
+--             ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░
+--
 -- =================  Help can be found here  ==========================
 -- :h statusline
 -- =================  LSP language server client =======================
@@ -45,9 +60,11 @@ local lsp_func = function(msg)
             -- Define  C++ language server
         elseif buff_ft == "cpp" and server.name == "clangd" then
             return string.format("%s : cpp-lsp", server_icon)
+        elseif buff_ft == "rust" and server.name == "rust_analyzer" then
+            return string.format("%s : rust_analyzer", server_icon)
         else
-            return string.format("%s : %s-lsp*", server_icon_not_not_known,
-                                 buff_ft)
+            return string.format("%s : %s-lsp*: %s", server_icon_not_not_known,
+                                 buff_ft, server.name)
         end
     end
 end
@@ -97,7 +114,7 @@ local colors = {
 
 -- To make it works: uncomment (watch_head), and including in section_a or b or c {{branch}}
 local git_branch
-local space = " "
+local space= " "
 
 -- os specific path separator
 local sep = package.config:sub(1, 1)
@@ -279,7 +296,8 @@ local navic = require("nvim-navic")
 
 return {
     options = {
-        theme = "gruvbox",
+        theme = "gruvbox-material",
+        --theme = "auto",
         -- theme = "github_dark",
         -- Github theme: https://github.com/projekt0n/github-nvim-theme/blob/main/LUALINE.md
         -- theme = "github_dimmed",

@@ -54,6 +54,10 @@ set background=dark
 set t_Co=256
 ]])
 
+vim.cmd([[
+set modifiable
+set write
+]])
 -----------------------------------------------------------
 --              Spelling and dictionary
 -----------------------------------------------------------
@@ -113,9 +117,10 @@ opt.syntax = "enable" -- enable syntax highlighting
 opt.number = true -- show line number
 opt.showmatch = true -- highlight matching parenthesis
 opt.foldmethod = "marker" -- enable folding (default 'foldmarker')
-opt.colorcolumn = "120" -- line lenght marker at 80 columns
---vim.cmd([[hi ColorColumn ctermbg=0 guibg=lightgray]])
-cmd([[highlight ColorColumn ctermbg=0 guibg=lightgrey]])
+opt.colorcolumn = "130" -- line lenght marker at 80 columns
+-- to show the color of the vertical ruler set to 120 width for now
+-- vim.cmd([[hi ColorColumn ctermbg=0 guibg=lightgray]])
+-- cmd([[highlight ColorColumn ctermbg=0 guibg=lightgrey]])
 opt.splitright = true -- vertical split to the right
 opt.splitbelow = true -- orizontal split to the bottom
 opt.ignorecase = true -- ignore case letters when search
@@ -211,6 +216,19 @@ if global.is_mac then
     vim.g.python_host_prog = "/usr/bin/python2"
     vim.g.python3_host_prog = "$HOME/opt/anaconda3/bin/python3" -- '/usr/local/bin/python3'
 end
+-----------------------------------------------------------
+--          Glow for Markdown
+-----------------------------------------------------------
+vim.g.glow_border = "rounded"
+vim.g.glow_width = 200
+--vim.g.glow_use_pager = true
+--vim.g.glow_style = "light"
+
+
+
+-----------------------------------------------------------
+--          Old Configurations
+-----------------------------------------------------------
 -- Show full path of current file at startup
 --vim.cmd[[echo resolve(expand('%:p'))]]
 -- Allow the vim to be transparent,
@@ -229,52 +247,45 @@ end
 -- vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
 -- vim.cmd([[ "let &fcs='eob: '"]])
 
--- Loading the options for the neovide terminal
-if vim.g.neovide then
-    --   vim.g.neovide_cursor_animation_length = 0.01
-    --   vim.g.neovide_cursor_trail_length = 0.05
-    --   vim.g.neovide_cursor_antialiasing = true
-    --   vim.g.neovide_remember_window_size = true
-    --   vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h16]]
-    --
---    vim.api.nvim_exec([[
---  augroup Packer
---    autocmd!
---    autocmd BufRead init.lua PackerCompile
---  augroup end
---]], false)
+---- Loading the options for the neovide terminal
+--if vim.g.neovide then
+--    --   vim.g.neovide_cursor_animation_length = 0.01
+--    --   vim.g.neovide_cursor_trail_length = 0.05
+--    --   vim.g.neovide_cursor_antialiasing = true
+--    --   vim.g.neovide_remember_window_size = true
+--    --   vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h16]]
+--    --
+----    vim.api.nvim_exec([[
+----  augroup Packer
+----    autocmd!
+----    autocmd BufRead init.lua PackerCompile
+----  augroup end
+----]], false)
 
-    vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h17]]
-    -- vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
-    vim.g.neovide_refresh_rate = 60
-    vim.g.neovide_cursor_vfx_mode = "railgun"
-    vim.g.neovide_no_idle = true
-    vim.g.neovide_cursor_animation_length = 0.03
-    vim.g.neovide_cursor_trail_length = 0.05
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_vfx_opacity = 80.0
-    vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
-    vim.g.neovide_cursor_vfx_particle_speed = 20.0
-    vim.g.neovide_cursor_vfx_particle_density = 5.0
---    vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
---    vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
---    vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
---    vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
---    vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
---    vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
---    vim.cmd([[ "let &fcs='eob: '"]])
-end
+--    vim.cmd [[set guifont=VictorMono\ Nerd\ Font\:h17]]
+--    -- vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font:h12]]
+--    vim.g.neovide_refresh_rate = 60
+--    vim.g.neovide_cursor_vfx_mode = "railgun"
+--    vim.g.neovide_no_idle = true
+--    vim.g.neovide_cursor_animation_length = 0.03
+--    vim.g.neovide_cursor_trail_length = 0.05
+--    vim.g.neovide_cursor_antialiasing = true
+--    vim.g.neovide_cursor_vfx_opacity = 80.0
+--    vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
+--    vim.g.neovide_cursor_vfx_particle_speed = 20.0
+--    vim.g.neovide_cursor_vfx_particle_density = 5.0
+----    vim.cmd([[ "au ColorScheme * hi Normal ctermbg=none guibg=none"]])
+----    vim.cmd([[ "au ColorScheme * hi SignColumn ctermbg=none guibg=none"]])
+----    vim.cmd([["au ColorScheme * hi NormalNC ctermbg=none guibg=none" ]])
+----    vim.cmd([[ "au ColorScheme * hi MsgArea ctermbg=none guibg=none"]])
+----    vim.cmd([["au ColorScheme * hi TelescopeBorder ctermbg=none guibg=none" ]])
+----    vim.cmd([["au ColorScheme * hi NvimTreeNormal ctermbg=none guibg=none" ]])
+----    vim.cmd([[ "let &fcs='eob: '"]])
+--end
 -- Before I used to source this directory to make neovide works
 -- Configurations of the neovide
 -- require("units.neovideConfig").neovide_config()
 
------------------------------------------------------------
---          Glow for Markdown
------------------------------------------------------------
-vim.g.glow_border = "rounded"
-vim.g.glow_width = 200
---vim.g.glow_use_pager = true
---vim.g.glow_style = "light"
 -----------------------------------------------------------
 --          Air Line Configurations
 -----------------------------------------------------------
