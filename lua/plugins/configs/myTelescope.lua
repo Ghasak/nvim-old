@@ -1,6 +1,6 @@
 local M = {}
 
--- Mapping function for the telescope which are defined globally using (vim.g.nmap/imap/vmap/tmap) 
+-- Mapping function for the telescope which are defined globally using (vim.g.nmap/imap/vmap/tmap)
 local map = function(op, outer)
     outer = outer or { silent = true, noremap = true }
     return function(lhs, rhs, opts)
@@ -26,7 +26,7 @@ vim.g.imap = map("i")
 vim.g.vmap = map("v")
 vim.g.tmap = map("t")
 
--- Will be loaded 
+-- Will be loaded
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
@@ -62,6 +62,14 @@ M.setup = function()
 
     vim.g.nmap("<leader>fp", function()
         telescope.extensions.project.project {}
+    end)
+
+    vim.g.nmap("<leader>th", function()
+	    builtin.colorscheme(ivy)
+    end)
+
+    vim.keymap.set('n', ';e', function()
+      builtin.diagnostics()
     end)
 
 end
@@ -136,8 +144,8 @@ M.config = function()
         },
     })
 
-    telescope.load_extension('project')
-    telescope.load_extension("fzf")
+    --telescope.load_extension('project')
+    --telescope.load_extension("fzf")
 
     M.setup()
 end

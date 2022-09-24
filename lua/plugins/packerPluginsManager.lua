@@ -3,7 +3,7 @@ local fn = vim.fn
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = 1 
+  PACKER_BOOTSTRAP = 1
   print "Installing packer close and reopen Neovim..."
   --vim.cmd [[packadd packer.nvim]]
 end
@@ -55,7 +55,12 @@ packer.init {
 -- Install your plugins here
 return packer.startup(function(use)
   -- My plugins here
-  use ("wbthomason/packer.nvim") -- Have packer manage itself
+  use ({"wbthomason/packer.nvim",
+      config = function()
+        require("core.lazy_load").packer_lazy_load()
+      end
+
+    }) -- Have packer manage itself
   -- ==========================================================================
   -- 	                      Utilities for NVIM IDE Env
   -- ===========================================================================
@@ -72,14 +77,33 @@ return packer.startup(function(use)
 		require("plugins.configs.onedark_config").setup()
 		end
 	})
+
+
+  -- ==========================================================================
+  -- 	                    Aesthetic and UI Design
+  -- ==========================================================================
+    -- Better icons
+    use {
+      "kyazdani42/nvim-web-devicons",
+      module = "nvim-web-devicons",
+      event = "VimEnter",
+      config = function()
+        require("nvim-web-devicons").setup { default = true }
+      end,
+    }
+
+  -- ==========================================================================
+  -- 	                     Navigation and Explorer
+  -- ==========================================================================
+
   use ({"nvim-telescope/telescope.nvim",tag = '0.1.0',
   	keys = "<leader>f",
 	cmd = "Telescope",
 	package = "telescope",
 	requires = {
-		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-                { 'nvim-telescope/telescope-symbols.nvim' },
-                { "nvim-telescope/telescope-project.nvim" }
+		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
+                { 'nvim-telescope/telescope-symbols.nvim', opt = true },
+                { "nvim-telescope/telescope-project.nvim", opt = true }
 	},
 	config = function()
 		require "plugins.configs.myTelescope".config()
@@ -99,9 +123,72 @@ return packer.startup(function(use)
 	end,
 	})
 
+    -- nvim-tree
+    use {
+      "kyazdani42/nvim-tree.lua",
+      opt = true,
+      wants = "nvim-web-devicons",
+      cmd = { "NvimTreeToggle", "NvimTreeToggle","NvimTreeClose" },
+      -- module = { "nvim-tree", "nvim-tree.actions.root.change-dir" },
+      config = function() require("plugins.configs.myNvimTree") end
+
+    }
+    -- undotree
+    use { "mbbill/undotree",
+    config = function()
+      require("plugins.configs.myUndoTreeConfig")
+    end,
+    	cmd = { "UndotreeToggle", "UndotreeHide" },
+     }
+
+    -- FZF Lua
+    use {
+      "ibhagwan/fzf-lua",
+      opt = true,
+      wants = "nvim-web-devicons",
+      --event = "BufEnter",
+      event = "VimEnter",
+      config = function() require("plugins.configs.myFzf") end,
+      --cmd = {"lua require('fzf-lua').files()"},
+      --cmd = {"FzfLua files"},
+    }
+      -- Treesitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      opt = true,
+      event = "BufReadPre",
+      run = ":TSUpdate",
+      config = function()
+        require("plugins.configs.treesitter").setup()
+      end,
+      requires = {
+        { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPre" },
+        { "windwp/nvim-ts-autotag", event = "InsertEnter" },
+        { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
+        { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
+        { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
+        { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
+      },
+    }
+    -- Status line
+    use {
+      "nvim-lualine/lualine.nvim",
+      after = "nvim-treesitter",
+       setup = function()
+         require("core.lazy_load").on_file_open "nvim-treesitter"
+       end,
+      cmd = require("core.lazy_load").treesitter_cmds,
+      config = function()
+        require("plugins.configs.myLuaLine").setup()
+      end,
+      wants = "nvim-web-devicons",
+    }
+
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
 end)
+
