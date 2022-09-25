@@ -42,7 +42,48 @@ local function status_line()
 end
 
 --vim.opt.statusline = status_line()
+-- this function will be trigger only when TextYankPost event happens.
+_G.highlight_while_yank = function()
+  local exec = vim.api.nvim_exec -- execute Vimscript
+  -- highlight on yank
+  vim.highlight.create('YANK_HIGHLIGHT_COLOR_GROUP', {ctermbg=0, guibg="#FFC49B", guifg="#EEEDBF"}, true)
+
+  exec([[
+    augroup YankHighlight
+      autocmd!
+      autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="YANK_HIGHLIGHT_COLOR_GROUP", timeout=700}
+      autocmd TextYankPost  ~/.config/nvim/* source %
+    augroup end
+  ]], true)
+end
 
 
 
+-- ----------------------------------------------------------------------------------------
+--                        nvim-tree helper
+-- ----------------------------------------------------------------------------------------
 
+-- This is special configuration to close nvim-tree automatically if we closed the last buffer
+-- See disucssion here (https://github.com/kyazdani42/nvim-tree.lua/issues/1005)
+
+-- nvim-tree is also there in modified buffers so this function filter it out
+local modifiedBufs = function(bufs)
+    local t = 0
+    for k,v in pairs(bufs) do
+        if v.name:match("NvimTree_") == nil then
+            t = t + 1
+        end
+    end
+    return t
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+        if #vim.api.nvim_list_wins() == 1 and
+        vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil and
+        modifiedBufs(vim.fn.getbufinfo({bufmodified = 1})) == 0 then
+            vim.cmd "quit"
+        end
+    end
+})

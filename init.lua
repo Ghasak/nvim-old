@@ -12,6 +12,5 @@ local init_modules = {
 	"plugins", "core", "settings"
 } for _, module in ipairs(init_modules) do load_module(module) end
 
-
-
---local custom_gruvbox = require("lualine.gruvbox-material")
+-- Highlight on yankinking
+highlight_while_yank()

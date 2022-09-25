@@ -130,13 +130,7 @@ opt.smartcase = true -- ignore lowercase for the whole pattern
 -- remove whitespace on save
 cmd([[au BufWritePre * :%s/\s\+$//e]])
 
--- highlight on yank
-exec([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
-  augroup end
-]], true)
+
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------

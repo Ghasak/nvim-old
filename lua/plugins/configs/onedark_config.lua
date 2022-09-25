@@ -46,7 +46,12 @@ M.setup = function()
             light_Fiery_Rose = '#F56476',
             Cerise = '#E43F6F',
             Blush = '#DC6486',
-            Charm_Pink = '#E18CA4'
+            Charm_Pink = '#E18CA4',
+            Sliver_Pink = '#CEB4B9',
+            Cambridge_blue = '#92B4A7',
+            Granny_Smith_Apple = '#B2EF9B',
+            Another_Light_Green = '#94C9A9',
+            Mindaro = '#DAFF7D',
 
 
       }, -- Override default colors
@@ -54,32 +59,42 @@ M.setup = function()
      -- Common
        Visual = { bg = '$Charm_Pink', fmt = 'bold'},
        Normal = { fg = '$beautiful_black' ,bg = '$beautiful_black' },                                -- backgorund default color
+       IncSearch = {fg = '$Sliver_Pink',bg = '$Blush', fmt = 'reverse'},
+       Search = {fg = '$light_green',bg = '$Mindaro', fmt = 'bold'},
+
        Terminal= { fg = '$beautiful_black' ,bg = '$beautiful_black' },                               -- terminal color for nvim
        EndOfBuffer = { fg = '$beautiful_black' ,bg = '$beautiful_black' },                           -- End of buffer color
        VertSplit = { fg = '$light_green' ,bg = '$beautiful_black' },                                 -- when using vertical split
        SignColumn = { fg = '$beautiful_black' ,bg = '$beautiful_black' },                            -- SignColumn control the edge of nvim buffer
      -- Syntax
-       String = {fg ='$light_green'},                                                                -- For only string in nvim
+       String = {fg ='$light_green'},                                                                -- For only string in nvim (will be alter by the tree-sitter
+       TabLine = { bg = '$beautiful_black' },
+       TabLineFill = { bg = '$beautiful_black' },
+       TabLineSel =  { bg = '$beautiful_black' },
+
+       StatusLineNC = { fg = '$beautiful_black' ,bg = '$beautiful_black' },
+
 	   -- nvim-tree
-	    NvimTreeVertSplit =  { fg = '$light_green' ,bg = '$beautiful_black' },                         -- When you split inside nvim-tree the fg will be activited
-	    NvimTreeNormal = { fg = '$light_green' ,bg = '$beautiful_black' },                             -- fg means files names, folder names ..etc.
+	    --NvimTreeVertSplit =  { fg = '$light_green' ,bg = '$beautiful_black' },                         -- When you split inside nvim-tree the fg will be activited
+	    NvimTreeVertSplit =  { bg = '$beautiful_black' },                         -- When you split inside nvim-tree the fg will be activited
+	    --NvimTreeNormal = { fg = '$Sliver_Pink' ,bg = '$beautiful_black' },                             -- fg means files names, folder names ..etc.
+	    NvimTreeNormal = { bg = '$beautiful_black' },                             -- fg means files names, folder names ..etc.
 	    NvimTreeEndOfBuffer = { fg = '$light_green' ,bg = '$beautiful_black' },
-      NvimTreeGitNew = {fg ='$light_green'  },                                                       -- This will change only the
+      --NvimTreeGitNew = {fg ='$light_green'  },                                                       -- This will change only the the edge of the nvim-tree
+      --DiffAdded = {fg ='$light_green'  },
+      DiffviewStatusAdded = {fg ='$light_green'  },
+      DiffviewFilePanelInsertions = {fg ='$light_green'  },
+
+
+
+
      -- GGX = {fg = '#EEEDBF'}
      -- StatusLine
-     --StatusLine = { fg = '#DADFF7' ,bg = '#008DD5' },
+     -- StatusLine = { fg = '#DADFF7' ,bg = '#008DD5' },
      -- StatusLineTerm = {},
-     -- StatusLineNC = {},
-     -- StatusLineTermNC = {},
-
+     --StatusLineTermNC = { fg = '$beautiful_black' ,bg = '$beautiful_black' },
      -- Nvim-treesitter
-     --
-      TSString = {fg ='$light_green'},                                                                -- For only string in nvim
-
-
-
-
-
+      TSString = {fg ='$Another_Light_Green'},                                                               -- For only string in nvim
       }, -- Override highlight groups
 
 

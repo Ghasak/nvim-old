@@ -1,6 +1,7 @@
 local init_modules = {
 	'settings.options',
-  'settings.special_color_highlight'
+  'settings.special_color_highlight',
+  'settings.myQuickTerminal'
 }
 
 for _, module in ipairs(init_modules) do

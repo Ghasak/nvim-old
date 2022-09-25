@@ -42,7 +42,24 @@ packer.init {
                 toggle_info = "<CR>",
                 diff = "d",
                 prompt_revert = "r"
-            }
+
+            },
+    git = {
+      cmd = "git", -- The base command for git operations
+      subcommands = { -- Format strings for git subcommands
+        update = "pull --ff-only --progress --rebase=false",
+        install = "clone --depth %i --no-single-branch --progress",
+        fetch = "fetch --depth 999999 --progress",
+        checkout = "checkout %s --",
+        update_branch = "merge --ff-only @{u}",
+        current_branch = "branch --show-current",
+        diff = "log --color=never --pretty=format:FMT --no-show-signature HEAD@{1}...HEAD",
+        diff_fmt = "%%h %%s (%%cr)",
+        get_rev = "rev-parse --short HEAD",
+        get_msg = "log --color=never --pretty=format:FMT --no-show-signature HEAD -n 1",
+        submodules = "submodule update --init --recursive --progress"
+      }},
+
 
 
   },
@@ -56,20 +73,20 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use ({"wbthomason/packer.nvim",
-      config = function()
-        require("core.lazy_load").packer_lazy_load()
-      end
+     config = function()
+       require("core.lazy_load").packer_lazy_load()
+     end
 
     }) -- Have packer manage itself
   -- ==========================================================================
   -- 	                      Utilities for NVIM IDE Env
-  -- ===========================================================================
+  -- ==========================================================================
   use({"lewis6991/impatient.nvim",
   	config = function()
 		require("plugins.configs.myImpatient").setup()
 	end
 	})
-  use ("nvim-lua/popup.nvim")                        -- An implementation of the Popup API from vim in Neovim
+  use ({"nvim-lua/popup.nvim",opt = true})                        -- An implementation of the Popup API from vim in Neovim
   use ({"nvim-lua/plenary.nvim", module = "plenary" })
   use ({'navarasu/onedark.nvim',
   	config = function()
@@ -78,10 +95,28 @@ return packer.startup(function(use)
 		end
 	})
 
+    -- ==========================================================================
+    -- 	                      Programming Language Servers
+    -- ===========================================================================
+    -- Treesitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      opt = true,
+      event = "BufReadPre",
+      run = ":TSUpdate",
+      config = function()
+        require("plugins.configs.treesitter").setup()
+      end,
+      requires = {
+        { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPre" },
+        { "windwp/nvim-ts-autotag", event = "InsertEnter" },
+        { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
+        { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
+        { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
+        { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
+      },
+    }
 
-  -- ==========================================================================
-  -- 	                    Aesthetic and UI Design
-  -- ==========================================================================
     -- Better icons
     use {
       "kyazdani42/nvim-web-devicons",
@@ -102,8 +137,8 @@ return packer.startup(function(use)
 	package = "telescope",
 	requires = {
 		{ "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
-                { 'nvim-telescope/telescope-symbols.nvim', opt = true },
-                { "nvim-telescope/telescope-project.nvim", opt = true }
+                { 'nvim-telescope/telescope-symbols.nvim', opt = true},
+                { "nvim-telescope/telescope-project.nvim", opt = true}
 	},
 	config = function()
 		require "plugins.configs.myTelescope".config()
@@ -141,6 +176,7 @@ return packer.startup(function(use)
     	cmd = { "UndotreeToggle", "UndotreeHide" },
      }
 
+
     -- FZF Lua
     use {
       "ibhagwan/fzf-lua",
@@ -152,25 +188,38 @@ return packer.startup(function(use)
       --cmd = {"lua require('fzf-lua').files()"},
       --cmd = {"FzfLua files"},
     }
-      -- Treesitter
+    -- Terminal
     use {
-      "nvim-treesitter/nvim-treesitter",
-      opt = true,
-      event = "BufReadPre",
-      run = ":TSUpdate",
+      "akinsho/toggleterm.nvim",
+      keys = { [[<C-\>]] },
+      cmd = { "ToggleTerm", "TermExec" },
+      module = { "toggleterm", "toggleterm.terminal" },
       config = function()
-        require("plugins.configs.treesitter").setup()
+        require("plugins.configs.myTerminal").setup()
       end,
-      requires = {
-        { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPre" },
-        { "windwp/nvim-ts-autotag", event = "InsertEnter" },
-        { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
-        { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
-        { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
-        { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
-      },
     }
-    -- Status line
+
+    -- Using floating terminal
+    use({ "voldikss/vim-floaterm",
+    opt = true,
+      cmd = { "FloatermToggle" },
+      })
+    -- Using Rnvim  <Ranger>
+    use({
+      "kevinhwang91/rnvimr",
+    opt = true,
+    cmd = {"RnvimrToggle"},
+      config = function()
+        require("plugins.configs.myRanger").Style()
+      end
+    })
+
+
+  -- ==========================================================================
+  -- 	                    Aesthetic and UI Design
+  -- ==========================================================================
+
+   -- Status line
     use {
       "nvim-lualine/lualine.nvim",
       after = "nvim-treesitter",
@@ -183,6 +232,118 @@ return packer.startup(function(use)
       end,
       wants = "nvim-web-devicons",
     }
+
+    -- Buffer line
+    use {
+      "akinsho/nvim-bufferline.lua",
+      event = "BufReadPre",
+      wants = "nvim-web-devicons",
+      config = function()
+        require("plugins.configs.myBufferConfig").setup()
+      end,
+    }
+
+    -- This will  highlight the colors as #558817
+    use({
+      "norcalli/nvim-colorizer.lua",
+      --event = "BufRead",
+      event = "VimEnter",
+      config = function()
+        require("plugins.configs.others").colorizer()
+      end
+    })
+
+    -- misc plugins
+   -- use({
+   --   "windwp/nvim-autopairs",
+   --   after = "nvim-cmp",
+   --   event = "VimEnter",
+   --   config = function()
+   --     require("plugins.configs.others").myAutopairs()
+   --   end
+   -- })
+   --   -- smooth scroll
+    use({
+      "karb94/neoscroll.nvim",
+      event = "VimEnter",
+      opt = true,
+      config = function()
+        require("plugins.configs.others").neoscroll()
+      end
+    })
+
+    -- Markdown, Markup-language better view (two plugins)
+    use({
+      "npxbr/glow.nvim",
+      ft = {'markdown'},
+      config = function() require("plugins.configs.myGlowMark") end
+    })
+    -- vim-eftt (highlight the f/t/F/T mappings)
+    -- Source, https://github.com/hrsh7th/vim-eft
+    use({
+      "hrsh7th/vim-eft",
+      event = "CursorMoved",
+      config = function()
+        require("plugins.configs.myVim_eft").setup()
+      end
+    })
+    -- ===========================================================================
+    --           Productivities and performance
+    -- ===========================================================================
+
+   -- Clear highlight when you search for a word automatically
+    use({
+      opt = true,
+      event = "CmdwinEnter",    -- Only will be loaded when we enter the CMD in vim
+      "romainl/vim-cool",
+      config = function() vim.g.CoolTotalMatches = 1 end
+    })
+
+   -- Adding acceleration to the mouse for faster/smooth motion
+   use({ "rhysd/accelerated-jk" ,
+       opt = true,
+      --event = "BufReadPre"
+      --event = "VimEnter"
+    event = "BufEnter"
+    })
+  -- Deleting a given buffer without affecting
+   use({ "famiu/bufdelete.nvim",
+       opt = true,
+       event = "VimEnter"
+  })
+
+    -- ===========================================================================
+    --                            Git and Diff
+    -- ===========================================================================
+    use({
+      "APZelos/blamer.nvim",
+       event = "VimEnter",
+      config = function()
+        require("plugins.configs.myGitBlamer").BlamerSetting()
+      end
+    })
+    -- adding (+/-) for diff, in the Gutter      -- Not compatable with the nvim-diagnostics  in nvim 0.6
+    -- use({"mhinz/vim-signify"})
+
+    -- Git
+    use({
+      "lewis6991/gitsigns.nvim",
+       event = "VimEnter",
+      config = function() require("plugins.configs.myGit") end
+    })
+
+    -- Git Diff
+    use({
+      "sindrets/diffview.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function() require("plugins.configs.myGitDiff") end,
+      cmd = {
+        "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles",
+        "DiffviewFocusFiles"
+      }
+    })
+
+
 
 
   -- Automatically set up your configuration after cloning packer.nvim
