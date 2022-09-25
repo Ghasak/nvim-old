@@ -14,3 +14,4 @@ local init_modules = {
 
 -- Highlight on yankinking
 highlight_while_yank()
+

@@ -328,7 +328,7 @@ return packer.startup(function(use)
     -- Git
     use({
       "lewis6991/gitsigns.nvim",
-       event = "VimEnter",
+      event = "InsertEnter",
       config = function() require("plugins.configs.myGit") end
     })
 
