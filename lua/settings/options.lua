@@ -279,29 +279,31 @@ au BufWinEnter *.<fileextension> set updatetime=300 | set ft=<filetype>| set aut
 au CursorHold *.<fileextension>  checktime
 ]])
 
------------------------------------------------------------
--- Other configurations got from ChristMachine
---              Nvim from scratch
------------------------------------------------------------
--- autocmd! remove all autocommands, if entered under a group it will clear that group
+
+vim.highlight.create('XXX', {ctermbg=0, guibg="#FFC49B", guifg="#EEEDBF"}, true)
+-- Having source % can cause problems for certain files
+--  exec([[
+--    augroup YankHighlight
+--      autocmd!
+--      autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="YANK_HIGHLIGHT_COLOR_GROUP", timeout=700}
+--      autocmd TextYankPost  ~/.config/nvim/* source %
+--    augroup end
+--  ]], true)
 vim.cmd [[
   augroup _general_settings
     autocmd!
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})
+    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'IncSearch', timeout = 700})
     autocmd BufWinEnter * :set formatoptions-=cro
     autocmd FileType qf set nobuflisted
   augroup end
   ]]
-
-
+--
 -----------------------------------------------------------
 --  Highlight symbols with (/) search command event
 -----------------------------------------------------------
 -- Setting for the multi-instance searching with /
-vim.cmd([[set hlsearch]])
-vim.cmd([[hi Search term=reverse guibg=peru guifg=wheat]])
-
-
-vim.cmd([[hi Visual ctermfg=100]])
+--vim.cmd([[set hlsearch]])
+--vim.cmd([[hi Search term=reverse guibg=peru guifg=wheat]])
+--
 

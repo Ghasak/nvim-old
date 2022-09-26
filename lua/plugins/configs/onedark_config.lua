@@ -52,6 +52,7 @@ M.setup = function()
             Granny_Smith_Apple = '#B2EF9B',
             Another_Light_Green = '#94C9A9',
             Mindaro = '#DAFF7D',
+            Light_Orange= '#FFC49B',
 
 
       }, -- Override default colors
@@ -59,7 +60,7 @@ M.setup = function()
      -- Common
        Visual = { bg = '$Charm_Pink', fmt = 'bold'},
        Normal = { fg = '$beautiful_black' ,bg = '$beautiful_black' },                                -- backgorund default color
-       IncSearch = {fg = '$Sliver_Pink',bg = '$Blush', fmt = 'reverse'},
+       IncSearch = {fg = '$Light_Orange',bg = '$Blush', fmt = 'reverse'},
        Search = {fg = '$light_green',bg = '$Mindaro', fmt = 'bold'},
 
        Terminal= { fg = '$beautiful_black' ,bg = '$beautiful_black' },                               -- terminal color for nvim
