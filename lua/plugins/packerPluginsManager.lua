@@ -236,7 +236,10 @@ return packer.startup(function(use)
     -- Buffer line
     use {
       "akinsho/nvim-bufferline.lua",
-      event = "BufReadPre",
+      opt = true,
+     -- event = "VimEnter",
+      --event = "BufWritePre",  -- Only will be trigger when you save your buffer.
+      event = "CursorMoved",
       wants = "nvim-web-devicons",
       config = function()
         require("plugins.configs.myBufferConfig").setup()
@@ -246,8 +249,8 @@ return packer.startup(function(use)
     -- This will  highlight the colors as #558817
     use({
       "norcalli/nvim-colorizer.lua",
-      --event = "BufRead",
-      event = "VimEnter",
+      opt = true,
+      cmd = {"ColorizerToggle"},
       config = function()
         require("plugins.configs.others").colorizer()
       end
@@ -302,14 +305,12 @@ return packer.startup(function(use)
    -- Adding acceleration to the mouse for faster/smooth motion
    use({ "rhysd/accelerated-jk" ,
        opt = true,
-      --event = "BufReadPre"
-      --event = "VimEnter"
-    event = "BufEnter"
+      event = "VimEnter"
     })
   -- Deleting a given buffer without affecting
    use({ "famiu/bufdelete.nvim",
        opt = true,
-       event = "VimEnter"
+    cmd = {"Bdelete"},
   })
 
     -- ===========================================================================
@@ -317,7 +318,7 @@ return packer.startup(function(use)
     -- ===========================================================================
     use({
       "APZelos/blamer.nvim",
-       event = "VimEnter",
+      event = "VimEnter",
       config = function()
         require("plugins.configs.myGitBlamer").BlamerSetting()
       end
@@ -343,6 +344,95 @@ return packer.startup(function(use)
       }
     })
 
+    -- ==========================================================================
+    -- 	                      Programming Language Servers
+    -- ==========================================================================
+    -- Auto pairs
+    use {
+      "windwp/nvim-autopairs",
+      opt = true,
+      event = "InsertEnter",
+      wants = "nvim-treesitter",
+      module = { "nvim-autopairs.completion.cmp", "nvim-autopairs" },
+      config = function()
+        require("plugins.configs.autopairs").setup()
+      end,
+    }
+
+    -- Code documentation
+    use {
+      "danymat/neogen",
+      config = function()
+        require("plugins.configs.neogen").setup()
+      end,
+      cmd = { "Neogen" },
+      module = "neogen",
+      disable = false,
+    }
+  -- Completion
+    use {
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      opt = true,
+      config = function()
+        require("plugins.configs.cmp").setup()
+      end,
+      wants = { "LuaSnip", "lspkind-nvim" },
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lua",
+        "ray-x/cmp-treesitter",
+        "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "lukas-reineke/cmp-rg",
+        "davidsierradz/cmp-conventionalcommits",
+        "onsails/lspkind-nvim",
+        "hrsh7th/cmp-calc",
+        "f3fora/cmp-spell",
+        "hrsh7th/cmp-emoji",
+        {
+          "L3MON4D3/LuaSnip",
+          wants = { "friendly-snippets", "vim-snippets" },
+      --    config = function()
+      --      require("config.snip").setup()
+      --    end,
+        },
+        "rafamadriz/friendly-snippets",
+        "honza/vim-snippets",
+        { "tzachar/cmp-tabnine", run = "./install.sh", disable = true },
+      },
+    }
+
+    -- TabNine auto-compleletions
+    use({
+      "tzachar/cmp-tabnine",
+      opt = true,
+      event = "InsertEnter",
+      run = "./install.sh",
+      requires = "hrsh7th/nvim-cmp",
+      after = "cmp-buffer"
+    })
+   -- Indent
+   use ({"lukas-reineke/indent-blankline.nvim",
+    opt = true,
+    event = "InsertEnter",
+    config = function()
+      require("plugins.configs.indent_line").setup()
+    end
+  })
+
+ -- lsp-config
+
+   use({"neovim/nvim-lspconfig",
+      opt = true,
+      event = { "BufReadPre" },
+      setup = function()
+      require("core.lazy_load").on_file_open "nvim-lspconfig"
+    end,
+   })
 
 
 
