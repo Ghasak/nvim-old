@@ -68,7 +68,8 @@ cmp.setup({
                 --winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
 
                  border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                 winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
+                 --winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
+                 winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
                 },
                 completion ={
 

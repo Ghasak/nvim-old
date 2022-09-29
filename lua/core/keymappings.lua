@@ -45,8 +45,8 @@ vim.api.nvim_set_keymap("n", "<Leader>e", ":<cmd>UndotreeHide<CR>:NvimTreeToggle
 -- this will be source with setting directory which shoould be put at the end of the loaded dictionaries
 vim.api.nvim_set_keymap("n", "<leader>u", ":<cmd>NvimTreeClose<CR> :UndotreeToggle<CR>", {noremap = true,silent = true})
 -- Ctrl + P to open the the navigator faster
---vim.api.nvim_set_keymap('n', '<leader>p',"<cmd>lua require('fzf-lua').files()<CR>",{ noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>p',"<cmd>lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list'} })<CR>",{ noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>p',"<cmd>lua require('fzf-lua').files()<CR>",{ noremap = true, silent = true })
+--vim.api.nvim_set_keymap('n', '<leader>p',"<cmd>lua require('fzf-lua').files({ fzf_opts = {['--layout'] = 'reverse-list'} })<CR>",{ noremap = true, silent = true })
 
 -- Move/selected line / block of text in visual mode
 vim.api.nvim_set_keymap("x", "K", ":move '<-2<CR>gv-gv", { noremap = true, silent = true,})
@@ -143,7 +143,7 @@ vim.cmd([[
 
 
 
-
+-- For accelerate the nvim cursor works on any operating system.
 vim.cmd([[
          nmap j <plug>(accelerated_jk_gj_position)
          nmap k <plug>(accelerated_jk_gk_position)

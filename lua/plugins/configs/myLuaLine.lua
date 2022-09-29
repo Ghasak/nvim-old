@@ -251,7 +251,8 @@ require('lualine').setup {
     --lualine_b = {'branch', 'diff', {'diagnostics',sources = {"nvim_diagnostic", "coc"}}}, --  for nvim 0.6+
     lualine_b = {{'branch'}, {'diff'}, {'diagnostics',
     sources = { "nvim_diagnostic" },
-    symbols = { error = " ", warn = " ", info = " ", hint = " " },
+    --symbols = { error = " ", warn = " ", info = " ", hint = " " },
+    symbols = { error = "", information = "כֿ", hint = "", warn = "" },
     -- cond = conditions.hide_in_width,
       }
       },
