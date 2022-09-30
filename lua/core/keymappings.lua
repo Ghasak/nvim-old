@@ -148,3 +148,8 @@ vim.cmd([[
          nmap j <plug>(accelerated_jk_gj_position)
          nmap k <plug>(accelerated_jk_gk_position)
          ]])
+
+
+-- Lua APIs can be all mapped
+-- :lua vim.lsp.buf.hover() or  implementation(), ..etc.
+

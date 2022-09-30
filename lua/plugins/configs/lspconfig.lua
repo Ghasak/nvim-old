@@ -59,14 +59,14 @@ vim.g.navic_silence = true
 local function custom_attach(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
-    navic.attach(client, bufnr) -- gps utility
+    --navic.attach(client, bufnr) -- gps utility
   end
 
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
-    navic.attach(client, bufnr) -- gps utility
   end
 
+  navic.attach(client, bufnr) -- gps utility
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -75,10 +75,11 @@ local function custom_attach(client, bufnr)
 
   -- Native LSP with Lua
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>",
-    opts)
+  buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+  buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
   buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  buf_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  buf_set_keymap("n", "<leader><F1>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   --	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   buf_set_keymap("n", "<space>wa",
@@ -246,8 +247,7 @@ capabilities.textDocument.completion.completionItem.preselectSupport = true
 capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
 capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
 capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport =
-true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
 capabilities.textDocument.completion.completionItem.tagSupport = {
   valueSet = { 1 }
 }
@@ -273,6 +273,46 @@ lsp_installer.on_server_ready(function(server)
 
   if server.name == "rust_analyzer" then
     -- We will skip the default for now and we will define this server later in the custom servers.
+    require("rust-tools").setup {
+      tools = {
+        on_initialized = function()
+          vim.cmd [[
+            autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
+          ]]
+        end,
+      },
+      server = {
+        on_attach = custom_attach,
+        handlers = handlers,
+        --capabilities = capabilities,  -- doesn't work with Rust
+        settings = {
+
+          ["rust-analyzer"] = {
+            imports = {
+              granularity = {
+                group = "module",
+              },
+              prefix = "self",
+            },
+            cargo = {
+              buildScripts = {
+                enable = true,
+              },
+            },
+            procMacro = {
+              enable = true
+            },
+
+            lens = {
+              enable = true,
+            },
+            checkOnSave = {
+              command = "clippy",
+            },
+          },
+        },
+      },
+    }
     goto continue
   end
 
@@ -381,19 +421,8 @@ end
 -- ===========================================================================
 --                   Rust-analyzer with Rust-tools (CLS)
 -- ===========================================================================
-require("lspconfig").rust_analyzer.setup({
-  require("rust-tools").setup({
-    on_attach = custom_attach,
-    capabilities = capabilities,
-    handlers = handlers,
-    settings = {
-      ["rust-analyzer"] = {
-        lens = { enable = true },
-        checkOnSave = { command = "clippy" }
-      }
-    }
-  })
-})
+
+
 -- ===========================================================================
 --                   textlab (CLS)
 -- ===========================================================================

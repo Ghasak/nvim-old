@@ -54,6 +54,10 @@ M.setup = function()
       Mindaro = '#DAFF7D',
       Light_Orange = '#FFC49B',
       Cadet_Blue_Crayola = '#ADB6C4',
+      Davys_Grey = '#494949',
+      Fiery_Rose = '#FF5D73',
+      Old_Rose = '#C6828B',
+      Deep_Dark = '#24272e',
 
 
     }, -- Override default colors
@@ -101,10 +105,10 @@ M.setup = function()
       --     or c.none,
       --   fg = diagnostics_hint_color },
       --  For the virtual text which is shown next to each code line
-      DiagnosticVirtualTextError = { bg = '$beautiful_black', fg = '$Cadet_Blue_Crayola' },
-      DiagnosticVirtualTextWarn  = { bg = '$beautiful_black', fg = '$Cadet_Blue_Crayola' },
-      DiagnosticVirtualTextInfo  = { bg = '$beautiful_black', fg = '$Cadet_Blue_Crayola' },
-      DiagnosticVirtualTextHint  = { bg = '$beautiful_black', fg = '$Cadet_Blue_Crayola' },
+      DiagnosticVirtualTextError = { bg = '$beautiful_black', fg = '$Deep_Dark' },
+      DiagnosticVirtualTextWarn  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
+      DiagnosticVirtualTextInfo  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
+      DiagnosticVirtualTextHint  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
 
 
 
