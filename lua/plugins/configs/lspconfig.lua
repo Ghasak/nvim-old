@@ -1,16 +1,28 @@
 local custom_attach = require("plugins.configs.lsp.lsp_attach").custom_attach
 local capabilities  = require("plugins.configs.lsp.lsp_capabilities")
 local handlers      = require("plugins.configs.lsp.lsp_handlers")
-local installer     = require("plugins.configs.lsp.lsp_selected_installer")
-local lsp_installer = require("nvim-lsp-installer") -- This is very important variable
 
+local status_ok, lsp_installer   = pcall(require, "nvim-lsp-installer")
+if not status_ok then
+  local msg = "failed loading: " .. "nvim-lsp-installer" .. "\n "
+ -- vim.notify(msg, "error")
+   vim.notify("nvim-lsp-installer is not loaded ...")
+  return
+end
 
-
+-- LSP installer (defined list of langauge servers to be installed if missing at startup)
+-- nvim-lsp-installer to be installed and loaded.
+local server_installer = require("plugins.configs.lsp.lsp_selected_installer")
+server_installer.installer()
+--
+-- Configurations for the lsp, offers varies of settings for the diagnostics
+-- messages and Icons.
 require("plugins.configs.lsp.lsp_settings").setup()
 
-
+-- *****************************************************************************************
+--                                 Main LSP Engine
+-- *****************************************************************************************
 lsp_installer.on_server_ready(function(server)
-
   local opts = {
     capabilities = capabilities,
     handlers = handlers,

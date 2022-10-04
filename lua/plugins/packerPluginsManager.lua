@@ -439,11 +439,15 @@ return packer.startup(function(use)
     after = "nvim-lspconfig",
     config = function() require("lsp_signature").setup() end,
   })
+
+use({"williamboman/nvim-lsp-installer",
+    commit = "effafae44012a6ad3091968ad358531c62925a45",
+})
   -- lsp-config
   use({
     "neovim/nvim-lspconfig",
+    commit = "148c99bd09b44cf3605151a06869f6b4d4c24455",
     opt = true,
-    -- event = { "BufReadPre" }, -- This will delay laoding also the nvim-sitter.
     event = { "VimEnter" },
     setup = function()
       require("core.lazy_load").on_file_open "nvim-lspconfig"
@@ -454,15 +458,16 @@ return packer.startup(function(use)
       "mason-lspconfig.nvim",
       "mason-tool-installer.nvim",
     },
-    config = function()
-      require("plugins.configs.lspconfig")
-    end,
     requires = {
       { "williamboman/nvim-lsp-installer" },
-      { "williamboman/mason.nvim", event = "BufReadPre" },
+      { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
-      { "WhoIsSethDaniel/mason-tool-installer.nvim", event = "BufReadPre" },
-    }
+      { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    },
+  -- Notice, that you need to request the nvim-lsp-installer first to make the config works.
+   config = function()
+     require("plugins.configs.lspconfig")
+   end,
   })
   -- Adding symbols outline (similar to vista)
   use({
