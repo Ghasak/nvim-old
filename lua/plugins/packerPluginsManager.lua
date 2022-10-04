@@ -285,7 +285,7 @@ return packer.startup(function(use)
   -- ===========================================================================
 
   -- Clear highlight when you search for a word automatically
-  use({"romainl/vim-cool",
+  use({ "romainl/vim-cool",
     opt = true,
     event = "CmdwinEnter", -- Only will be loaded when we enter the CMD in vim
     config = function() vim.g.CoolTotalMatches = 1 end
@@ -468,8 +468,8 @@ return packer.startup(function(use)
   use({
     "simrat39/symbols-outline.nvim",
     opt = true,
-    event = {"CmdwinEnter"},
-    cmd = {"SymbolsOutline","SymbolsOutlineOpen", "SymbolsOutlineClose"},
+    event = { "CmdwinEnter" },
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
     config = function()
       require("plugins.configs.mySymbolsOutline").init()
     end
@@ -482,5 +482,5 @@ return packer.startup(function(use)
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
- end
+  end
 end)

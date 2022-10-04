@@ -37,31 +37,38 @@ M.setup = function()
     },
 
     -- Custom Highlights --
+    -- Global colors can be altered to fit the corresponding needs.
+    -- Color names can be found here: ~/.local/share/nvim/site/pack/packer/start/onedark.nvim/lua/onedark/palette.lua
     colors = {
-      bright_orange = "#ff8800", -- define a new color
-      green = '#00ffaa', -- redefine an existing color
-      beautiful_black = '#343a43',
-      test = '#00ffaa',
-      light_green = '#C6EBC5',
-      light_Fiery_Rose = '#F56476',
-      Cerise = '#E43F6F',
-      Blush = '#DC6486',
-      Charm_Pink = '#E18CA4',
-      Sliver_Pink = '#CEB4B9',
-      Cambridge_blue = '#92B4A7',
-      Granny_Smith_Apple = '#B2EF9B',
+      bright_orange       = "#ff8800", -- define a new color
+      green               = '#C6EBC5',
+      --orange              = "#e5c07b",
+      --blue                = "#61afef",
+      --yellow              = "#e5c07b",
+      --yellow              = "#EEEDBF",
+      --green               = '#00ffaa', -- redefine an existing color
+      purple              = "#DEC0F1",
+      beautiful_black     = '#343a43',
+      test                = '#00ffaa',
+      light_green         = '#C6EBC5',
+      light_Fiery_Rose    = '#F56476',
+      Cerise              = '#E43F6F',
+      Blush               = '#DC6486',
+      Charm_Pink          = '#E18CA4',
+      Sliver_Pink         = '#CEB4B9',
+      Cambridge_blue      = '#92B4A7',
+      Granny_Smith_Apple  = '#B2EF9B',
       Another_Light_Green = '#94C9A9',
-      Mindaro = '#DAFF7D',
-      Light_Orange = '#FFC49B',
-      Cadet_Blue_Crayola = '#ADB6C4',
-      Davys_Grey = '#494949',
-      Fiery_Rose = '#FF5D73',
-      Old_Rose = '#C6828B',
-      Deep_Dark = '#24272e',
-      Light_Yellow = '#EEEDBF',
+      Mindaro             = '#DAFF7D',
+      Light_Orange        = '#FFC49B',
+      Cadet_Blue_Crayola  = '#ADB6C4',
+      Davys_Grey          = '#494949',
+      Fiery_Rose          = '#FF5D73',
+      Old_Rose            = '#C6828B',
+      Deep_Dark           = '#24272e',
+      Light_Yellow        = '#EEEDBF',
 
-
-    }, -- Override default colors
+    }, -- Override the components of the nvim modules
     highlights = {
       -- Common
       Visual = { bg = '$Charm_Pink', fmt = 'bold' },
@@ -73,45 +80,37 @@ M.setup = function()
       EndOfBuffer = { fg = '$beautiful_black', bg = '$beautiful_black' }, -- End of buffer color
       VertSplit = { fg = '$light_green', bg = '$beautiful_black' }, -- when using vertical split
       SignColumn = { fg = '$beautiful_black', bg = '$beautiful_black' }, -- SignColumn control the edge of nvim buffer
+
+      DiffAdded = { fg = '$light_green', bg = '$beautiful_black' },
+      DiffviewStatusAdded = { fg = '$light_green', bf = '$beautiful_black' },
+      DiffviewFilePanelInsertions = { fg = '$light_green', bf = '$beautiful_black' },
+      DiffviewVertSplit = { fg = '$light_green', bf = '$beautiful_black' },
       -- Syntax
       String = { fg = '$light_green' }, -- For only string in nvim (will be alter by the tree-sitter
       TabLine = { bg = '$beautiful_black' },
       TabLineFill = { bg = '$beautiful_black' },
       TabLineSel = { bg = '$beautiful_black' },
-      Constant = {fg = '$Light_Yellow'},
+      Constant = { fg = '$Light_Yellow' },
       StatusLineNC = { fg = '$beautiful_black', bg = '$beautiful_black' },
 
       -- nvim-tree
-      --NvimTreeVertSplit =  { fg = '$light_green' ,bg = '$beautiful_black' },                         -- When you split inside nvim-tree the fg will be activited
       NvimTreeVertSplit = { bg = '$beautiful_black' }, -- When you split inside nvim-tree the fg will be activited
-      --NvimTreeNormal = { fg = '$Sliver_Pink' ,bg = '$beautiful_black' },                             -- fg means files names, folder names ..etc.
-      NvimTreeNormal = { bg = '$beautiful_black' }, -- fg means files names, folder names ..etc.
+      NvimTreeNormal = { bg = '$beautiful_black', bf = '$beautiful_black' }, -- fg means files names, folder names ..etc.
       NvimTreeEndOfBuffer = { fg = '$light_green', bg = '$beautiful_black' },
-      --NvimTreeGitNew = {fg ='$light_green'  },                                                       -- This will change only the the edge of the nvim-tree
-      --DiffAdded = {fg ='$light_green'  },
-      DiffviewStatusAdded = { fg = '$light_green' },
-      DiffviewFilePanelInsertions = { fg = '$light_green' },
+      NvimTreeGitNew = { fg = '$light_green', bg = '$beautiful_black' }, -- This will change only the the edge of the nvim-tree
+
+      -- plugins gitsigns
+      GitSignsAdd = { fg = '$light_green' },
+      GitSignsAddLn = { fg = '$light_green' },
+      GitSignsAddNr = { fg = '$light_green' },
+
 
       -- LSP configruations
-      -- DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and util.darken(diagnostics_error_color, 0.1, c.bg0)
-      --     or c.none,
-      --   fg = diagnostics_error_color },
-      -- DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and util.darken(diagnostics_warn_color, 0.1, c.bg0)
-      --     or c.none,
-      --   fg = diagnostics_warn_color },
-      -- DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and util.darken(diagnostics_info_color, 0.1, c.bg0)
-      --     or c.none,
-      --   fg = diagnostics_info_color },
-      -- DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and util.darken(diagnostics_hint_color, 0.1, c.bg0)
-      --     or c.none,
-      --   fg = diagnostics_hint_color },
       --  For the virtual text which is shown next to each code line
       DiagnosticVirtualTextError = { bg = '$beautiful_black', fg = '$Deep_Dark' },
       DiagnosticVirtualTextWarn  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
       DiagnosticVirtualTextInfo  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
       DiagnosticVirtualTextHint  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
-
-
 
       -- GGX = {fg = '#EEEDBF'}
       -- StatusLine
@@ -120,16 +119,16 @@ M.setup = function()
       -- StatusLineTermNC = { fg = '$beautiful_black' ,bg = '$beautiful_black' },
       -- Nvim-treesitter
       TSString = { fg = '$Another_Light_Green' }, -- For only string in nvim
-      TSConstant = {fg = '$Light_Yellow'}
+      TSConstant = { fg = '$Light_Yellow' }
     }, -- Override highlight groups
 
 
     -- Plugins Config --
-        diagnostics = {
-          darker = true, -- darker colors for diagnostic
-          undercurl = true, -- use undercurl instead of underline for diagnostics
-          background = false, -- use background color for virtual text
-        },
+    diagnostics = {
+      darker = true, -- darker colors for diagnostic
+      undercurl = true, -- use undercurl instead of underline for diagnostics
+      background = false, -- use background color for virtual text
+    },
   }
   onedark.load()
 end

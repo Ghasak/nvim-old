@@ -29,7 +29,8 @@ return {
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
   hint_enable = true, -- virtual hint enable
   --hint_prefix = "🐼 ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
-  hint_prefix = "",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+  --hint_prefix = "",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+  hint_prefix = "      ", -- Panda for parameter
   hint_scheme = "String",
   hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
   handler_opts = {
@@ -53,5 +54,9 @@ return {
   select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
   move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
 }
+
+
+
+
 
 

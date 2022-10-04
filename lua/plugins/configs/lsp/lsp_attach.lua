@@ -79,7 +79,7 @@ M.custom_attach = function(client, bufnr)
   -----------------------------------------------------------------------------------
   --          							lsp signture with nvim
   -----------------------------------------------------------------------------------
-  cfg = require("plugins.configs.mySignture")
+  local cfg = require("plugins.configs.mySignture")
   require "lsp_signature".on_attach(cfg, bufnr)
 
 

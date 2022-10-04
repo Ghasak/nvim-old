@@ -33,3 +33,8 @@ M.capabilities.offsetEncoding = "utf-8"
 M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
 return M
+
+
+
+
+
