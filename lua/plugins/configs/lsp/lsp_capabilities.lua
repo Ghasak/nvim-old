@@ -4,14 +4,16 @@ local M = {}
 -- ===========================================================================
 --
 --
+-- You must specifiy first the defualt server capabilities
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
 local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_cmp_ok then
-  return
+  return M
 end
 
 
-
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
+-- Otherwise, add more capabilities to the language server
 
 M.capabilities.textDocument.completion.completionItem.documentationFormat = {
   "markdown", "plaintext"
