@@ -5,26 +5,26 @@
 The current configurations are from the needs of getting the best optimized `IDE` for
 the startup time.
 
-
-
-
 ### Things to be considered
-- [ ] use the color-scheme form `NVChad`.
-- [ ] optimized with the `lazy loading` based on packer configuration .
-- [ ] remove the unnecessary packages form loading that comes with `nvim`.
-
-
-
-
-- [ ] `cmd` and `/:` should works
-- [ ] Spelling completion.
-
-
-
-- [ ] `LSP` configurations advanced, including highlighting and other optimizations
+- [x] use the color-scheme form `NVChad`.
+- [x] optimized with the `lazy loading` based on packer configuration .
+- [x] remove the unnecessary packages form loading that comes with `nvim`.
+- [x] Adding the lsp compatibility configuraition skippers for regualr `lsp` vs `rust-tools`.
+- [ ] Adding the virtual text lsp configruration.
+- [x] Refactoring all the crrent lsp files into more moduels follow the other way of writing.
+- [ ] Using Nvim v.0.8
+- [ ] Adding symboles inspector for the right corner.
+- [x] `cmd` and `/:` should works
+- [x] Spelling completion.
+- [x] `LSP` configurations advanced, including highlighting and other optimizations
 - [ ] Rust-tools and analyzer for complete configurations.
 - [ ]
 
+### Migration for Nvim 0.8
+check `:h deprecated`
+- [x] Need to change vim.highlight.create  into vim.create.hl.
+- [x] `compatibility` changed to `compatibility_vim`. : read more about this refactoring later.
+- [x] `vim.lsp.buf.format()` now replaces the `vim.lsp.buf.formatting()`
 
 
 ### Nvim with Lua API
@@ -284,7 +284,7 @@ _G.highlight_upper_letter_cases = function()
     -- You can link from other group using:
     -- vim.api.nvim_command([[hi def link GGX Title]])
     -- Or create a new group
-    vim.highlight.create('GGX', {guifg="#EEEDBF"}, true)
+    --vim.highlight.create('GGX', {guifg="#EEEDBF"}, true)
     --vim.api.nvim_command([[highlight GGX guifg=#EEEDBF]])
     vim.api.nvim_command([[syn match GGX /[A-Z]+/]])
     vim.api.nvim_command([[syn match GGX /[A-Z]\{2,\}/]])

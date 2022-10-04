@@ -4,8 +4,8 @@ local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = 1
   print "Installing packer close and reopen Neovim..."
-  --vim.cmd [[packadd packer.nvim]]
 end
+--vim.cmd [[packadd packer.nvim]]
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd [[
@@ -101,8 +101,10 @@ return packer.startup(function(use)
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
-    opt = true,
-    event = "BufReadPre",
+    --opt = true,
+    --event = "BufReadPre",
+    --event = "VimEnter",
+    --event = { "BufRead", "BufNewFile" },
     run = ":TSUpdate",
     config = function()
       require("plugins.configs.treesitter").setup()
@@ -113,9 +115,10 @@ return packer.startup(function(use)
       { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
       { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
       { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
-      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
+      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = false },
     },
   }
+
 
   -- Better icons
   use {
@@ -223,10 +226,7 @@ return packer.startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     after = "nvim-treesitter",
-    setup = function()
-      require("core.lazy_load").on_file_open "nvim-treesitter"
-    end,
-    cmd = require("core.lazy_load").treesitter_cmds,
+    event = "VimEnter",
     config = function()
       require("plugins.configs.myLuaLine").setup()
     end,
@@ -237,7 +237,6 @@ return packer.startup(function(use)
   use {
     "akinsho/nvim-bufferline.lua",
     opt = true,
-    -- event = "VimEnter",
     --event = "BufWritePre",  -- Only will be trigger when you save your buffer.
     event = "CursorMoved",
     wants = "nvim-web-devicons",
@@ -286,10 +285,9 @@ return packer.startup(function(use)
   -- ===========================================================================
 
   -- Clear highlight when you search for a word automatically
-  use({
+  use({"romainl/vim-cool",
     opt = true,
     event = "CmdwinEnter", -- Only will be loaded when we enter the CMD in vim
-    "romainl/vim-cool",
     config = function() vim.g.CoolTotalMatches = 1 end
   })
 
@@ -335,9 +333,9 @@ return packer.startup(function(use)
     }
   })
 
-  --    -- ==========================================================================
-  --    -- 	                      Programming Language  Services
-  --    -- ==========================================================================
+  -- ==========================================================================
+  -- 	                      Programming Language  Services
+  -- ==========================================================================
   -- Auto pairs
   use {
     "windwp/nvim-autopairs",
@@ -412,7 +410,7 @@ return packer.startup(function(use)
     event = "InsertEnter",
     config = function()
       require("plugins.configs.indent_line").setup()
-    end
+    end,
   })
   -- ==========================================================================
   -- 	                      Programming Language Servers
@@ -423,27 +421,30 @@ return packer.startup(function(use)
   })
   -- lsp_signature.nvim
   use({
-    "tami5/lspsaga.nvim",
-    ---"glepnir/lspsaga.nvim",
-    opt = true,
-    --after = "nvim-lspconfig",
+    "glepnir/lspsaga.nvim",
+    event = "BufReadPre",
+    branch = "main",
     config = function()
-      require("plugins.configs.mySaga").conf()
-    end
+      local saga = require("lspsaga")
+      saga.init_lsp_saga(
+      -- your configuration
+        require("plugins.configs.mySaga")
+      )
+    end,
   })
+
   -- Adding lsp signature for nvim
   use({
     "ray-x/lsp_signature.nvim",
     after = "nvim-lspconfig",
-    config = function() require("lsp_signature").setup() end
+    config = function() require("lsp_signature").setup() end,
   })
-  -- Rust lsp Enhancer
-  use({ 'simrat39/rust-tools.nvim' })
   -- lsp-config
   use({
     "neovim/nvim-lspconfig",
     opt = true,
-    event = { "BufReadPre" },
+    -- event = { "BufReadPre" }, -- This will delay laoding also the nvim-sitter.
+    event = { "VimEnter" },
     setup = function()
       require("core.lazy_load").on_file_open "nvim-lspconfig"
     end,
@@ -457,18 +458,29 @@ return packer.startup(function(use)
       require("plugins.configs.lspconfig")
     end,
     requires = {
-      "williamboman/nvim-lsp-installer",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      { "williamboman/nvim-lsp-installer" },
+      { "williamboman/mason.nvim", event = "BufReadPre" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "WhoIsSethDaniel/mason-tool-installer.nvim", event = "BufReadPre" },
     }
   })
+  -- Adding symbols outline (similar to vista)
+  use({
+    "simrat39/symbols-outline.nvim",
+    opt = true,
+    event = {"CmdwinEnter"},
+    cmd = {"SymbolsOutline","SymbolsOutlineOpen", "SymbolsOutlineClose"},
+    config = function()
+      require("plugins.configs.mySymbolsOutline").init()
+    end
+  })
 
-
-
+  --
+  -- Rust lsp Enhancer
+  use({ 'simrat39/rust-tools.nvim' })
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
-  end
+ end
 end)

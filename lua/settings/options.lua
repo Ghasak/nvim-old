@@ -280,7 +280,7 @@ au CursorHold *.<fileextension>  checktime
 ]])
 
 
-vim.highlight.create('XXX', {ctermbg=0, guibg="#FFC49B", guifg="#EEEDBF"}, true)
+--vim.highlight.create('XXX', {ctermbg=0, guibg="#FFC49B", guifg="#EEEDBF"}, true)
 -- Having source % can cause problems for certain files
 --  exec([[
 --    augroup YankHighlight

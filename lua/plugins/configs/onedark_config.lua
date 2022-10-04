@@ -58,6 +58,7 @@ M.setup = function()
       Fiery_Rose = '#FF5D73',
       Old_Rose = '#C6828B',
       Deep_Dark = '#24272e',
+      Light_Yellow = '#EEEDBF',
 
 
     }, -- Override default colors
@@ -77,7 +78,7 @@ M.setup = function()
       TabLine = { bg = '$beautiful_black' },
       TabLineFill = { bg = '$beautiful_black' },
       TabLineSel = { bg = '$beautiful_black' },
-
+      Constant = {fg = '$Light_Yellow'},
       StatusLineNC = { fg = '$beautiful_black', bg = '$beautiful_black' },
 
       -- nvim-tree
@@ -116,18 +117,19 @@ M.setup = function()
       -- StatusLine
       -- StatusLine = { fg = '#DADFF7' ,bg = '#008DD5' },
       -- StatusLineTerm = {},
-      --StatusLineTermNC = { fg = '$beautiful_black' ,bg = '$beautiful_black' },
+      -- StatusLineTermNC = { fg = '$beautiful_black' ,bg = '$beautiful_black' },
       -- Nvim-treesitter
       TSString = { fg = '$Another_Light_Green' }, -- For only string in nvim
+      TSConstant = {fg = '$Light_Yellow'}
     }, -- Override highlight groups
 
 
     -- Plugins Config --
-    --    diagnostics = {
-    --      darker = true, -- darker colors for diagnostic
-    --      undercurl = true, -- use undercurl instead of underline for diagnostics
-    --      background = false, -- use background color for virtual text
-    --    },
+        diagnostics = {
+          darker = true, -- darker colors for diagnostic
+          undercurl = true, -- use undercurl instead of underline for diagnostics
+          background = false, -- use background color for virtual text
+        },
   }
   onedark.load()
 end

@@ -9,7 +9,8 @@ _G.highlight_upper_letter_cases = function()
     -- You can link from other group using:
     -- vim.api.nvim_command([[hi def link GGX Title]])
     -- Or create a new group
-    vim.highlight.create('GGX', {guifg="#EEEDBF"}, true)
+    --vim.highlight.create('GGX', {guifg="#EEEDBF"}, true)
+    vim.api.nvim_set_hl('GGX', {guifg="#EEEDBF"}, true)
     --vim.api.nvim_command([[highlight GGX guifg=#EEEDBF]])
     vim.api.nvim_command([[syn match GGX /[A-Z]+/]])
     vim.api.nvim_command([[syn match GGX /[A-Z]\{2,\}/]])
