@@ -216,8 +216,11 @@ return packer.startup(function(use)
       require("plugins.configs.myRanger").Style()
     end
   })
-
-
+  -- will allow to copy and paste in Nvim
+  use({ "christoomey/vim-system-copy",
+    opt = true,
+    event = "InsertEnter"
+  })
   -- ==========================================================================
   -- 	                    Aesthetic and UI Design
   -- ==========================================================================
@@ -288,7 +291,11 @@ return packer.startup(function(use)
   --       text = {spinner = "dots_negative", done = "歷"}
   --     })
   --   end})
+  use({ 'ggandor/lightspeed.nvim',
+    opt = true,
+    event = "CursorMoved",
 
+  })
   -- ===========================================================================
   --           Productivities and performance
   -- ===========================================================================
