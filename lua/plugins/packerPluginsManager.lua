@@ -105,7 +105,7 @@ return packer.startup(function(use)
     --event = "BufReadPre",
     --event = "VimEnter",
     --event = { "BufRead", "BufNewFile" },
-    run = ":TSUpdate",
+    --run = ":TSUpdate",
     config = function()
       require("plugins.configs.treesitter").setup()
     end,
