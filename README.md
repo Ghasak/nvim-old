@@ -10,15 +10,14 @@ the startup time.
 - [x] optimized with the `lazy loading` based on packer configuration .
 - [x] remove the unnecessary packages form loading that comes with `nvim`.
 - [x] Adding the lsp compatibility configuraition skippers for regualr `lsp` vs `rust-tools`.
-- [ ] Adding the virtual text lsp configruration.
+- [x] Adding the virtual text lsp configruration.
 - [x] Refactoring all the crrent lsp files into more moduels follow the other way of writing.
-- [ ] Using Nvim v.0.8
-- [ ] Adding symboles inspector for the right corner.
+- [x] Using Nvim v.0.8
+- [x] Adding symboles inspector for the right corner.
 - [x] `cmd` and `/:` should works
 - [x] Spelling completion.
 - [x] `LSP` configurations advanced, including highlighting and other optimizations
-- [ ] Rust-tools and analyzer for complete configurations.
-- [ ]
+- [x] Rust-tools and analyzer for complete configurations.
 
 ### Migration for Nvim 0.8
 check `:h deprecated`

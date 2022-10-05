@@ -14,7 +14,7 @@
 ----
 ---- Configurations for the lsp, offers varies of settings for the diagnostics
 ---- messages and Icons.
---require("plugins.configs.lsp.lsp_settings").setup()
+-- require("plugins.configs.lsp.lsp_settings").setup()
 --
 ---- *****************************************************************************************
 ----                                 Main LSP Engine
@@ -71,11 +71,14 @@ local M = {}
 
 M.setup = function()
 
-
+  -- Pre settings for language servers
   local rust_tools_settings = require("plugins.configs.lsp.custom_servers.rust_analyzer_server")
+
   --   local status, mason= pcall(require, "mason")
   --   if (not status) then return end
   require("mason").setup()
+  -- Configurations for the lsp, offers varities of settings for the diagnostics
+  -- messages and Icons on the gutters.
   require("plugins.configs.lsp.lsp_settings").setup()
 
   local mason_status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
@@ -106,6 +109,9 @@ M.setup = function()
   end
 
 
+  ---- *****************************************************************************************
+  ----                                 Main LSP Engine
+  ---- *****************************************************************************************
   local opts = {
     on_attach    = require("plugins.configs.lsp.lsp_attach").custom_attach,
     capabilities = require("plugins.configs.lsp.lsp_capabilities").capabilities,
@@ -124,25 +130,14 @@ M.setup = function()
       }
     end,
     ["sumneko_lua"] = function()
+
+      local sumneko_settings = require "plugins.configs.lsp.custom_servers.sumneko_lua_server"
+      opts = vim.tbl_deep_extend("force", sumneko_settings, opts)
       lspconfig.sumneko_lua.setup({
         on_attach    = opts.on_attach,
         capabilities = opts.capabilities,
         handlers     = opts.handlers,
-        settings     = {
-          Lua = {
-            -- Tells Lua that a global variable named vim exists to not have warnings when configuring neovim
-            diagnostics = {
-              globals = { "vim" },
-            },
-
-            workspace = {
-              library = {
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.stdpath("config") .. "/lua"] = true,
-              },
-            },
-          },
-        },
+        settings     = opts.settings
       })
     end,
 
@@ -187,5 +182,3 @@ end
 return M
 
 
-
---  })

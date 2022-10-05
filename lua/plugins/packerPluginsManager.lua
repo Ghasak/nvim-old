@@ -443,7 +443,7 @@ return packer.startup(function(use)
   -- lsp-config
   use({
     "neovim/nvim-lspconfig",
-   -- commit = "148c99bd09b44cf3605151a06869f6b4d4c24455",
+    -- commit = "148c99bd09b44cf3605151a06869f6b4d4c24455",
     opt = true,
     event = { "VimEnter" },
     setup = function()
@@ -456,15 +456,15 @@ return packer.startup(function(use)
       "mason-tool-installer.nvim",
     },
     requires = {
-      --{ "williamboman/nvim-lsp-installer" },
+      --{ "williamboman/nvim-lsp-installer" }, -- deperated
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
       { "WhoIsSethDaniel/mason-tool-installer.nvim" },
     },
-  -- Notice, that you need to request the nvim-lsp-installer first to make the config works.
-   config = function()
-     require("plugins.configs.lspconfig_custom").setup()
-   end,
+    -- Notice, that you need to request the nvim-lsp-installer first to make the config works.
+    config = function()
+      require("plugins.configs.lspconfig_custom").setup()
+    end,
   })
   -- Adding symbols outline (similar to vista)
   use({
