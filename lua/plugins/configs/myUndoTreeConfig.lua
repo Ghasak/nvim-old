@@ -1,4 +1,3 @@
-
 -- Here, I am using a vim-function with the formula <exec(fun, bool)>
 local exec = vim.api.nvim_exec 	-- execute Vimscript
 -- It seems that the (finish) doesnt work with the cmd in current configuration ... I removed already
@@ -10,9 +9,13 @@ let g:loaded_undotree = 0
 let g:loaded_undotree = 1
 if has("persistent_undo")
    let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
     if !isdirectory(target_path)
-	call mkdir(target_path, "p", 0700)
+        call mkdir(target_path, "p", 0700)
     endif
+
     let &undodir=target_path
     set undofile
 endif
