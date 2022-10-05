@@ -36,8 +36,8 @@ local themes = require("telescope.themes")
 -- Allow to open help files in bigger sized window
 -- read here: https://stackoverflow.com/questions/4687009/opening-help-in-a-full-window
 vim.cmd([[
-:set helpheight=80
---  ]])
+set helpheight=80
+  ]])
 
 
 
