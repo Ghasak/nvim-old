@@ -5,8 +5,30 @@
 The current configurations are from the needs of getting the best optimized `IDE` for
 the startup time.
 
+## USEFUL COMMANDS
+The following command are super handy and useful when developign `lua` plugins.
+```lua
+:source %                                   -- This will repload the curretn buffer (usually can be used with init.lua)
+:lua <function_name()>                      -- How to run a function (especially the __G.) global functions (check special function file)
+
+```
+1. Packer and packadd
+- `packer` usually will load the required plugins and thats suppose to be for
+  any file you will put at `plugin` which where packer usually dumps its
+  contents.
+
+2. Color-scheme
+- Any color scheme (*.vim) will be put at `colors` directory inside the `nvim`
+will be loaded to the color-scheme, which can be checked using `:colorscheme
+<tab>`
+3. RUNTIME PATH
+- You can use `:set rtp+=/path/to/emmet` to add any directory which will be
+  loaded to the `run-path` lists.
+4.
+
+
 ### Things to be considered
-- [x] use the color-scheme form `NVChad`.
+- [x] Use the color-scheme form `NVChad`.
 - [x] optimized with the `lazy loading` based on packer configuration .
 - [x] remove the unnecessary packages form loading that comes with `nvim`.
 - [x] Adding the lsp compatibility configuraition skippers for regualr `lsp` vs `rust-tools`.
@@ -288,7 +310,7 @@ _G.highlight_upper_letter_cases = function()
     vim.api.nvim_command([[syn match GGX /[A-Z]+/]])
     vim.api.nvim_command([[syn match GGX /[A-Z]\{2,\}/]])
     vim.api.nvim_command([[syn match GGX "\v<[A-Z]+>"]])
-    -- this will be executed only when open vim on event VimEnter (then source all nvim files)
+    -- this will be executed only when open vim on event VimEnter (then source all nvim files), should not be used (affecting the markdown)
     vim.cmd([[autocmd VimEnter ~/.config/nvim/* source %]])
 end
 ```

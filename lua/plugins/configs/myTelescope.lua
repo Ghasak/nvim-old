@@ -32,17 +32,17 @@ local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local themes = require("telescope.themes")
 
+
+-- Allow to open help files in bigger sized window
+-- read here: https://stackoverflow.com/questions/4687009/opening-help-in-a-full-window
+vim.cmd([[
+:set helpheight=80
+--  ]])
+
+
+
 M.setup = function()
 
-  -- Allow to open help files in new tabs.
-  -- read here: https://stackoverflow.com/questions/4687009/opening-help-in-a-full-window
-  vim.cmd([[
-  augroup help_as_buffer
-  autocmd!
-  autocmd FileType help :tabnew % | tabprevious | quit | tabnext
-  autocmd FileType help set buflisted
-  augroup END
-  ]])
 
   local ivy = themes.get_ivy({
     show_untracked = true
@@ -67,7 +67,10 @@ M.setup = function()
     end)
 
   vim.g.nmap("<leader>fh", function()
-    builtin.help_tags(ivy)
+   -- builtin.help_tags(ivy)
+    --builtin.help_tags({ sorter = require('telescope.sorters').get_generic_fuzzy_sorter({}) })
+    builtin.help_tags({
+    })
   end)
 
   vim.g.nmap("<leader>fp", function()
