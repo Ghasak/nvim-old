@@ -280,6 +280,15 @@ return packer.startup(function(use)
       require("plugins.configs.myVim_eft").setup()
     end
   })
+
+  -- lsp loader status display
+  -- use({ 'j-hui/fidget.nvim' ,
+  -- config = function()
+  --     require("fidget").setup({
+  --       text = {spinner = "dots_negative", done = "歷"}
+  --     })
+  --   end})
+
   -- ===========================================================================
   --           Productivities and performance
   -- ===========================================================================
@@ -475,11 +484,14 @@ return packer.startup(function(use)
     config = function()
       require("plugins.configs.mySymbolsOutline").init()
     end
+
   })
 
-  --
   -- Rust lsp Enhancer
   use({ 'simrat39/rust-tools.nvim' })
+
+
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

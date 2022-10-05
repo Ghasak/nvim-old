@@ -106,11 +106,7 @@ custom_kind = {},
 server_filetype_map = {},
 
 
--- KeyMapping
-vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
-
-
-
 
 }
+
 

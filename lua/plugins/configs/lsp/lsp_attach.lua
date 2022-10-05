@@ -21,56 +21,58 @@ local function lsp_keymaps(bufnr)
 end
 
 M.custom_attach = function(client, bufnr)
---M.custom_attach = function()
+  -- This will add an error message in rounded popmenu to show the error which is same as the virtual-text.
+  -- Read More Here : https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+  -- Also Read: https://jdhao.github.io/2022/10/05/nvim-v08-release/
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end
+  })
+  if client.server_capabilities.documentHighlightProvider then     -- Since Nvim v.0.8
+    vim.cmd [[
+           hi LspReferenceRead cterm=bold ctermbg=black guibg=#FAFF7F
+           hi LspReferenceText cterm=bold ctermbg=black guibg=#505050
+           hi LspReferenceWrite cterm=bold ctermbg=black guibg=#E5989B
+  ]]
+    vim.api.nvim_create_augroup('lsp_document_highlight', {
+      clear = false
+    })
+    vim.api.nvim_clear_autocmds({
+      buffer = bufnr,
+      group = 'lsp_document_highlight',
+    })
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd('CursorMoved', {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+  vim.cmd [[
+  highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+  highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
+  highlight! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
+  highlight! DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
 
---  if client.server_capabilities.document_highlight then
---    --  vim.cmd [[
---    --    hi! LspReferenceRead  cterm=bold ctermbg=235 guibg=LightYellow
---    --    hi! LspReferenceText  cterm=bold ctermbg=235 guibg=LightYellow
---    --    hi! LspReferenceWrite cterm=bold ctermbg=235 guibg=LightYellow
---    --  ]]
---    --  vim.api.nvim_create_augroup('lsp_document_highlight', {})
---    --  vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
---    --    group = 'lsp_document_highlight',
---    --    buffer = 0,
---    --    callback = vim.lsp.buf.document_highlight,
---    --  })
---    --  vim.api.nvim_create_autocmd('CursorMoved', {
---    --    group = 'lsp_document_highlight',
---    --    buffer = 0,
---    --    callback = vim.lsp.buf.clear_references,
---    --  })
---    --
---    vim.cmd([[
---                hi LspReferenceRead cterm=bold ctermbg=black guibg=#FAFF7F
---                hi LspReferenceText cterm=bold ctermbg=black guibg=#505050
---                hi LspReferenceWrite cterm=bold ctermbg=black guibg=#E5989B
---                augroup lsp_document_highlight
---                autocmd! * <buffer>
---                autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
---                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
---                augroup end
---        ]])
---    vim.cmd([[
---                hi LspDiagnosticsVirtualTextError guifg=red gui=bold,italic,underline
---                hi LspDiagnosticsVirtualTextWarning guifg=orange gui=bold,italic,underline
---                hi LspDiagnosticsVirtualTextInformation guifg=yellow gui=bold,italic,underline
---                hi LspDiagnosticsVirtualTextHint guifg=green gui=bold,italic,underline
---        ]])
---    vim.cmd([[
---                hi DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
---                hi DiagnosticLineNrWarn  guibg=#51412A guifg=#FFA500 gui=bold
---                hi DiagnosticLineNrInfo  guibg=#1E535D guifg=#00FFFF gui=bold
---                hi DiagnosticLineNrHint  guibg=#1E205D guifg=#0000FF gui=bold
---
---
---                hi LspReferenceText cterm=bold gui=bold
---                hi LspReferenceRead cterm=bold gui=bold
---                hi LspReferenceWrite cterm=bold gui=bold
---        ]])
---
---  end
---
+ "" sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
+ "" sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
+ "" sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
+ "" sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
+]]
   -----------------------------------------------------------------------------------
   --          The above keymapping will be overwritten by lsp-saga
   -----------------------------------------------------------------------------------

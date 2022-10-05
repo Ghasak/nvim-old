@@ -5,10 +5,10 @@ M.setup = function()
   ---- *****************************************************************************************
   ----                                Prerequisites settings supports
   ---- *****************************************************************************************
-  -- Pre settings for language servers
+  -- Pre settings for Rust language servers
   local rust_tools_settings = require("plugins.configs.lsp.custom_servers.rust_analyzer_server")
   -- Configurations for the lsp, offers varities of settings for the diagnostics
-  -- messages and Icons on the gutters.
+  -- messages and Icons on the gutters. (custom the erro icons mainly)
   require("plugins.configs.lsp.lsp_settings").setup()
 
   ---- *****************************************************************************************
@@ -23,32 +23,38 @@ M.setup = function()
     vim.notify("Couldn't load Mason-LSP-Config" .. mason_lspconfig, "error")
     return
   end
-  -- 3.) >>
-
 
   -- Extension to bridge mason.nvim with the lspconfig plugin
   mason_lspconfig.setup({
     -- A list of servers to automatically install if they're not already installed.
     ensure_installed = { "pyright", "sumneko_lua", "rust_analyzer", "tsserver" }
   })
-
+  -- 3.) >> Mason-tool-installer: installing speicific linterning and tools for specific lps.
   -- Tools for serers
   require("mason-tool-installer").setup {
     ensure_installed = { "codelldb", "stylua", "shfmt", "shellcheck", "black", "isort", "prettierd" },
     auto_update = false,
     run_on_start = true,
   }
-
+  -- 4.) >> lspconfig main loader for the lsp
   local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
   if not lspconfig_status_ok then
     vim.notify("Couldn't load LSP-Config" .. lspconfig, "error")
     return
   end
 
+-- ==========================================================================
+-- =                                                                        =
+-- =                                                                        =
+-- =                                                                        =
+-- =                         Main LSP Engine                                =
+-- =                   Custom Language Server (CLS)                         =
+-- =                                                                        =
+-- =                                                                        =
+-- =                                                                        =
+-- ==========================================================================
+-- Read more Here: https://github.com/williamboman/mason.nvim/discussions/92#discussioncomment-3173425
 
-  ---- *****************************************************************************************
-  ----                                 Main LSP Engine
-  ---- *****************************************************************************************
   local opts = {
     on_attach    = require("plugins.configs.lsp.lsp_attach").custom_attach,
     capabilities = require("plugins.configs.lsp.lsp_capabilities").capabilities,
@@ -117,5 +123,3 @@ M.setup = function()
 
 end
 return M
-
-

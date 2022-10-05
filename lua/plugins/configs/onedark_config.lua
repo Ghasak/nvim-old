@@ -76,6 +76,7 @@ M.setup = function()
       Normal = { fg = '$beautiful_black', bg = '$beautiful_black' }, -- backgorund default color
       IncSearch = { fg = '$Light_Orange', bg = '$Blush', fmt = 'reverse' },
       Search = { fg = '$light_green', bg = '$Mindaro', fmt = 'bold' },
+      CursorLineNr = { fg = '$light_green', fmt = 'bold' },
 
       Terminal = { fg = '$beautiful_black', bg = '$beautiful_black' }, -- terminal color for nvim
       EndOfBuffer = { fg = '$beautiful_black', bg = '$beautiful_black' }, -- End of buffer color
@@ -112,6 +113,14 @@ M.setup = function()
       DiagnosticVirtualTextWarn  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
       DiagnosticVirtualTextInfo  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
       DiagnosticVirtualTextHint  = { bg = '$beautiful_black', fg = '$Deep_Dark' },
+      -- Color of the line number while there is an error, Info or Hint
+      DiagnosticLineNrError      = { fg = "$light_Fiery_Rose" },
+      DiagnosticLineNrWarn       = { fg = "$Light_Yellow" },
+      DiagnosticLineNrInfo       = { fg = '$blue' },
+      DiagnosticLineNrHint       = { fg = '$purple' },
+
+      -- Third-party plugin (fidget: show lsp message at startup of the buffer)
+      FidgetTitle = { fg = '$Charm_Pink', bg = '$Blush' },
 
       -- GGX = {fg = '#EEEDBF'}
       -- StatusLine

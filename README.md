@@ -4,7 +4,8 @@
 
 The current configurations are from the needs of getting the best optimized `IDE` for
 the startup time.
-
+## Major Changes in Nvim 0.8
+- [Major Changes in nvim 0.8](https://jdhao.github.io/2022/10/05/nvim-v08-release/)
 ## USEFUL COMMANDS
 The following command are super handy and useful when developign `lua` plugins.
 ```lua
@@ -24,7 +25,17 @@ will be loaded to the color-scheme, which can be checked using `:colorscheme
 3. RUNTIME PATH
 - You can use `:set rtp+=/path/to/emmet` to add any directory which will be
   loaded to the `run-path` lists.
-4.
+4. Getting some useful Info
+```lua
+:lua print(vim.opt.columns:get()) -- will print the number of columns you have (set/get are main functions to retervie or setting info)
+```
+- [Read Useful Information](https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget.lua)
+
+## Jump Motion
+Read more here:
+- [Nvim Motion](https://alpha2phi.medium.com/neovim-for-beginners-motion-4553e3c06818)
+1. vim-easymotion, vim-sneak, hop.nvim, lightspeed.nvim, pounce.nvim,
+   vim-searchx
 
 
 ### Things to be considered

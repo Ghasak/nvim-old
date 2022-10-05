@@ -15,6 +15,12 @@
 -- Adding some configurations
 -- How to know to which configuration use :h expandtab
 -- My Leader key
+
+-- KeyMapping Order:
+-- 1. Load the plugins which means (load the lspconfig custom_attach key-mapping at first).
+-- 2. Load the settings which will load the current configurations,
+-- 3. Load the lsp-saga, at the end of this file
+
 vim.bo.expandtab = true
 vim.bo.shiftwidth = 2
 vim.bo.softtabstop = 2
@@ -152,4 +158,39 @@ vim.cmd([[
 
 -- Lua APIs can be all mapped
 -- :lua vim.lsp.buf.hover() or  implementation(), ..etc.
+
+
+
+
+
+---- *****************************************************************************************
+----                     Lspsaga KeyMapping
+---- *****************************************************************************************
+
+-- KeyMapping
+vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+-- Code action
+vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+-- Rename
+vim.keymap.set("n", "<leader>gr", "<cmd>Lspsaga rename<CR>", { silent = true })
+-- Peek Definition
+-- support tagstack C-t jump back
+vim.keymap.set("n", "<leader>gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+-- Show line diagnostics
+vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+-- Show cursor diagnostic
+vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+-- Diagnsotic jump can use `<c-o>` to jump back
+vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+-- Only jump to error
+vim.keymap.set("n", "[E", function()
+  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
+vim.keymap.set("n", "]E", function()
+  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
+
+-- Outline
+vim.keymap.set("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true, })
 
