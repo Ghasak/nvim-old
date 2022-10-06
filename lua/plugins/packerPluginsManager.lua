@@ -96,7 +96,7 @@ return packer.startup(function(use)
   })
 
   -- ==========================================================================
-  -- 	                      Programming Language Servers
+  -- 	                      Core Dependencies and Utilities
   -- ===========================================================================
   -- Treesitter
   use {
@@ -225,6 +225,15 @@ return packer.startup(function(use)
   -- 	                    Aesthetic and UI Design
   -- ==========================================================================
 
+  -- alpha for welcome message of nvim
+  use({
+    "goolord/alpha-nvim",
+    disable = true,
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("alpha").setup(require("alpha.themes.startify").opts)
+    end
+  })
   -- Status line
   use {
     "nvim-lualine/lualine.nvim",
@@ -270,9 +279,10 @@ return packer.startup(function(use)
 
   -- Markdown, Markup-language better view (two plugins)
   use({
-    "npxbr/glow.nvim",
+    -- "npxbr/glow.nvim",
+    "ellisonleao/glow.nvim",
     ft = { 'markdown' },
-    config = function() require("plugins.configs.myGlowMark") end
+    config = function() require("plugins.configs.myGlowMark").setup() end
   })
   -- vim-eftt (highlight the f/t/F/T mappings)
   -- Source, https://github.com/hrsh7th/vim-eft
@@ -318,6 +328,24 @@ return packer.startup(function(use)
     cmd = { "Bdelete" },
   })
 
+  -- Better repeat (.) with nvim (from tpope)
+  --  use({ "tpope/vim-repeat" })
+
+  --  -- Better surrounding
+  --  use({ "tpope/vim-surround" })
+
+  --  -- Development
+  --  use({ "tpope/vim-dispatch" })
+  --  use({ "tpope/vim-commentary" })
+  --  use({ "tpope/vim-rhubarb", event = "VimEnter" })
+  --  use({ "tpope/vim-unimpaired" })
+  --  use({ "tpope/vim-vinegar" })
+  --  use({ "tpope/vim-sleuth" })
+  -- Replace word with register
+
+  use({ "gennaro-tedesco/nvim-peekup",
+    event = "InsertEnter",
+  })
   -- ===========================================================================
   --                            Git and Diff
   -- ===========================================================================
@@ -388,7 +416,7 @@ return packer.startup(function(use)
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lua",
       "ray-x/cmp-treesitter",
-      "hrsh7th/cmp-cmdline",
+      --"hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -432,9 +460,6 @@ return packer.startup(function(use)
   -- 	                      Programming Language Servers
   -- ==========================================================================
 
-  use({ "SmiteshP/nvim-navic",
-    wants = "neovim/nvim-lspconfig"
-  })
   -- lsp_signature.nvim
   use({
     "glepnir/lspsaga.nvim",
@@ -479,7 +504,7 @@ return packer.startup(function(use)
     },
     -- Notice, that you need to request the nvim-lsp-installer first to make the config works.
     config = function()
-      require("plugins.configs.lspconfig_custom").setup()
+      require("plugins.configs.mason_lspconfig_nvim").setup()
     end,
   })
   -- Adding symbols outline (similar to vista)
@@ -494,11 +519,90 @@ return packer.startup(function(use)
 
   })
 
+  -- ==========================================================================
+  -- 	                      Programming Language Tools
+  -- ==========================================================================
   -- Rust lsp Enhancer
-  use({ 'simrat39/rust-tools.nvim' })
+  use({ 'simrat39/rust-tools.nvim',
+    -- ft = "rust",
+  })
+  -- Using formatter (instaed of null-lsp)
+  use({ "sbdchd/neoformat",
+    cmd = "Neoformat",
+  })
+  -- Navigation for all the coding problems
+  use({
+    "folke/trouble.nvim",
+    cmd = "Trouble",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup({
+      })
+    end
+  })
 
+  -- Debugging
+  --use({ "puremourning/vimspector", event = "BufWinEnter" })
 
+  -- DAP
+  --    use({ "mfussenegger/nvim-dap" })
+  --    use({ "mfussenegger/nvim-dap-python" })
+  --    use({ "theHamsta/nvim-dap-virtual-text" })
+  --    use({ "rcarriga/nvim-dap-ui" })
+  --    use({ "Pocco81/DAPInstall.nvim" })
+  --    use({ "jbyuki/one-small-step-for-vimkind" })
+  --    use({ "nvim-telescope/telescope-dap.nvim" })
+  --
+  -- Copilot AI
+  -- Technical review of copilot, an AI solution built on top of openAI
+  -- Davincie.
+  -- use({"github/copilot.vim"})
+  -- markdown-preview using :markdown Preview
+  use({
+    "iamcco/markdown-preview.nvim",
+    ft = { "markdown" },
+    cmd = "MarkdownPreview",
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+  })
 
+  -- Adding notification for nvim
+  use({
+    "rcarriga/nvim-notify",
+    disable = true,
+    config = function() require("plugins.configs.myNotify") end
+  })
+
+  use({ "SmiteshP/nvim-navic",
+    wants = "neovim/nvim-lspconfig"
+  })
+  -- ===========================================================================
+  --                         For Editor
+  -- ===========================================================================
+  -- Allow making tables in Markup-language (*.md) files.
+  use({ "dhruvasagar/vim-table-mode",
+    event = "InsertEnter"
+  })
+  -- For latex to preview lively the pdf while editing
+  -- use("xuhdev/vim-latex-live-preview")
+  use({
+    "frabjous/knap",
+    ft = { "tex" },
+    config = function() require("plugins.configs.myknap") end
+  })
+
+  -- ===========================================================================
+  --                          Other Plugins
+  -- ===========================================================================
+  use({ "terrortylor/nvim-comment",
+    event= "CursorMoved",
+    config = function()
+      require('nvim_comment').setup()
+    end
+  })
+  -- ==========================================================================
+  -- 	            PACKER PLUGIN PACKAGE SYNCING AND LOADING
+  -- ==========================================================================
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

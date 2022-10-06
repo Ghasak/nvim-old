@@ -300,7 +300,9 @@ vim.cmd [[
   ]]
 --
 
--- This will highlight the Cursor Line Number ()
+-- ===========================================================================
+--            This will highlight the Cursor Line Number ()
+-- ===========================================================================
 -- Read more here:
 -- https://www.folkstalk.com/2022/09/vim-line-numbers-background-color-with-code-examples.html
 -- :hi LineNr ctermfg=grey ctermbg=white
@@ -316,3 +318,26 @@ vim.cmd([[
 --vim.cmd([[hi Search term=reverse guibg=peru guifg=wheat]])
 --
 
+-- ===========================================================================
+--                 Create Directories for Caching files
+-- ===========================================================================
+local createdir = function()
+	-- This function is used to create cache directories for our nvim sessionn
+	local data_dir = {
+		global.cache_dir .. "backup",
+		global.cache_dir .. "session",
+		global.cache_dir .. "swap",
+		global.cache_dir .. "tags",
+		global.cache_dir .. "undo",
+	}
+	for key, dirx in pairs(data_dir) do
+		if vim.fn.empty(vim.fn.glob(dirx)) > 0 then
+			vim.api.nvim_command(
+				([[echohl WarningMsg | echomsg "[-] The directory:%s is not existed, will be created ." | echohl None]]):format(
+					dirx
+				)
+			)
+			os.execute("mkdir -p " .. dirx)
+		end
+	end
+end

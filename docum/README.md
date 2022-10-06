@@ -6,6 +6,11 @@ The current configurations are from the needs of getting the best optimized `IDE
 the startup time.
 ## Major Changes in Nvim 0.8
 - [Major Changes in nvim 0.8](https://jdhao.github.io/2022/10/05/nvim-v08-release/)
+- [New LSP Features in Neovim 0.8](https://www.reddit.com/r/neovim/comments/xt1tj2/new_lsp_features_in_neovim_08/)
+- [Deprection of lsp_installer.on_server_ready()](https://github.com/williamboman/nvim-lsp-installer/discussions/6360)
+- [Introduction mason.nvim](https://www.reddit.com/r/neovim/comments/w6w5ij/introducing_masonnvim/)
+- [How to configure LSP with mason](https://github.com/williamboman/mason.nvim/discussions/92#discussioncomment-3173425)
+
 ## USEFUL COMMANDS
 The following command are super handy and useful when developign `lua` plugins.
 ```lua
@@ -325,7 +330,6 @@ _G.highlight_upper_letter_cases = function()
     vim.cmd([[autocmd VimEnter ~/.config/nvim/* source %]])
 end
 ```
-
 
 ## UNDERSTANDING THE COLOR
 

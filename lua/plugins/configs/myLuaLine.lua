@@ -1,16 +1,16 @@
---             ██╗░░░░░██╗░░░██╗░█████╗░██╗░░░░░██╗███╗░░██╗███████╗  
---             ██║░░░░░██║░░░██║██╔══██╗██║░░░░░██║████╗░██║██╔════╝  
---             ██║░░░░░██║░░░██║███████║██║░░░░░██║██╔██╗██║█████╗░░  
---             ██║░░░░░██║░░░██║██╔══██║██║░░░░░██║██║╚████║██╔══╝░░  
---             ███████╗╚██████╔╝██║░░██║███████╗██║██║░╚███║███████╗  
---             ╚══════╝░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝╚═╝░░╚══╝╚══════╝  
+--             ██╗     ██╗   ██╗ █████╗ ██╗     ██╗███╗  ██╗███████╗  
+--             ██║     ██║   ██║██╔══██╗██║     ██║████╗ ██║██╔════╝  
+--             ██║     ██║   ██║███████║██║     ██║██╔██╗██║█████╗    
+--             ██║     ██║   ██║██╔══██║██║     ██║██║╚████║██╔══╝    
+--             ███████╗╚██████╔╝██║  ██║███████╗██║██║ ╚███║███████╗  
+--             ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚══╝╚══════╝  
 --
---             ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░
---             ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░
---             ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░
---             ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗
---             ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝
---             ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░
+--              █████╗  █████╗ ███╗  ██╗███████╗██╗ ██████╗
+--             ██╔══██╗██╔══██╗████╗ ██║██╔════╝██║██╔════╝
+--             ██║  ╚═╝██║  ██║██╔██╗██║█████╗  ██║██║  ██╗
+--             ██║  ██╗██║  ██║██║╚████║██╔══╝  ██║██║  ╚██╗
+--             ╚█████╔╝╚█████╔╝██║ ╚███║██║     ██║╚██████╔╝
+--              ╚════╝  ╚════╝ ╚═╝  ╚══╝╚═╝     ╚═╝ ╚═════╝
 --
 -- =================  Help can be found here  ==========================
 -- :h statusline
@@ -72,6 +72,8 @@ local lsp_func = function(msg)
       return string.format("%s : cpp-lsp", server_icon)
     elseif buff_ft == "rust" and server.name == "rust_analyzer" then
       return string.format("%s : rust_analyzer", server_icon)
+    elseif buff_ft == "tex" and server.name == "texlab" or server.name == "ltex" then
+      return string.format("%s :latex ", server_icon)
     else
       return string.format("%s : %s-lsp*: %s", server_icon_not_not_known,
         buff_ft, server.name)
@@ -184,16 +186,22 @@ end
 local function format_messages_2(messages)
   local result   = {}
   -- local spinners = {"", " "}
- --- More Spinners: https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget/spinners.lua
+  --- More Spinners: https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget/spinners.lua
   local spinners = {
-    "∙∙∙",
-    "●∙∙",
-    "∙●∙",
-    "∙∙●",
-    "∙∙∙",
+--    "∙∙∙",
+--    "●∙∙",
+--    "∙●∙",
+--    "∙∙●",
+--    "∙∙∙",
+    "∙∙∙∙",
+    " ∙∙",
+    "∙ ∙",
+    "∙∙ ",
+    "∙∙∙∙",
   }
   local ms       = vim.loop.hrtime() / 1000000
   local frame    = math.floor(ms / 120) % #spinners
+  --local frame    = math.floor(ms / 160) % #spinners
   local i        = 1
   -- Only display at most 2 progress messages at a time to avoid clutter
   for _, msg in pairs(messages) do
@@ -255,7 +263,7 @@ custom_onedark.inactive.b.bg = '#343a43'
 custom_onedark.inactive.c.bg = '#343a43'
 -- Configuations for the colors of the Normal mode
 --custom_onedark.normal.a.fg= '#00A9A5'    -- background color
-custom_onedark.normal.a.bg = '#94C9A9' -- lightgreen
+custom_onedark.normal.a.bg = '#94C9A9'     -- lightgreen
 
 
 function M.setup()
