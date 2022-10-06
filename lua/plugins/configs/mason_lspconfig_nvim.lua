@@ -27,7 +27,7 @@ M.setup = function()
   -- Extension to bridge mason.nvim with the lspconfig plugin
   mason_lspconfig.setup({
     -- A list of servers to automatically install if they're not already installed.
-    ensure_installed = { "pyright", "sumneko_lua", "rust_analyzer", "tsserver", "texlab" }
+    ensure_installed = { "pyright", "sumneko_lua", "rust_analyzer", "tsserver", "texlab", "clangd" }
   })
   -- 3.) >> Mason-tool-installer: installing speicific linterning and tools for specific lps.
   -- Tools for serers
@@ -85,7 +85,7 @@ M.setup = function()
     end,
 
     -- Next, you can provide targeted overrides for specific servers.
-    --For example, a handler override for the `rust_analyzer`:
+    -- For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function()
 
   -- Requesting rust_tools: for Rust analyzer

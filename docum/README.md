@@ -1,6 +1,9 @@
 # Nvim Workflow
 
 ## Configurations
+## To do
+- [?] Configuration for the dap
+- https://github.com/alpha2phi/neovim-for-beginner/blob/50-package-manager/lua/config/lsp/installer.lua
 
 The current configurations are from the needs of getting the best optimized `IDE` for
 the startup time.
