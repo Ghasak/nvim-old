@@ -524,7 +524,8 @@ return packer.startup(function(use)
   -- ==========================================================================
   -- Rust lsp Enhancer
   use({ 'simrat39/rust-tools.nvim',
-    -- ft = "rust",
+    opt = true,
+    ft = "rust"
   })
   -- Using formatter (instaed of null-lsp)
   use({ "sbdchd/neoformat",

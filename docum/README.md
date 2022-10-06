@@ -36,6 +36,26 @@ will be loaded to the color-scheme, which can be checked using `:colorscheme
 ```
 - [Read Useful Information](https://github.com/j-hui/fidget.nvim/blob/main/lua/fidget.lua)
 
+5. Since 0.8 we can now create
+
+```vim
+      vim.cmd [[
+      autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
+    ]]
+```
+Now, it becomes as:
+
+```lua
+    vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+      pattern = { "*.rs" },
+      callback = function()
+        vim.lsp.codelens.refresh()
+      end
+
+    })
+```
+
+
 ## Jump Motion
 Read more here:
 - [Nvim Motion](https://alpha2phi.medium.com/neovim-for-beginners-motion-4553e3c06818)

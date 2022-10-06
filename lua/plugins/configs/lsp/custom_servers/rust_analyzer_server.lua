@@ -1,6 +1,4 @@
 return {
-  settings = {
-
     ["rust-analyzer"] = {
       imports = {
         granularity = {
@@ -24,5 +22,4 @@ return {
         command = "clippy",
       },
     },
-  },
 }

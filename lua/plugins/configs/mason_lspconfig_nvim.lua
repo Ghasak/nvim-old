@@ -11,6 +11,11 @@ M.setup = function()
   -- messages and Icons on the gutters. (custom the erro icons mainly)
   require("plugins.configs.lsp.lsp_settings").setup()
 
+  -- Requesting rust_tools: for Rust analyzer
+  local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
+  if not rust_tools_status_ok then
+    return
+  end
   ---- *****************************************************************************************
   ----                     Mason Loader (similar to nvim-lsp-installer)
   ---- *****************************************************************************************
@@ -87,40 +92,22 @@ M.setup = function()
     -- Next, you can provide targeted overrides for specific servers.
     --For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function()
-      -- require("rust-tools").setup({
-      --   tools = {
-      --     autoSetHints = false,
-      --     executor = require("rust-tools/executors").toggleterm,
-      --     hover_actions = { border = "solid" },
-      --     on_initialized = function()
-      --       -- vim.cmd [[
-      --       --     autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
-      --       --   ]]
-      --       -- Since 0.8 we can use now nvim_create_autocmd
-      --        vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
-      --          pattern = { "*.rs" },
-      --          callback = function()
-      --            vim.lsp.codelens.refresh()
-      --          end,
-      --        })
-      --     end,
-      --   },
-      --   server = {
-      --     on_attach = opts.custom_attach,
-      --     --handlers = opts.handlers,
-      --     --capabilities = opts.capabilities, -- doesn't work with Rust
-      --     rust_tools_settings
-      --   }
-      -- })
-      require("rust-tools").setup {
 
-
+      rust_tools.setup { -- Defined above
         tools = {
           on_initialized = function()
-            vim.cmd [[
-            autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
-          ]]
+            --   vim.cmd [[
+            --   autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
+            -- ]]
+            vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+              pattern = { "*.rs" },
+              callback = function()
+                vim.lsp.codelens.refresh()
+              end
+
+            })
           end,
+
           executor = require("rust-tools/executors").termopen, -- can be quickfix or termopen
           reload_workspace_from_cargo_toml = true,
           inlay_hints = {
@@ -151,114 +138,13 @@ M.setup = function()
         },
 
         server = {
-          on_attach =
-          function(client, bufnr)
-
-            local opts = { noremap = true, silent = true }
-            local keymap = vim.api.nvim_buf_set_keymap
-            local function buf_set_option(...)
-              vim.api.nvim_buf_set_option(bufnr, ...)
-            end
-
-            keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-            keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-
-            buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-            if client.server_capabilities.documentHighlightProvider then -- Since Nvim v.0.8
-              vim.cmd [[
-          hi LspReferenceRead cterm=bold ctermbg=black guibg=#FAFF7F
-          hi LspReferenceText cterm=bold ctermbg=black guibg=#505050
-          hi LspReferenceWrite cterm=bold ctermbg=black guibg=#E5989B
-           ]]
-              vim.api.nvim_create_augroup('lsp_document_highlight', {
-                clear = false
-              })
-              vim.api.nvim_clear_autocmds({
-                buffer = bufnr,
-                group = 'lsp_document_highlight',
-              })
-              vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-                group = 'lsp_document_highlight',
-                buffer = bufnr,
-                callback = vim.lsp.buf.document_highlight,
-              })
-              vim.api.nvim_create_autocmd('CursorMoved', {
-                group = 'lsp_document_highlight',
-                buffer = bufnr,
-                callback = vim.lsp.buf.clear_references,
-              })
-            end
-            vim.cmd [[
-          highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
-          highlight! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
-          highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
-          highlight! DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
-
-          "" sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-          "" sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-          "" sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-          "" sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
-           ]]
-            local cfg = require("plugins.configs.mySignture")
-            require "lsp_signature".on_attach(cfg, bufnr)
-          end,
-
-
-
-
-
-
-
-
+          on_attach = opts.on_attach,
           handlers = opts.handlers,
-          --capabilities = opts.capabilities,  -- doesn't work with Rust
-          settings = {
-
-            ["rust-analyzer"] = {
-              imports = {
-                granularity = {
-                  group = "module",
-                },
-                prefix = "self",
-              },
-              cargo = {
-                buildScripts = {
-                  enable = true,
-                },
-              },
-              procMacro = {
-                enable = true
-              },
-
-              lens = {
-                enable = true,
-              },
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
+          settings = rust_tools_settings,
         },
       }
 
     end,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     ["texlab"] = function()
       lspconfig.texlab.setup({

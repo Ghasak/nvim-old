@@ -176,6 +176,8 @@ vim.api.nvim_set_keymap("n", "<F1>", ":lua vim.lsp.buf.hover()<CR>", { noremap =
 vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 -- Code action
 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+-- Check
+vim.keymap.set("n", "<leader><F2>", "<cmd>Lspsaga lsp_finder<CR>", {silent = true})
 -- Rename
 vim.keymap.set("n", "<leader>gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 -- Peek Definition
