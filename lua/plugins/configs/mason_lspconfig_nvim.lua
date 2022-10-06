@@ -11,11 +11,6 @@ M.setup = function()
   -- messages and Icons on the gutters. (custom the erro icons mainly)
   require("plugins.configs.lsp.lsp_settings").setup()
 
-  -- Requesting rust_tools: for Rust analyzer
-  local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
-  if not rust_tools_status_ok then
-    return
-  end
   ---- *****************************************************************************************
   ----                     Mason Loader (similar to nvim-lsp-installer)
   ---- *****************************************************************************************
@@ -93,6 +88,11 @@ M.setup = function()
     --For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function()
 
+  -- Requesting rust_tools: for Rust analyzer
+  local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
+  if not rust_tools_status_ok then
+    return
+  end
       rust_tools.setup { -- Defined above
         tools = {
           on_initialized = function()
