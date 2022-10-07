@@ -58,6 +58,10 @@ Now, it becomes as:
     })
 ```
 
+6. undotree hint
+Since we allow `undotree` to be triggered only when we call the undotree
+kepmapping, then you should always hit at least once the `undotree` to trigger
+it for the curretn buffer, which can keep tracking the changes.
 
 ## Jump Motion
 Read more here:
